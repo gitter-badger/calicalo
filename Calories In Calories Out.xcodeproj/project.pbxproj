@@ -1,0 +1,537 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6EA50C5B1D8F5D6200969EFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA50C5A1D8F5D6200969EFE /* AppDelegate.swift */; };
+		6EA50C5D1D8F5D6200969EFE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA50C5C1D8F5D6200969EFE /* ViewController.swift */; };
+		6EA50C601D8F5D6200969EFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EA50C5E1D8F5D6200969EFE /* Main.storyboard */; };
+		6EA50C621D8F5D6200969EFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6EA50C611D8F5D6200969EFE /* Assets.xcassets */; };
+		6EA50C651D8F5D6200969EFE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EA50C631D8F5D6200969EFE /* LaunchScreen.storyboard */; };
+		6EA50C701D8F5D6200969EFE /* Calories_In_Calories_OutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA50C6F1D8F5D6200969EFE /* Calories_In_Calories_OutTests.swift */; };
+		6EA50C7B1D8F5D6200969EFE /* Calories_In_Calories_OutUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA50C7A1D8F5D6200969EFE /* Calories_In_Calories_OutUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6EA50C6C1D8F5D6200969EFE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6EA50C4F1D8F5D6100969EFE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6EA50C561D8F5D6100969EFE;
+			remoteInfo = "Calories In Calories Out";
+		};
+		6EA50C771D8F5D6200969EFE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6EA50C4F1D8F5D6100969EFE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6EA50C561D8F5D6100969EFE;
+			remoteInfo = "Calories In Calories Out";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		6EA50C571D8F5D6200969EFE /* Calories In Calories Out.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Calories In Calories Out.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6EA50C5A1D8F5D6200969EFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6EA50C5C1D8F5D6200969EFE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		6EA50C5F1D8F5D6200969EFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6EA50C611D8F5D6200969EFE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6EA50C641D8F5D6200969EFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		6EA50C661D8F5D6200969EFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6EA50C6B1D8F5D6200969EFE /* Calories In Calories OutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Calories In Calories OutTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6EA50C6F1D8F5D6200969EFE /* Calories_In_Calories_OutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calories_In_Calories_OutTests.swift; sourceTree = "<group>"; };
+		6EA50C711D8F5D6200969EFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6EA50C761D8F5D6200969EFE /* Calories In Calories OutUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Calories In Calories OutUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6EA50C7A1D8F5D6200969EFE /* Calories_In_Calories_OutUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calories_In_Calories_OutUITests.swift; sourceTree = "<group>"; };
+		6EA50C7C1D8F5D6200969EFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6EA50C541D8F5D6100969EFE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6EA50C681D8F5D6200969EFE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6EA50C731D8F5D6200969EFE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6EA50C4E1D8F5D6100969EFE = {
+			isa = PBXGroup;
+			children = (
+				6EA50C591D8F5D6200969EFE /* Calories In Calories Out */,
+				6EA50C6E1D8F5D6200969EFE /* Calories In Calories OutTests */,
+				6EA50C791D8F5D6200969EFE /* Calories In Calories OutUITests */,
+				6EA50C581D8F5D6200969EFE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6EA50C581D8F5D6200969EFE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6EA50C571D8F5D6200969EFE /* Calories In Calories Out.app */,
+				6EA50C6B1D8F5D6200969EFE /* Calories In Calories OutTests.xctest */,
+				6EA50C761D8F5D6200969EFE /* Calories In Calories OutUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6EA50C591D8F5D6200969EFE /* Calories In Calories Out */ = {
+			isa = PBXGroup;
+			children = (
+				6EA50C5A1D8F5D6200969EFE /* AppDelegate.swift */,
+				6EA50C5C1D8F5D6200969EFE /* ViewController.swift */,
+				6EA50C5E1D8F5D6200969EFE /* Main.storyboard */,
+				6EA50C611D8F5D6200969EFE /* Assets.xcassets */,
+				6EA50C631D8F5D6200969EFE /* LaunchScreen.storyboard */,
+				6EA50C661D8F5D6200969EFE /* Info.plist */,
+			);
+			path = "Calories In Calories Out";
+			sourceTree = "<group>";
+		};
+		6EA50C6E1D8F5D6200969EFE /* Calories In Calories OutTests */ = {
+			isa = PBXGroup;
+			children = (
+				6EA50C6F1D8F5D6200969EFE /* Calories_In_Calories_OutTests.swift */,
+				6EA50C711D8F5D6200969EFE /* Info.plist */,
+			);
+			path = "Calories In Calories OutTests";
+			sourceTree = "<group>";
+		};
+		6EA50C791D8F5D6200969EFE /* Calories In Calories OutUITests */ = {
+			isa = PBXGroup;
+			children = (
+				6EA50C7A1D8F5D6200969EFE /* Calories_In_Calories_OutUITests.swift */,
+				6EA50C7C1D8F5D6200969EFE /* Info.plist */,
+			);
+			path = "Calories In Calories OutUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6EA50C561D8F5D6100969EFE /* Calories In Calories Out */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6EA50C7F1D8F5D6200969EFE /* Build configuration list for PBXNativeTarget "Calories In Calories Out" */;
+			buildPhases = (
+				6EA50C531D8F5D6100969EFE /* Sources */,
+				6EA50C541D8F5D6100969EFE /* Frameworks */,
+				6EA50C551D8F5D6100969EFE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Calories In Calories Out";
+			productName = "Calories In Calories Out";
+			productReference = 6EA50C571D8F5D6200969EFE /* Calories In Calories Out.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6EA50C6A1D8F5D6200969EFE /* Calories In Calories OutTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6EA50C821D8F5D6200969EFE /* Build configuration list for PBXNativeTarget "Calories In Calories OutTests" */;
+			buildPhases = (
+				6EA50C671D8F5D6200969EFE /* Sources */,
+				6EA50C681D8F5D6200969EFE /* Frameworks */,
+				6EA50C691D8F5D6200969EFE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6EA50C6D1D8F5D6200969EFE /* PBXTargetDependency */,
+			);
+			name = "Calories In Calories OutTests";
+			productName = "Calories In Calories OutTests";
+			productReference = 6EA50C6B1D8F5D6200969EFE /* Calories In Calories OutTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		6EA50C751D8F5D6200969EFE /* Calories In Calories OutUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6EA50C851D8F5D6200969EFE /* Build configuration list for PBXNativeTarget "Calories In Calories OutUITests" */;
+			buildPhases = (
+				6EA50C721D8F5D6200969EFE /* Sources */,
+				6EA50C731D8F5D6200969EFE /* Frameworks */,
+				6EA50C741D8F5D6200969EFE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6EA50C781D8F5D6200969EFE /* PBXTargetDependency */,
+			);
+			name = "Calories In Calories OutUITests";
+			productName = "Calories In Calories OutUITests";
+			productReference = 6EA50C761D8F5D6200969EFE /* Calories In Calories OutUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6EA50C4F1D8F5D6100969EFE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0800;
+				LastUpgradeCheck = 0800;
+				ORGANIZATIONNAME = "Base11 Studios";
+				TargetAttributes = {
+					6EA50C561D8F5D6100969EFE = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 3DHH36M8H9;
+						ProvisioningStyle = Automatic;
+					};
+					6EA50C6A1D8F5D6200969EFE = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 3DHH36M8H9;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 6EA50C561D8F5D6100969EFE;
+					};
+					6EA50C751D8F5D6200969EFE = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 3DHH36M8H9;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 6EA50C561D8F5D6100969EFE;
+					};
+				};
+			};
+			buildConfigurationList = 6EA50C521D8F5D6100969EFE /* Build configuration list for PBXProject "Calories In Calories Out" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6EA50C4E1D8F5D6100969EFE;
+			productRefGroup = 6EA50C581D8F5D6200969EFE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6EA50C561D8F5D6100969EFE /* Calories In Calories Out */,
+				6EA50C6A1D8F5D6200969EFE /* Calories In Calories OutTests */,
+				6EA50C751D8F5D6200969EFE /* Calories In Calories OutUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6EA50C551D8F5D6100969EFE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6EA50C651D8F5D6200969EFE /* LaunchScreen.storyboard in Resources */,
+				6EA50C621D8F5D6200969EFE /* Assets.xcassets in Resources */,
+				6EA50C601D8F5D6200969EFE /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6EA50C691D8F5D6200969EFE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6EA50C741D8F5D6200969EFE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6EA50C531D8F5D6100969EFE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6EA50C5D1D8F5D6200969EFE /* ViewController.swift in Sources */,
+				6EA50C5B1D8F5D6200969EFE /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6EA50C671D8F5D6200969EFE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6EA50C701D8F5D6200969EFE /* Calories_In_Calories_OutTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6EA50C721D8F5D6200969EFE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6EA50C7B1D8F5D6200969EFE /* Calories_In_Calories_OutUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6EA50C6D1D8F5D6200969EFE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6EA50C561D8F5D6100969EFE /* Calories In Calories Out */;
+			targetProxy = 6EA50C6C1D8F5D6200969EFE /* PBXContainerItemProxy */;
+		};
+		6EA50C781D8F5D6200969EFE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6EA50C561D8F5D6100969EFE /* Calories In Calories Out */;
+			targetProxy = 6EA50C771D8F5D6200969EFE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		6EA50C5E1D8F5D6200969EFE /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6EA50C5F1D8F5D6200969EFE /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		6EA50C631D8F5D6200969EFE /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6EA50C641D8F5D6200969EFE /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6EA50C7D1D8F5D6200969EFE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6EA50C7E1D8F5D6200969EFE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6EA50C801D8F5D6200969EFE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 3DHH36M8H9;
+				INFOPLIST_FILE = "Calories In Calories Out/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Base11.Calories-In-Calories-Out";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		6EA50C811D8F5D6200969EFE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 3DHH36M8H9;
+				INFOPLIST_FILE = "Calories In Calories Out/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Base11.Calories-In-Calories-Out";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		6EA50C831D8F5D6200969EFE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 3DHH36M8H9;
+				INFOPLIST_FILE = "Calories In Calories OutTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Base11.Calories-In-Calories-OutTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Calories In Calories Out.app/Calories In Calories Out";
+			};
+			name = Debug;
+		};
+		6EA50C841D8F5D6200969EFE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 3DHH36M8H9;
+				INFOPLIST_FILE = "Calories In Calories OutTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Base11.Calories-In-Calories-OutTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Calories In Calories Out.app/Calories In Calories Out";
+			};
+			name = Release;
+		};
+		6EA50C861D8F5D6200969EFE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = 3DHH36M8H9;
+				INFOPLIST_FILE = "Calories In Calories OutUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Base11.Calories-In-Calories-OutUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = "Calories In Calories Out";
+			};
+			name = Debug;
+		};
+		6EA50C871D8F5D6200969EFE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = 3DHH36M8H9;
+				INFOPLIST_FILE = "Calories In Calories OutUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Base11.Calories-In-Calories-OutUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = "Calories In Calories Out";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6EA50C521D8F5D6100969EFE /* Build configuration list for PBXProject "Calories In Calories Out" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6EA50C7D1D8F5D6200969EFE /* Debug */,
+				6EA50C7E1D8F5D6200969EFE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6EA50C7F1D8F5D6200969EFE /* Build configuration list for PBXNativeTarget "Calories In Calories Out" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6EA50C801D8F5D6200969EFE /* Debug */,
+				6EA50C811D8F5D6200969EFE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		6EA50C821D8F5D6200969EFE /* Build configuration list for PBXNativeTarget "Calories In Calories OutTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6EA50C831D8F5D6200969EFE /* Debug */,
+				6EA50C841D8F5D6200969EFE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		6EA50C851D8F5D6200969EFE /* Build configuration list for PBXNativeTarget "Calories In Calories OutUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6EA50C861D8F5D6200969EFE /* Debug */,
+				6EA50C871D8F5D6200969EFE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6EA50C4F1D8F5D6100969EFE /* Project object */;
+}
