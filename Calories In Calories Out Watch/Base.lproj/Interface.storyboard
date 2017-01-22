@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch38" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11508"/>
+    </dependencies>
+    <scenes>
+        <!--Interface Controller-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Calories_In_Calories_Out_Watch" customModuleProvider="target">
+                    <items>
+                        <group width="1" alignment="left" layout="vertical" id="cmO-X5-9x4">
+                            <items>
+                                <label alignment="left" text="Avg Resting Calories" id="3wF-iU-SGY">
+                                    <fontDescription key="font" type="italicSystem" pointSize="10"/>
+                                </label>
+                                <label alignment="left" text="Loading..." id="jDt-5j-TUA">
+                                    <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                </label>
+                            </items>
+                        </group>
+                        <group width="1" alignment="left" layout="vertical" id="8wo-dP-f5r">
+                            <items>
+                                <label alignment="left" text="Active Calories" id="dYY-F7-00Y">
+                                    <fontDescription key="font" type="italicSystem" pointSize="10"/>
+                                </label>
+                                <label alignment="left" text="Loading..." id="czG-8h-Tem">
+                                    <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                </label>
+                            </items>
+                        </group>
+                        <group width="1" alignment="left" layout="vertical" id="bfh-UK-QNp">
+                            <items>
+                                <label alignment="left" text="Dietary Calories" id="LqJ-dK-aQJ">
+                                    <fontDescription key="font" type="italicSystem" pointSize="10"/>
+                                </label>
+                                <label alignment="left" text="Loading..." id="hBk-qc-xvM">
+                                    <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                </label>
+                            </items>
+                        </group>
+                        <group width="1" alignment="left" layout="vertical" id="Bfz-gr-fN1">
+                            <items>
+                                <label alignment="left" text="Remaining Calories" id="dMb-fS-OTC">
+                                    <fontDescription key="font" type="italicSystem" pointSize="10"/>
+                                </label>
+                                <label alignment="left" text="Loading..." id="Cle-dN-rr2">
+                                    <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                </label>
+                            </items>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="activeCaloriesLabel" destination="czG-8h-Tem" id="z9A-A5-5e2"/>
+                        <outlet property="caloriesConsumedLabel" destination="hBk-qc-xvM" id="oMb-I9-WzQ"/>
+                        <outlet property="restingCaloriesLabel" destination="jDt-5j-TUA" id="Uym-fP-HOv"/>
+                        <outlet property="totalCaloriesLabel" destination="Cle-dN-rr2" id="s6j-uw-qAw"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="220" y="345"/>
+        </scene>
+        <!--Static Notification Interface Controller-->
+        <scene sceneID="AEw-b0-oYE">
+            <objects>
+                <notificationController id="YCC-NB-fut">
+                    <items>
+                        <label alignment="left" text="Alert Label" id="IdU-wH-bcW"/>
+                    </items>
+                    <notificationCategory key="notificationCategory" identifier="myCategory" id="JfB-70-Muf"/>
+                    <connections>
+                        <outlet property="notificationAlertLabel" destination="IdU-wH-bcW" id="JKC-fr-R95"/>
+                        <segue destination="4sK-HA-Art" kind="relationship" relationship="dynamicNotificationInterface" id="kXh-Jw-8B1"/>
+                    </connections>
+                </notificationController>
+            </objects>
+            <point key="canvasLocation" x="220" y="643"/>
+        </scene>
+        <!--Notification Controller-->
+        <scene sceneID="ZPc-GJ-vnh">
+            <objects>
+                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="Calories_In_Calories_Out_Watch" customModuleProvider="target"/>
+            </objects>
+            <point key="canvasLocation" x="468" y="643"/>
+        </scene>
+    </scenes>
+</document>

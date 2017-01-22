@@ -7,15 +7,22 @@
 //
 
 import UIKit
+import HealthKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, HealthStoreProvider {
 
     var window: UIWindow?
+    var healthStore:HKHealthStore?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        
+        if(HKHealthStore.isHealthDataAvailable()){
+            healthStore = HKHealthStore()
+        }
+        
         return true
     }
 
