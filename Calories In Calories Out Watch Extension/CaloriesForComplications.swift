@@ -9,8 +9,8 @@
 import Foundation
 
 
-protocol CaloriesForCaomplications {
+protocol CaloriesForComplications {
     var calories:Int?{
-        get
+        get set
     }
 }

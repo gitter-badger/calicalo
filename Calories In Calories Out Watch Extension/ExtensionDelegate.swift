@@ -10,7 +10,7 @@ import WatchKit
 import HealthKit
 import ClockKit
 
-class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider, CaloriesForCaomplications {
+class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider, CaloriesForComplications {
     
     var healthStore: HKHealthStore?
     var calories: Int?

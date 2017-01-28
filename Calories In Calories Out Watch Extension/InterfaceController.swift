@@ -67,6 +67,10 @@ extension InterfaceController:CalorieDataLoader{
             
             let calories = (restingCalories/7) + activeCalories - caloriesConsumed
             
+            if var myDelegate = WKExtension.shared().delegate as? CaloriesForComplications{
+                myDelegate.calories = calories
+            }
+            
             totalCaloriesLabel.setText(String(calories))
             updateCaloriesCallback?(calories)
         }else{

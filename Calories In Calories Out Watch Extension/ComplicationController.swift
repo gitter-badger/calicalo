@@ -34,7 +34,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void) {
         
-        let myDelegate = WKExtension.shared().delegate as? CaloriesForCaomplications
+        let myDelegate = WKExtension.shared().delegate as? CaloriesForComplications
         guard let data = myDelegate?.calories else {
             handler(nil)
             return
@@ -42,46 +42,45 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         
         var entry : CLKComplicationTimelineEntry?
         let now = Date()
-        var longText = String()
+        let text = String(data)
         
-        
-        if complication.family == .circularSmall{
-            
-            if data > 999 || data < -999{
-                let caloriesDouble = Double(data)/1000
-                let number = NSNumber(floatLiteral: caloriesDouble)
-                
-                let numberFormatter = NumberFormatter()
-                
-                numberFormatter.maximumSignificantDigits = 2
-                numberFormatter.minimumSignificantDigits = 2
-                
-                if let formattedNumber = numberFormatter.string(from: number){
-                    longText = formattedNumber+"K"
-                }
-                
-                
-            }
-            else{
-                longText = String(data)
-            }
-            
-            let textTemplate = CLKComplicationTemplateCircularSmallSimpleText()
-            textTemplate.textProvider = CLKSimpleTextProvider(text: longText)
+        if complication.family == .utilitarianSmall{
+            let textTemplate = CLKComplicationTemplateUtilitarianSmallFlat()
+            textTemplate.textProvider = CLKSimpleTextProvider(text: text)
             entry = CLKComplicationTimelineEntry(date: now, complicationTemplate: textTemplate)
             handler(entry)
         }
-        /*if complication.family == .utilitarianSmall{
-            longText = String(data)
-            let textTemplate = CLKComplicationTemplateUtilitarianSmallFlat()
-            textTemplate.textProvider = CLKSimpleTextProvider(text: longText)
-            entry = CLKComplicationTimelineEntry(date: now, complicationTemplate: textTemplate)
-            handler(entry)
+        else{
+            handler(nil)
+        }
+        
+        
+        
+    }
+    
+    func formatString(data:Int) -> String{
+        
+        var text = ""
+        
+        if data > 999 || data < -999{
+            let caloriesDouble = Double(data)/1000
+            let number = NSNumber(floatLiteral: caloriesDouble)
             
-        }*/
-        handler(nil)
+            let numberFormatter = NumberFormatter()
+            
+            numberFormatter.maximumSignificantDigits = 2
+            numberFormatter.minimumSignificantDigits = 2
+            
+            if let formattedNumber = numberFormatter.string(from: number){
+                text = formattedNumber+"K"
+            }
+        }
+        else{
+            text = String(data)
+        }
         
-        
+        return text
+
     }
     
     func getTimelineEntries(for complication: CLKComplication, before date: Date, limit: Int, withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void) {
@@ -98,22 +97,17 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     func getLocalizableSampleTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void) {
         // This method will be called once per supported complication, and the results will be cached
-        
-        if complication.family == .circularSmall{
-            let longText =  "1000K"
-            let shortText = "1.1K"
-            let textTemplate = CLKComplicationTemplateCircularSmallSimpleText()
-            textTemplate.textProvider = CLKSimpleTextProvider(text: longText, shortText: shortText)
-            handler(textTemplate)
-        }
-        /*if complication.family == .utilitarianSmall{
+        if complication.family == .utilitarianSmall{
             let text = "1234"
             let textTemplate = CLKComplicationTemplateUtilitarianSmallFlat()
             textTemplate.textProvider = CLKSimpleTextProvider(text: text)
+            //textTemplate.imageProvider = CLKImageProvider(onePieceImage: #imageLiteral(resourceName: "Complication/Utilitarian"))
             handler(textTemplate)
-        }*/
+        }
+        else {
+            handler(nil)
+        }
         
-        handler(nil)
         
        
     }
