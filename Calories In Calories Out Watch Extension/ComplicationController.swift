@@ -50,6 +50,15 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             entry = CLKComplicationTimelineEntry(date: now, complicationTemplate: textTemplate)
             handler(entry)
         }
+        else if complication.family == .modularSmall{
+            let line2Text = "kCal"
+            let textTemplate = CLKComplicationTemplateModularSmallStackText()
+            textTemplate.line1TextProvider = CLKSimpleTextProvider(text:text)
+            textTemplate.line2TextProvider = CLKSimpleTextProvider(text: line2Text)
+            entry = CLKComplicationTimelineEntry(date: now, complicationTemplate: textTemplate)
+            handler(entry)
+
+        }
         else{
             handler(nil)
         }
@@ -102,6 +111,14 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             let textTemplate = CLKComplicationTemplateUtilitarianSmallFlat()
             textTemplate.textProvider = CLKSimpleTextProvider(text: text)
             //textTemplate.imageProvider = CLKImageProvider(onePieceImage: #imageLiteral(resourceName: "Complication/Utilitarian"))
+            handler(textTemplate)
+        }
+        else if complication.family == .modularSmall{
+            let line1Text = "1234"
+            let line2Text = "kCal"
+            let textTemplate = CLKComplicationTemplateModularSmallStackText()
+            textTemplate.line1TextProvider = CLKSimpleTextProvider(text:line1Text)
+            textTemplate.line2TextProvider = CLKSimpleTextProvider(text: line2Text)
             handler(textTemplate)
         }
         else {
