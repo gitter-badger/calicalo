@@ -10,16 +10,28 @@ import WatchKit
 import HealthKit
 import ClockKit
 
-class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider, CaloriesForComplications {
+class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider {
     
     var healthStore: HKHealthStore?
-    var calories: Int?
+    
+    let dispatchGroup:DispatchGroup = DispatchGroup()
+    
+    let basalEnergyType = HKQuantityType.quantityType(forIdentifier:.basalEnergyBurned)
+    
+    let activeEnergyType = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)
+    
+    let caloriesConsumedType = HKQuantityType.quantityType(forIdentifier: .dietaryEnergyConsumed)
+    
+    var calorieData:CalorieData? = CalorieData()
+    
+    let semaphore = DispatchSemaphore(value: 0)
 
     func applicationDidFinishLaunching() {
         if(HKHealthStore.isHealthDataAvailable()){
             healthStore = HKHealthStore()
         }
-        
+        loadCalories()
+        dispatchGroup.wait()
         WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: Date(timeInterval: 60, since: Date()), userInfo: nil){
             error in
             if let error = error{
@@ -39,6 +51,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider, Cal
 
     func handle(_ backgroundTasks: Set<WKRefreshBackgroundTask>) {
         // Sent when the system needs to launch the application in the background to process tasks. Tasks arrive in a set, so loop through and process each one.
+        
         for task in backgroundTasks {
             // Use a switch statement to check the task type
             switch task {
@@ -55,35 +68,15 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider, Cal
                     return
                 }
                 
-                if let mainInterfaceController = WKExtension.shared().rootInterfaceController as? UpdateCaloriesInBackground{
-                    mainInterfaceController.updateCalories(){
-                        [weak self]calories in
-                        
-                        self?.calories = calories
-                        
-                        WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: Date(timeInterval: 900, since: Date()), userInfo: nil){
-                            error in
-                            if let error = error{
-                                fatalError(error.localizedDescription)
-                            }
-                        }
-
-                        backgroundTask.setTaskCompleted()
+                WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: Date(timeInterval: 900, since: Date()), userInfo: nil){
+                    error in
+                    if let error = error{
+                        fatalError(error.localizedDescription)
                     }
                 }
-                else {
-                    WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: Date(timeInterval: 900, since: Date()), userInfo: nil){
-                        error in
-                        if let error = error{
-                            fatalError(error.localizedDescription)
-                        }
-                    }
-                    backgroundTask.setTaskCompleted()
+                backgroundTask.setTaskCompleted()
                     
 
-                }
-                
-                
                 
             case let snapshotTask as WKSnapshotRefreshBackgroundTask:
                 guard WKExtension.shared().applicationState == WKApplicationState.background else{
@@ -91,17 +84,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider, Cal
                     return
                 }
                 
-                if let mainInterfaceController = WKExtension.shared().rootInterfaceController as? UpdateCaloriesInBackground{
-                    mainInterfaceController.updateCalories(){
-                        [weak self]calories in
-                        self?.calories = calories
-
-                        snapshotTask.setTaskCompleted(restoredDefaultState: true, estimatedSnapshotExpiration: Date.distantFuture, userInfo: nil)
-                    }
-                }
-                else {
-                    snapshotTask.setTaskCompleted(restoredDefaultState: true, estimatedSnapshotExpiration: Date.distantFuture, userInfo: nil)
-                }
+                snapshotTask.setTaskCompleted(restoredDefaultState: true, estimatedSnapshotExpiration: Date.distantFuture, userInfo: nil)
                 
                 
             case let connectivityTask as WKWatchConnectivityRefreshBackgroundTask:
@@ -117,4 +100,16 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider, Cal
         }
     }
 
+}
+extension ExtensionDelegate:CalorieDataLoader{
+    func allDone(){
+        if let mainInterfaceController = WKExtension.shared().rootInterfaceController as? CalorieDataLoader{
+            mainInterfaceController.calorieData = calorieData
+            
+        }
+    }
+    
+    func willLoadCalories() {
+        
+    }
 }

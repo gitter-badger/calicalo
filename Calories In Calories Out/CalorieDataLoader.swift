@@ -31,21 +31,16 @@ protocol CalorieDataLoader:class {
     var dispatchGroup:DispatchGroup{
         get
     }
-    var activeCalories:Int?{
+    var calorieData:CalorieData?{
         get set
     }
-    var caloriesConsumed:Int?{
-        get set
-    }
-    var restingCaloriesTotal:Int?{
-        get set
-    }
-    
+       
     func loadCalories()
     func allDone()
     func willLoadCalories()
 }
 extension CalorieDataLoader{
+    
     func loadCalories(){
         if let healthStore = healthStore{
             
@@ -116,9 +111,9 @@ extension CalorieDataLoader{
                     
                     switch type {
                     case activeEnergyType:
-                        self.activeCalories = Int(calories)
+                        self.calorieData?.activeCalories = Int(calories)
                     case caloriesConsumedType:
-                        self.caloriesConsumed = Int(calories)
+                        self.calorieData?.caloriesConsumed = Int(calories)
                     default:
                         fatalError("Attempted to get cummulative sum for undefined type")
                         
@@ -129,9 +124,9 @@ extension CalorieDataLoader{
                 else{
                     switch type {
                         case activeEnergyType:
-                        self.activeCalories = 0
+                        self.calorieData?.activeCalories = 0
                         case caloriesConsumedType:
-                        self.caloriesConsumed = 0
+                        self.calorieData?.caloriesConsumed = 0
                         default:
                         fatalError("Attempted to get cummulative sum for undefined type")
                         
@@ -180,16 +175,18 @@ extension CalorieDataLoader{
             }
             
             
-            self.restingCaloriesTotal = 0
+            self.calorieData?.restingCaloriesTotal = 0
+            var total = 0
             statsCollection.enumerateStatistics(from: startDate, to: yesterday){
-                [unowned self] statistics, stop in
+                statistics, stop in
                 if let sum = statistics.sumQuantity() {
                     let unit = HKUnit.kilocalorie()
                     let calories = sum.doubleValue(for: unit)
-                    self.restingCaloriesTotal = self.restingCaloriesTotal! + Int(calories)
+                    total = total + Int(calories)
                     
                 }
             }
+            self.calorieData?.restingCaloriesTotal = total
         }
         
         healthStore.execute(query)

@@ -30,9 +30,7 @@ class CaloriesInCaloriesOutViewController : UIViewController{
     
     let caloriesConsumedType = HKQuantityType.quantityType(forIdentifier: .dietaryEnergyConsumed)
     
-    var restingCaloriesTotal:Int?
-    var activeCalories:Int?
-    var caloriesConsumed:Int?
+    var calorieData:CalorieData? = CalorieData()
     
     override func viewDidLoad() {
         
@@ -50,11 +48,11 @@ class CaloriesInCaloriesOutViewController : UIViewController{
 
 extension CaloriesInCaloriesOutViewController:CalorieDataLoader{
     func allDone(){
-        if let restingCalories = restingCaloriesTotal, let activeCalories = activeCalories, let caloriesConsumed = caloriesConsumed{
-            restingCaloriesLabel.text = String(restingCalories/7)
+        if let calorieData = calorieData, let restingCalories = calorieData.restingCaloriesAverage , let activeCalories = calorieData.activeCalories, let caloriesConsumed = calorieData.caloriesConsumed, let netCalories = calorieData.netCalories{
+            restingCaloriesLabel.text = String(restingCalories)
             activeCaloriesLabel.text = String(activeCalories)
             caloriesConsumedLabel.text = String(caloriesConsumed)
-            totalCaloriesLabel.text = String((restingCalories/7) + activeCalories - caloriesConsumed)
+            totalCaloriesLabel.text = String((netCalories))
         }
     }
     
