@@ -14,30 +14,43 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider {
     
     var healthStore: HKHealthStore?
     
-    let dispatchGroup:DispatchGroup = DispatchGroup()
+    var synchronousCalorieDataLoader:SynchronousCalorieDataLoader?
     
-    let basalEnergyType = HKQuantityType.quantityType(forIdentifier:.basalEnergyBurned)
-    
-    let activeEnergyType = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)
-    
-    let caloriesConsumedType = HKQuantityType.quantityType(forIdentifier: .dietaryEnergyConsumed)
-    
-    var calorieData:CalorieData? = CalorieData()
-    
-    let semaphore = DispatchSemaphore(value: 0)
+    var calorieData:CalorieData?
+    let calorieLoaderQueue = DispatchQueue(label: "com.base11studios.cico")
 
     func applicationDidFinishLaunching() {
         if(HKHealthStore.isHealthDataAvailable()){
             healthStore = HKHealthStore()
         }
-        loadCalories()
-        dispatchGroup.wait()
-        WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: Date(timeInterval: 60, since: Date()), userInfo: nil){
-            error in
-            if let error = error{
-                fatalError(error.localizedDescription)
-            }
+        guard let healthStore = healthStore else {
+            fatalError("health store not instantiated")
         }
+        synchronousCalorieDataLoader = SynchronousCalorieDataLoader(healthStore: healthStore)
+        
+        calorieLoaderQueue.async {
+            self.calorieData = self.synchronousCalorieDataLoader?.loadCalories()
+            
+            if let mainInterfaceController = WKExtension.shared().rootInterfaceController as? CalorieDataLoader{
+                mainInterfaceController.calorieData = self.calorieData
+                
+            }
+            
+            let server = CLKComplicationServer.sharedInstance()
+            guard let complications = server.activeComplications, complications.count > 0 else {
+                    return
+            }
+            server.reloadTimeline(for: complications[0])
+            
+            WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: Date(timeInterval: 60, since: Date()), userInfo: nil){
+                error in
+                if let error = error{
+                    fatalError(error.localizedDescription)
+                }
+            }
+
+        }
+        
     }
 
     func applicationDidBecomeActive() {
@@ -68,15 +81,30 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider {
                     return
                 }
                 
-                WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: Date(timeInterval: 900, since: Date()), userInfo: nil){
-                    error in
-                    if let error = error{
-                        fatalError(error.localizedDescription)
-                    }
-                }
-                backgroundTask.setTaskCompleted()
+                
+                calorieLoaderQueue.async {
+                    self.calorieData = self.synchronousCalorieDataLoader?.loadCalories()
                     
-
+                    if let mainInterfaceController = WKExtension.shared().rootInterfaceController as? CalorieDataLoader{
+                        mainInterfaceController.calorieData = self.calorieData
+                        
+                    }
+                    
+                    let server = CLKComplicationServer.sharedInstance()
+                    guard let complications = server.activeComplications, complications.count > 0 else {
+                        return
+                    }
+                    server.reloadTimeline(for: complications[0])
+                    
+                    WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: Date(timeInterval: 900, since: Date()), userInfo: nil){
+                        error in
+                        if let error = error{
+                            fatalError(error.localizedDescription)
+                        }
+                    }
+                    backgroundTask.setTaskCompleted()
+                    
+                }
                 
             case let snapshotTask as WKSnapshotRefreshBackgroundTask:
                 guard WKExtension.shared().applicationState == WKApplicationState.background else{
@@ -84,9 +112,23 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider {
                     return
                 }
                 
-                snapshotTask.setTaskCompleted(restoredDefaultState: true, estimatedSnapshotExpiration: Date.distantFuture, userInfo: nil)
-                
-                
+                calorieLoaderQueue.async {
+                    self.calorieData = self.synchronousCalorieDataLoader?.loadCalories()
+                    
+                    if let mainInterfaceController = WKExtension.shared().rootInterfaceController as? CalorieDataLoader{
+                        mainInterfaceController.calorieData = self.calorieData
+                        
+                    }
+                    
+                    let server = CLKComplicationServer.sharedInstance()
+                    guard let complications = server.activeComplications, complications.count > 0 else {
+                        return
+                    }
+                    server.reloadTimeline(for: complications[0])
+                    
+                    snapshotTask.setTaskCompleted(restoredDefaultState: true, estimatedSnapshotExpiration: Date.distantFuture, userInfo: nil)
+                    
+                }
             case let connectivityTask as WKWatchConnectivityRefreshBackgroundTask:
                 // Be sure to complete the connectivity task once you’re done.
                 connectivityTask.setTaskCompleted()
@@ -101,15 +143,4 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider {
     }
 
 }
-extension ExtensionDelegate:CalorieDataLoader{
-    func allDone(){
-        if let mainInterfaceController = WKExtension.shared().rootInterfaceController as? CalorieDataLoader{
-            mainInterfaceController.calorieData = calorieData
-            
-        }
-    }
-    
-    func willLoadCalories() {
-        
-    }
-}
+
