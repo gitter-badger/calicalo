@@ -9,7 +9,7 @@
 import Foundation
 
 
-protocol CalorieDataQueue {
+protocol CalorieDataContainer {
     var calorieData:CalorieData?{
         get set
     }

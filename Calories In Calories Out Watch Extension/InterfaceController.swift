@@ -32,7 +32,7 @@ class InterfaceController: WKInterfaceController {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
-        if var delegate = WKExtension.shared().delegate as? CalorieDataQueue, let dispatchQueue = delegate.getCalorieDataQueue(){
+        if var delegate = WKExtension.shared().delegate as? CalorieDataContainer, let dispatchQueue = delegate.getCalorieDataQueue(){
             dispatchQueue.async {
                 self.calorieData = delegate.getCalorieDataLoader()?.loadCalories()
                 delegate.calorieData = self.calorieData

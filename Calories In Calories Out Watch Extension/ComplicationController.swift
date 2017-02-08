@@ -34,7 +34,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void) {
         
-        let myDelegate = WKExtension.shared().delegate as? CalorieDataLoader
+        let myDelegate = WKExtension.shared().delegate as? CalorieDataContainer
         guard let data = myDelegate?.calorieData?.netCalories else {
             handler(nil)
             return
