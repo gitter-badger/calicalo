@@ -31,6 +31,34 @@ class InterfaceController: WKInterfaceController {
 
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
+        
+        if var delegate = WKExtension.shared().delegate as? CalorieDataQueue, let dispatchQueue = delegate.getCalorieDataQueue(){
+            dispatchQueue.async {
+                self.calorieData = delegate.getCalorieDataLoader()?.loadCalories()
+                delegate.calorieData = self.calorieData
+                
+                /*if let mainInterfaceController = WKExtension.shared().rootInterfaceController as? CalorieDataLoader{
+                    mainInterfaceController.calorieData = self.calorieData
+                    
+                }*/
+                
+                let server = CLKComplicationServer.sharedInstance()
+                guard let complications = server.activeComplications, complications.count > 0 else {
+                    return
+                }
+                server.reloadTimeline(for: complications[0])
+                
+                WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: Date(timeInterval: 60, since: Date()), userInfo: nil){
+                    error in
+                    if let error = error{
+                        fatalError(error.localizedDescription)
+                    }
+                }
+                
+            }
+
+        }
+        
     }
     
     override func willActivate() {

@@ -31,29 +31,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider {
         }
         synchronousCalorieDataLoader = SynchronousCalorieDataLoader(healthStore: healthStore)
         
-        calorieLoaderQueue.async {
-            self.calorieData = self.synchronousCalorieDataLoader?.loadCalories()
-            
-            if let mainInterfaceController = WKExtension.shared().rootInterfaceController as? CalorieDataLoader{
-                mainInterfaceController.calorieData = self.calorieData
-                
-            }
-            
-            let server = CLKComplicationServer.sharedInstance()
-            guard let complications = server.activeComplications, complications.count > 0 else {
-                    return
-            }
-            server.reloadTimeline(for: complications[0])
-            
-            WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: Date(timeInterval: 60, since: Date()), userInfo: nil){
-                error in
-                if let error = error{
-                    fatalError(error.localizedDescription)
-                }
-            }
-
-        }
-        
     }
 
     func applicationDidBecomeActive() {
@@ -147,3 +124,12 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider {
 
 }
 
+extension ExtensionDelegate:CalorieDataQueue{
+    func getCalorieDataQueue() -> DispatchQueue?{
+        return self.calorieLoaderQueue
+    }
+    
+    func getCalorieDataLoader() -> SynchronousCalorieDataLoader? {
+        return self.synchronousCalorieDataLoader
+    }
+}
