@@ -59,6 +59,9 @@ class SynchronousCalorieDataLoader{
                 }
             }
         }
+        else{
+            fatalError("health store is not available")
+        }
         semaphore.wait()
         return calorieData
         

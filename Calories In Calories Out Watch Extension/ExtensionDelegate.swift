@@ -23,6 +23,9 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider {
         if(HKHealthStore.isHealthDataAvailable()){
             healthStore = HKHealthStore()
         }
+        else {
+            fatalError("health data not availale")
+        }
         guard let healthStore = healthStore else {
             fatalError("health store not instantiated")
         }
