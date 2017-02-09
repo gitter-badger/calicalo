@@ -15,6 +15,7 @@
 		6E5501E61E3064C500D7549B /* HealthStoreProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA53D01E303D01007B04B9 /* HealthStoreProvider.swift */; };
 		6E5501E91E3068BC00D7549B /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5501E81E3068BC00D7549B /* HealthKit.framework */; };
 		6E5501EA1E30733500D7549B /* Calories In Calories Out Watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6E8507C01E2EF8A3005DD71B /* Calories In Calories Out Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6E5A85D01E4CE57D00A647FE /* CalorieDataProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A85CF1E4CE57D00A647FE /* CalorieDataProperty.swift */; };
 		6E8507B81E2EF8A3005DD71B /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E8507B61E2EF8A3005DD71B /* Interface.storyboard */; };
 		6E8507BA1E2EF8A3005DD71B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E8507B91E2EF8A3005DD71B /* Assets.xcassets */; };
 		6E8507C81E2EF8A3005DD71B /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8507C71E2EF8A3005DD71B /* InterfaceController.swift */; };
@@ -97,6 +98,7 @@
 		6E400FF81E4AABB400C9F8A7 /* CalorieDataContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalorieDataContainer.swift; sourceTree = "<group>"; };
 		6E5501E71E3068BC00D7549B /* Calories In Calories Out Watch Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Calories In Calories Out Watch Extension.entitlements"; sourceTree = "<group>"; };
 		6E5501E81E3068BC00D7549B /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.1.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
+		6E5A85CF1E4CE57D00A647FE /* CalorieDataProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalorieDataProperty.swift; sourceTree = "<group>"; };
 		6E8507B41E2EF8A3005DD71B /* Calories In Calories Out Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Calories In Calories Out Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E8507B71E2EF8A3005DD71B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		6E8507B91E2EF8A3005DD71B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				6E8507C51E2EF8A3005DD71B /* Supporting Files */,
 				6E284B9C1E47BC6400653A65 /* SynchronousCalorieDataLoader.swift */,
 				6E400FF81E4AABB400C9F8A7 /* CalorieDataContainer.swift */,
+				6E5A85CF1E4CE57D00A647FE /* CalorieDataProperty.swift */,
 			);
 			path = "Calories In Calories Out Watch Extension";
 			sourceTree = "<group>";
@@ -488,6 +491,7 @@
 			files = (
 				6E5501E61E3064C500D7549B /* HealthStoreProvider.swift in Sources */,
 				6E8507CC1E2EF8A3005DD71B /* NotificationController.swift in Sources */,
+				6E5A85D01E4CE57D00A647FE /* CalorieDataProperty.swift in Sources */,
 				6E8507CE1E2EF8A3005DD71B /* ComplicationController.swift in Sources */,
 				6E8507CA1E2EF8A3005DD71B /* ExtensionDelegate.swift in Sources */,
 				6E400FF91E4AABB400C9F8A7 /* CalorieDataContainer.swift in Sources */,

@@ -65,7 +65,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider {
                 calorieLoaderQueue.sync {
                     self.calorieData = self.synchronousCalorieDataLoader?.loadCalories()
                     
-                    if let mainInterfaceController = WKExtension.shared().rootInterfaceController as? CalorieDataLoader{
+                    if var mainInterfaceController = WKExtension.shared().rootInterfaceController as? CalorieDataProperty{
                         mainInterfaceController.calorieData = self.calorieData
                         
                     }
@@ -95,7 +95,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider {
                 calorieLoaderQueue.sync {
                     self.calorieData = self.synchronousCalorieDataLoader?.loadCalories()
                     
-                    if let mainInterfaceController = WKExtension.shared().rootInterfaceController as? CalorieDataLoader{
+                    if var mainInterfaceController = WKExtension.shared().rootInterfaceController as? CalorieDataProperty{
                         mainInterfaceController.calorieData = self.calorieData
                         
                     }

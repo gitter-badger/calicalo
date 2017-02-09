@@ -11,7 +11,7 @@ import Foundation
 import HealthKit
 
 
-class InterfaceController: WKInterfaceController {
+class InterfaceController: WKInterfaceController, CalorieDataProperty {
     @IBOutlet var totalCaloriesLabel: WKInterfaceLabel!
     @IBOutlet var activeCaloriesLabel: WKInterfaceLabel!
     @IBOutlet var caloriesConsumedLabel: WKInterfaceLabel!
@@ -36,11 +36,6 @@ class InterfaceController: WKInterfaceController {
             dispatchQueue.async {
                 self.calorieData = delegate.getCalorieDataLoader()?.loadCalories()
                 delegate.calorieData = self.calorieData
-                
-                /*if let mainInterfaceController = WKExtension.shared().rootInterfaceController as? CalorieDataLoader{
-                    mainInterfaceController.calorieData = self.calorieData
-                    
-                }*/
                 
                 let server = CLKComplicationServer.sharedInstance()
                 guard let complications = server.activeComplications, complications.count > 0 else {
