@@ -48,7 +48,7 @@ class SynchronousCalorieDataLoader{
                     self.getCummulativeSum(for: self.activeEnergyType, healthStore: healthStore)
                     self.dispatchGroup.enter()
                     self.getCummulativeSum(for: self.caloriesConsumedType, healthStore: healthStore)
-                    self.dispatchGroup.notify(queue: DispatchQueue.main){
+                    self.dispatchGroup.notify(queue: DispatchQueue.global()){
                         self.semaphore.signal()
                     }
                     
