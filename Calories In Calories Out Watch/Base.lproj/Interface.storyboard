@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch38" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -14,56 +14,74 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Calories_In_Calories_Out_Watch" customModuleProvider="target">
                     <items>
-                        <group width="1" alignment="left" layout="vertical" id="cmO-X5-9x4">
+                        <group width="1" alignment="left" id="Fmi-6M-nuH">
                             <items>
-                                <label alignment="left" text="Avg Resting Calories" id="3wF-iU-SGY">
-                                    <fontDescription key="font" type="italicSystem" pointSize="10"/>
-                                </label>
-                                <label alignment="left" text="Loading..." id="jDt-5j-TUA">
-                                    <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
-                                </label>
+                                <group width="80" alignment="left" layout="vertical" id="cmO-X5-9x4">
+                                    <items>
+                                        <label alignment="left" text="Avg Resting" id="3wF-iU-SGY">
+                                            <fontDescription key="font" type="italicSystem" pointSize="10"/>
+                                        </label>
+                                        <label alignment="left" text="Loading..." id="jDt-5j-TUA">
+                                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                        </label>
+                                    </items>
+                                    <variation key="device=watch38mm" width="68"/>
+                                    <variation key="device=watch42mm" width="78"/>
+                                </group>
+                                <group width="100" alignment="left" layout="vertical" id="8wo-dP-f5r">
+                                    <items>
+                                        <label alignment="left" text="Active" id="dYY-F7-00Y">
+                                            <fontDescription key="font" type="italicSystem" pointSize="10"/>
+                                        </label>
+                                        <label alignment="left" text="Loading..." id="czG-8h-Tem">
+                                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                        </label>
+                                    </items>
+                                    <variation key="device=watch38mm" width="68"/>
+                                    <variation key="device=watch42mm" width="78"/>
+                                </group>
                             </items>
                         </group>
-                        <group width="1" alignment="left" layout="vertical" id="8wo-dP-f5r">
+                        <group width="1" alignment="left" id="tdB-pp-3Ok">
                             <items>
-                                <label alignment="left" text="Active Calories" id="dYY-F7-00Y">
-                                    <fontDescription key="font" type="italicSystem" pointSize="10"/>
-                                </label>
-                                <label alignment="left" text="Loading..." id="czG-8h-Tem">
-                                    <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
-                                </label>
+                                <group width="100" alignment="left" layout="vertical" id="bfh-UK-QNp">
+                                    <items>
+                                        <label alignment="left" text="Dietary" id="LqJ-dK-aQJ">
+                                            <fontDescription key="font" type="italicSystem" pointSize="10"/>
+                                        </label>
+                                        <label alignment="left" text="Loading..." id="hBk-qc-xvM">
+                                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                        </label>
+                                    </items>
+                                    <variation key="device=watch38mm" width="68"/>
+                                    <variation key="device=watch42mm" width="78"/>
+                                </group>
+                                <group width="100" alignment="left" layout="vertical" id="Bfz-gr-fN1">
+                                    <items>
+                                        <label alignment="left" text="Remaining" id="dMb-fS-OTC">
+                                            <fontDescription key="font" type="italicSystem" pointSize="10"/>
+                                        </label>
+                                        <label alignment="left" text="Loading..." id="Cle-dN-rr2">
+                                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                        </label>
+                                    </items>
+                                    <variation key="device=watch38mm" width="68"/>
+                                    <variation key="device=watch42mm" width="78"/>
+                                </group>
                             </items>
                         </group>
-                        <group width="1" alignment="left" layout="vertical" id="bfh-UK-QNp">
-                            <items>
-                                <label alignment="left" text="Dietary Calories" id="LqJ-dK-aQJ">
-                                    <fontDescription key="font" type="italicSystem" pointSize="10"/>
-                                </label>
-                                <label alignment="left" text="Loading..." id="hBk-qc-xvM">
-                                    <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
-                                </label>
-                            </items>
-                        </group>
-                        <group width="1" alignment="left" layout="vertical" id="Bfz-gr-fN1">
-                            <items>
-                                <label alignment="left" text="Remaining Calories" id="dMb-fS-OTC">
-                                    <fontDescription key="font" type="italicSystem" pointSize="10"/>
-                                </label>
-                                <label alignment="left" text="Loading..." id="Cle-dN-rr2">
-                                    <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
-                                </label>
-                            </items>
-                        </group>
+                        <imageView height="68" alignment="left" id="nx7-pc-RgZ"/>
                     </items>
                     <connections>
                         <outlet property="activeCaloriesLabel" destination="czG-8h-Tem" id="z9A-A5-5e2"/>
+                        <outlet property="calorieGraph" destination="nx7-pc-RgZ" id="AS1-YF-20i"/>
                         <outlet property="caloriesConsumedLabel" destination="hBk-qc-xvM" id="oMb-I9-WzQ"/>
                         <outlet property="restingCaloriesLabel" destination="jDt-5j-TUA" id="Uym-fP-HOv"/>
                         <outlet property="totalCaloriesLabel" destination="Cle-dN-rr2" id="s6j-uw-qAw"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="220" y="345"/>
+            <point key="canvasLocation" x="220" y="344"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">

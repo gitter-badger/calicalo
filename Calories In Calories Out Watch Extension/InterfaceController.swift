@@ -16,6 +16,7 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
     @IBOutlet var activeCaloriesLabel: WKInterfaceLabel!
     @IBOutlet var caloriesConsumedLabel: WKInterfaceLabel!
     @IBOutlet var restingCaloriesLabel: WKInterfaceLabel!
+    @IBOutlet var calorieGraph: WKInterfaceImage!
     
     var calorieData:CalorieData?{
         didSet{
@@ -24,6 +25,34 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
                 activeCaloriesLabel.setText(String(activeCalories))
                 caloriesConsumedLabel.setText(String(caloriesConsumed))
                 totalCaloriesLabel.setText(String(netCalories))
+                
+                let image: UIImage = UIImage()
+                // begin a graphics context of sufficient size
+                UIGraphicsBeginImageContext(CGSize(width: 100, height: 100))
+                
+                // draw original image into the context
+                image.draw(at: CGPoint.zero)
+                
+                // get the context for CoreGraphics
+                let context = UIGraphicsGetCurrentContext()
+                
+                // set stroking width and color of the context
+                context!.setLineWidth(1.0)
+                context!.setStrokeColor(UIColor.blue.cgColor)
+                context!.setFillColor(UIColor.blue.cgColor)
+                
+                context!.addRect(CGRect(x: 0, y: 0, width: 50, height: 50))
+                
+                // apply the stroke to the context
+                context!.strokePath()
+                
+                // get the image from the graphics context 
+                let resultImage = UIGraphicsGetImageFromCurrentImageContext()
+                
+                // end the graphics context 
+                UIGraphicsEndImageContext()
+                
+                calorieGraph.setImage(resultImage)
             }
         }
     }
