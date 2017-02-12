@@ -51,7 +51,10 @@ extension CalorieDataLoader{
             healthStore.requestAuthorization(toShare: nil, read: [basalEnergyType, activeEnergyType, caloriesConsumedType]){
                 succcess, error in
                 if succcess {
-                    self.willLoadCalories()
+                    
+                    DispatchQueue.main.sync {
+                        self.willLoadCalories()
+                    }
                     self.dispatchGroup.enter()
                     self.averageOfPrevious7Days(for: self.basalEnergyType, healthStore: healthStore)
                     self.dispatchGroup.enter()

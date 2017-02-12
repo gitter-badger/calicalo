@@ -38,13 +38,27 @@ class CaloriesInCaloriesOutViewController : UIViewController{
             healthStore = healthStoreProvider.healthStore
             
             loadCalories()
+            navigationItem.title = "CaliCalo"
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "refresh", style: .plain, target: self, action: #selector(refreshTouched))
+            navigationItem.rightBarButtonItem?.tintColor = UIColor.white
             
         }
-        
     }
     
+        
+    
+    func refreshTouched(_ sender: Any) {
+        if let healthStoreProvider = UIApplication.shared.delegate as? HealthStoreProvider{
+            healthStore = healthStoreProvider.healthStore
+            
+            loadCalories()
+            
+        }
+    }
     
 }
+
+
 
 extension CaloriesInCaloriesOutViewController:CalorieDataLoader{
     func allDone(){
