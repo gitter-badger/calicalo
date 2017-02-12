@@ -51,7 +51,7 @@ extension CalorieDataLoader{
             healthStore.requestAuthorization(toShare: nil, read: [basalEnergyType, activeEnergyType, caloriesConsumedType]){
                 succcess, error in
                 if succcess {
-                    
+                    self.calorieData = CalorieData()
                     DispatchQueue.main.sync {
                         self.willLoadCalories()
                     }

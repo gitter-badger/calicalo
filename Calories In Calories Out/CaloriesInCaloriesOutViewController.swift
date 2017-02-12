@@ -11,7 +11,7 @@ import UIKit
 import HealthKit
 
 
-class CaloriesInCaloriesOutViewController : UIViewController{
+class CaloriesInCaloriesOutViewController : UITableViewController{
     
 
     
@@ -34,14 +34,17 @@ class CaloriesInCaloriesOutViewController : UIViewController{
     
     override func viewDidLoad() {
         
+        refreshControl?.tintColor = UIColor(red: 1, green: 145/255, blue: 0, alpha: 1)
+        navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "logo-txt-white"))
+        
         if let healthStoreProvider = UIApplication.shared.delegate as? HealthStoreProvider{
             healthStore = healthStoreProvider.healthStore
             
             loadCalories()
-            navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "logo-txt-white"))
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "refresh", style: .plain, target: self, action: #selector(refreshTouched))
+            
             
         }
+        
     }
     
         
@@ -54,6 +57,12 @@ class CaloriesInCaloriesOutViewController : UIViewController{
             
         }
     }
+    @IBAction func beginRefresh(_ sender: Any) {
+        
+        if refreshControl?.isRefreshing == true{
+            loadCalories()
+        }
+    }
     
 }
 
@@ -61,6 +70,9 @@ class CaloriesInCaloriesOutViewController : UIViewController{
 
 extension CaloriesInCaloriesOutViewController:CalorieDataLoader{
     func allDone(){
+        if self.refreshControl?.isRefreshing == true{
+            self.refreshControl?.endRefreshing()
+        }
         if let calorieData = calorieData, let restingCalories = calorieData.restingCaloriesAverage , let activeCalories = calorieData.activeCalories, let caloriesConsumed = calorieData.caloriesConsumed, let netCalories = calorieData.netCalories{
             restingCaloriesLabel.text = String(restingCalories)
             activeCaloriesLabel.text = String(activeCalories)
