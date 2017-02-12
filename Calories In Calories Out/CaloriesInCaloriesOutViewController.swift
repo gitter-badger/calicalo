@@ -38,9 +38,8 @@ class CaloriesInCaloriesOutViewController : UIViewController{
             healthStore = healthStoreProvider.healthStore
             
             loadCalories()
-            navigationItem.title = "CaliCalo"
+            navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "logo-txt-white"))
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: "refresh", style: .plain, target: self, action: #selector(refreshTouched))
-            navigationItem.rightBarButtonItem?.tintColor = UIColor.white
             
         }
     }
@@ -72,7 +71,7 @@ extension CaloriesInCaloriesOutViewController:CalorieDataLoader{
     
     func willLoadCalories(){
         
-        let loadingString = "Loading..."
+        let loadingString = "..."
         
         restingCaloriesLabel.text = loadingString
         activeCaloriesLabel.text = loadingString
