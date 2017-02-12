@@ -34,12 +34,14 @@ class CaloriesInCaloriesOutViewController : UITableViewController{
     
     override func viewDidLoad() {
         
+        refreshControl?.tintColor = UIColor(red: 1, green: 145/255, blue: 0, alpha: 1)
+        navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "logo-txt-white"))
+        
         if let healthStoreProvider = UIApplication.shared.delegate as? HealthStoreProvider{
             healthStore = healthStoreProvider.healthStore
             
             loadCalories()
-            navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "logo-txt-white"))
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "refresh", style: .plain, target: self, action: #selector(refreshTouched))
+            
             
         }
         
