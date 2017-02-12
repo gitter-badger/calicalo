@@ -26,9 +26,12 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
                 caloriesConsumedLabel.setText(String(caloriesConsumed))
                 totalCaloriesLabel.setText(String(netCalories))
                 
+                let totalBarWidth = 120
+                var barWidth = abs(netCalories / (restingCalories + activeCalories)) * totalBarWidth
+                
                 let image: UIImage = UIImage()
                 // begin a graphics context of sufficient size
-                UIGraphicsBeginImageContext(CGSize(width: 100, height: 100))
+                UIGraphicsBeginImageContext(CGSize(width: totalBarWidth, height: 75))
                 
                 // draw original image into the context
                 image.draw(at: CGPoint.zero)
@@ -39,9 +42,18 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
                 // set stroking width and color of the context
                 context!.setLineWidth(1.0)
                 context!.setStrokeColor(UIColor.blue.cgColor)
-                context!.setFillColor(UIColor.blue.cgColor)
                 
-                context!.addRect(CGRect(x: 0, y: 0, width: 50, height: 50))
+                var barStartPosition = 0
+                
+                if netCalories > 0 {
+                    context!.setFillColor(UIColor.yellow.cgColor)
+                    barStartPosition = totalBarWidth / 2
+                } else {
+                    context!.setFillColor(UIColor.blue.cgColor)
+                    barStartPosition = totalBarWidth / 2 - barWidth
+                }
+                
+                context!.addRect(CGRect(x: barStartPosition, y: 0, width: barWidth, height: 75))
                 
                 // apply the stroke to the context
                 context!.strokePath()

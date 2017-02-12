@@ -21,7 +21,7 @@
                                         <label alignment="left" text="Avg Resting" id="3wF-iU-SGY">
                                             <fontDescription key="font" type="italicSystem" pointSize="10"/>
                                         </label>
-                                        <label alignment="left" text="Loading..." id="jDt-5j-TUA">
+                                        <label alignment="left" text="..." id="jDt-5j-TUA">
                                             <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
                                         </label>
                                     </items>
@@ -33,7 +33,7 @@
                                         <label alignment="left" text="Active" id="dYY-F7-00Y">
                                             <fontDescription key="font" type="italicSystem" pointSize="10"/>
                                         </label>
-                                        <label alignment="left" text="Loading..." id="czG-8h-Tem">
+                                        <label alignment="left" text="..." id="czG-8h-Tem">
                                             <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
                                         </label>
                                     </items>
@@ -49,7 +49,7 @@
                                         <label alignment="left" text="Dietary" id="LqJ-dK-aQJ">
                                             <fontDescription key="font" type="italicSystem" pointSize="10"/>
                                         </label>
-                                        <label alignment="left" text="Loading..." id="hBk-qc-xvM">
+                                        <label alignment="left" text="..." id="hBk-qc-xvM">
                                             <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
                                         </label>
                                     </items>
@@ -61,7 +61,7 @@
                                         <label alignment="left" text="Remaining" id="dMb-fS-OTC">
                                             <fontDescription key="font" type="italicSystem" pointSize="10"/>
                                         </label>
-                                        <label alignment="left" text="Loading..." id="Cle-dN-rr2">
+                                        <label alignment="left" text="..." id="Cle-dN-rr2">
                                             <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
                                         </label>
                                     </items>
