@@ -10,7 +10,7 @@ import ClockKit
 import WatchKit
 
 class ComplicationController: NSObject, CLKComplicationDataSource {
-    
+        
     // MARK: - Timeline Configuration
     
     func getSupportedTimeTravelDirections(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimeTravelDirections) -> Void) {
@@ -34,8 +34,8 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void) {
         
-        let myDelegate = WKExtension.shared().delegate as? CaloriesForComplications
-        guard let data = myDelegate?.calories else {
+        let myDelegate = WKExtension.shared().delegate as? CalorieDataContainer
+        guard let data = myDelegate?.calorieData?.netCalories else {
             handler(nil)
             return
         }

@@ -11,36 +11,47 @@ import Foundation
 import HealthKit
 
 
-class InterfaceController: WKInterfaceController {
+class InterfaceController: WKInterfaceController, CalorieDataProperty {
     @IBOutlet var totalCaloriesLabel: WKInterfaceLabel!
     @IBOutlet var activeCaloriesLabel: WKInterfaceLabel!
     @IBOutlet var caloriesConsumedLabel: WKInterfaceLabel!
     @IBOutlet var restingCaloriesLabel: WKInterfaceLabel!
     
-    var healthStore:HKHealthStore?
-    
-    let dispatchGroup:DispatchGroup = DispatchGroup()
-    
-    let basalEnergyType = HKQuantityType.quantityType(forIdentifier:.basalEnergyBurned)
-    
-    let activeEnergyType = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)
-    
-    let caloriesConsumedType = HKQuantityType.quantityType(forIdentifier: .dietaryEnergyConsumed)
-    
-    var restingCaloriesTotal:Int?
-    var activeCalories:Int?
-    var caloriesConsumed:Int?
-    
-    var updateCaloriesCallback:((_ calories:Int)->Void)?
+    var calorieData:CalorieData?{
+        didSet{
+            if let calorieData = calorieData, let restingCalories = calorieData.restingCaloriesAverage, let activeCalories = calorieData.activeCalories, let caloriesConsumed = calorieData.caloriesConsumed, let netCalories = calorieData.netCalories {
+                restingCaloriesLabel.setText(String(restingCalories))
+                activeCaloriesLabel.setText(String(activeCalories))
+                caloriesConsumedLabel.setText(String(caloriesConsumed))
+                totalCaloriesLabel.setText(String(netCalories))
+            }
+        }
+    }
 
 
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        if let healthStoreProvider = WKExtension.shared().delegate as? HealthStoreProvider{
-            healthStore = healthStoreProvider.healthStore
-            
-            loadCalories()
-            
+        
+        if var delegate = WKExtension.shared().delegate as? CalorieDataContainer, let dispatchQueue = delegate.getCalorieDataQueue(){
+            dispatchQueue.async {
+                self.calorieData = delegate.getCalorieDataLoader()?.loadCalories()
+                delegate.calorieData = self.calorieData
+                
+                let server = CLKComplicationServer.sharedInstance()
+                guard let complications = server.activeComplications, complications.count > 0 else {
+                    return
+                }
+                server.reloadTimeline(for: complications[0])
+                
+                WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: Date(timeInterval: 60, since: Date()), userInfo: nil){
+                    error in
+                    if let error = error{
+                        fatalError(error.localizedDescription)
+                    }
+                }
+                
+            }
+
         }
         
     }
@@ -55,60 +66,4 @@ class InterfaceController: WKInterfaceController {
         super.didDeactivate()
     }
 
-}
-
-
-extension InterfaceController:CalorieDataLoader{
-    func allDone(){
-        if let restingCalories = restingCaloriesTotal, let activeCalories = activeCalories, let caloriesConsumed = caloriesConsumed{
-            restingCaloriesLabel.setText(String(restingCalories/7))
-            activeCaloriesLabel.setText(String(activeCalories))
-            caloriesConsumedLabel.setText(String(caloriesConsumed))
-            
-            let calories = (restingCalories/7) + activeCalories - caloriesConsumed
-            
-            if var myDelegate = WKExtension.shared().delegate as? CaloriesForComplications{
-                myDelegate.calories = calories
-            }
-            
-            totalCaloriesLabel.setText(String(calories))
-            updateCaloriesCallback?(calories)
-        }else{
-            updateCaloriesCallback?(0)
-        }
-        self.updateCaloriesCallback = nil
-        let server = CLKComplicationServer.sharedInstance()
-        guard let complications = server.activeComplications else {
-            return
-        }
-        
-        guard complications.count>0 else {
-            return
-        }
-        
-        server.reloadTimeline(for: complications[0])
-
-        
-        
-    }
-    
-    func willLoadCalories() {
-        let loadingString = "Loading..."
-        
-        restingCaloriesLabel.setText(loadingString)
-        activeCaloriesLabel.setText(loadingString)
-        caloriesConsumedLabel.setText(loadingString)
-        totalCaloriesLabel.setText(loadingString)
-
-    }
-
-}
-
-extension InterfaceController:UpdateCaloriesInBackground{
-    func updateCalories(loadCompleteHandler:@escaping(_ calories:Int)->Void){
-        
-        updateCaloriesCallback = loadCompleteHandler
-        
-        loadCalories()
-    }
 }

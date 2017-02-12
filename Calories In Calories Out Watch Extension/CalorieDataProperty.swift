@@ -1,16 +1,16 @@
 //
-//  CaloriesForComplications.swift
+//  CalorieDataProperty.swift
 //  Calories In Calories Out
 //
-//  Created by Ryan Klein on 1/21/17.
+//  Created by Ryan Klein on 2/9/17.
 //  Copyright © 2017 Base11 Studios. All rights reserved.
 //
 
 import Foundation
 
 
-protocol CaloriesForComplications {
-    var calories:Int?{
+protocol CalorieDataProperty {
+    var calorieData:CalorieData?{
         get set
     }
 }
