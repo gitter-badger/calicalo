@@ -74,20 +74,21 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         else if complication.family == .modularLarge{
             let columnTemplate = CLKComplicationTemplateModularLargeColumns()
             
-            columnTemplate.row1Column1TextProvider = CLKSimpleTextProvider(text: "In")
+           
+            columnTemplate.row1Column1TextProvider = CLKSimpleTextProvider(text: "Out")
+            columnTemplate.row1Column1TextProvider.tintColor = UIColor.green
+            columnTemplate.row1Column2TextProvider = CLKSimpleTextProvider(text: "\(restingCalories+activeCalories) kCal")
+            
+            columnTemplate.row2Column1TextProvider = CLKSimpleTextProvider(text: "In")
             
             if(netCalories>0){
-                columnTemplate.row1Column1TextProvider.tintColor = UIColor.cyan
+                columnTemplate.row2Column1TextProvider.tintColor = UIColor.cyan
             }
             else{
-                columnTemplate.row1Column1TextProvider.tintColor = UIColor.red
+                columnTemplate.row2Column1TextProvider.tintColor = UIColor.red
             }
             
-            columnTemplate.row1Column2TextProvider = CLKSimpleTextProvider(text: "\(caloriesConsumed) kCal")
-            
-            columnTemplate.row2Column1TextProvider = CLKSimpleTextProvider(text: "Out")
-            columnTemplate.row2Column1TextProvider.tintColor = UIColor.green
-            columnTemplate.row2Column2TextProvider = CLKSimpleTextProvider(text: "\(restingCalories+activeCalories) kCal")
+            columnTemplate.row2Column2TextProvider = CLKSimpleTextProvider(text: "\(caloriesConsumed) kCal")
             
             columnTemplate.row3Column1TextProvider = CLKSimpleTextProvider(text:"Net")
             columnTemplate.row3Column1TextProvider.tintColor = Colors.orange
@@ -99,7 +100,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         }
         else if complication.family == .utilitarianLarge{
             let textTemplate = CLKComplicationTemplateUtilitarianLargeFlat()
-            textTemplate.textProvider = CLKSimpleTextProvider(text: "-\(caloriesConsumed) + \(restingCalories + activeCalories) = \(netCalories)")
+            textTemplate.textProvider = CLKSimpleTextProvider(text: "\(restingCalories + activeCalories)-\(caloriesConsumed) = \(netCalories)")
             textTemplate.imageProvider = CLKImageProvider(onePieceImage: #imageLiteral(resourceName: "Complication/Utilitarian"))
             textTemplate.imageProvider?.tintColor = Colors.orange
             entry = CLKComplicationTimelineEntry(date: now, complicationTemplate: textTemplate)
