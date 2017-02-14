@@ -88,6 +88,13 @@ class SynchronousCalorieDataLoader{
             }
             
             guard error == nil else{
+                if let error = error as? NSError{
+                    let healthError = HKError(_nsError: error)
+                    if healthError.code == HKError.errorDatabaseInaccessible{
+                        return
+                    }
+                }
+
                 fatalError(error!.localizedDescription)
             }
             
@@ -163,6 +170,17 @@ class SynchronousCalorieDataLoader{
             query, results, error in
             defer {
                 self.dispatchGroup.leave()
+            }
+            guard error == nil else{
+                
+                if let error = error as? NSError{
+                    let healthError = HKError(_nsError: error)
+                    if healthError.code == HKError.errorDatabaseInaccessible{
+                        return
+                    }
+                }
+                
+                fatalError(error!.localizedDescription)
             }
             guard let statsCollection = results else {
                 fatalError("Couldn't collect stats")
