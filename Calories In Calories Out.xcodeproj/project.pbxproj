@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37365C821E52A029002CF093 /* Raleway-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 37365C811E52A029002CF093 /* Raleway-Light.ttf */; };
+		37365C831E52A029002CF093 /* Raleway-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 37365C811E52A029002CF093 /* Raleway-Light.ttf */; };
 		6E284B9A1E46AB4100653A65 /* CalorieData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E284B991E46AB4100653A65 /* CalorieData.swift */; };
 		6E284B9B1E46BF3700653A65 /* CalorieData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E284B991E46AB4100653A65 /* CalorieData.swift */; };
 		6E284B9D1E47BC6400653A65 /* SynchronousCalorieDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E284B9C1E47BC6400653A65 /* SynchronousCalorieDataLoader.swift */; };
@@ -93,6 +95,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		37365C811E52A029002CF093 /* Raleway-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Light.ttf"; sourceTree = "<group>"; };
 		6E284B991E46AB4100653A65 /* CalorieData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CalorieData.swift; path = "Calories In Calories Out Watch Extension/CalorieData.swift"; sourceTree = SOURCE_ROOT; };
 		6E284B9C1E47BC6400653A65 /* SynchronousCalorieDataLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronousCalorieDataLoader.swift; sourceTree = "<group>"; };
 		6E400FF81E4AABB400C9F8A7 /* CalorieDataContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalorieDataContainer.swift; sourceTree = "<group>"; };
@@ -177,6 +180,7 @@
 		6E8507C41E2EF8A3005DD71B /* Calories In Calories Out Watch Extension */ = {
 			isa = PBXGroup;
 			children = (
+				37365C811E52A029002CF093 /* Raleway-Light.ttf */,
 				6E5501E71E3068BC00D7549B /* Calories In Calories Out Watch Extension.entitlements */,
 				6E8507C71E2EF8A3005DD71B /* InterfaceController.swift */,
 				6E8507C91E2EF8A3005DD71B /* ExtensionDelegate.swift */,
@@ -445,6 +449,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37365C821E52A029002CF093 /* Raleway-Light.ttf in Resources */,
 				6E8507BA1E2EF8A3005DD71B /* Assets.xcassets in Resources */,
 				6E8507B81E2EF8A3005DD71B /* Interface.storyboard in Resources */,
 			);
@@ -455,6 +460,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E8507D01E2EF8A3005DD71B /* Assets.xcassets in Resources */,
+				37365C831E52A029002CF093 /* Raleway-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

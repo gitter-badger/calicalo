@@ -8,69 +8,66 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11508"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Raleway-Light.ttf">
+            <string>Raleway-Light</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Interface Controller-->
         <scene sceneID="aou-V4-d1y">
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Calories_In_Calories_Out_Watch" customModuleProvider="target">
                     <items>
-                        <group width="1" alignment="left" id="Fmi-6M-nuH">
-                            <items>
-                                <group width="80" alignment="left" layout="vertical" id="cmO-X5-9x4">
-                                    <items>
-                                        <label alignment="left" text="Avg Resting" id="3wF-iU-SGY">
-                                            <fontDescription key="font" type="italicSystem" pointSize="10"/>
-                                        </label>
-                                        <label alignment="left" text="..." id="jDt-5j-TUA">
-                                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
-                                        </label>
-                                    </items>
-                                    <variation key="device=watch38mm" width="68"/>
-                                    <variation key="device=watch42mm" width="78"/>
-                                </group>
-                                <group width="100" alignment="left" layout="vertical" id="8wo-dP-f5r">
-                                    <items>
-                                        <label alignment="left" text="Active" id="dYY-F7-00Y">
-                                            <fontDescription key="font" type="italicSystem" pointSize="10"/>
-                                        </label>
-                                        <label alignment="left" text="..." id="czG-8h-Tem">
-                                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
-                                        </label>
-                                    </items>
-                                    <variation key="device=watch38mm" width="68"/>
-                                    <variation key="device=watch42mm" width="78"/>
-                                </group>
-                            </items>
-                        </group>
                         <group width="1" alignment="left" id="tdB-pp-3Ok">
                             <items>
-                                <group width="100" alignment="left" layout="vertical" id="bfh-UK-QNp">
+                                <group width="1" alignment="center" layout="vertical" id="Bfz-gr-fN1">
                                     <items>
-                                        <label alignment="left" text="Dietary" id="LqJ-dK-aQJ">
+                                        <label alignment="center" text="..." id="Cle-dN-rr2">
+                                            <fontDescription key="font" name="Raleway-Light" family="Raleway" pointSize="32"/>
+                                        </label>
+                                        <label alignment="center" text="Net" id="dMb-fS-OTC">
                                             <fontDescription key="font" type="italicSystem" pointSize="10"/>
                                         </label>
-                                        <label alignment="left" text="..." id="hBk-qc-xvM">
-                                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
-                                        </label>
                                     </items>
-                                    <variation key="device=watch38mm" width="68"/>
-                                    <variation key="device=watch42mm" width="78"/>
-                                </group>
-                                <group width="100" alignment="left" layout="vertical" id="Bfz-gr-fN1">
-                                    <items>
-                                        <label alignment="left" text="Remaining" id="dMb-fS-OTC">
-                                            <fontDescription key="font" type="italicSystem" pointSize="10"/>
-                                        </label>
-                                        <label alignment="left" text="..." id="Cle-dN-rr2">
-                                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
-                                        </label>
-                                    </items>
-                                    <variation key="device=watch38mm" width="68"/>
-                                    <variation key="device=watch42mm" width="78"/>
                                 </group>
                             </items>
                         </group>
-                        <imageView height="68" alignment="left" id="nx7-pc-RgZ"/>
+                        <imageView height="0.25" alignment="left" id="nx7-pc-RgZ"/>
+                        <group width="1" alignment="left" id="Fmi-6M-nuH">
+                            <items>
+                                <group width="0.33000000000000002" alignment="left" layout="vertical" id="cmO-X5-9x4">
+                                    <items>
+                                        <label alignment="center" text="..." id="jDt-5j-TUA">
+                                            <fontDescription key="font" name="Raleway-Light" family="Raleway" pointSize="16"/>
+                                        </label>
+                                        <label alignment="center" text="Rest" id="3wF-iU-SGY">
+                                            <fontDescription key="font" type="italicSystem" pointSize="10"/>
+                                        </label>
+                                    </items>
+                                </group>
+                                <group width="0.33000000000000002" alignment="left" layout="vertical" id="8wo-dP-f5r">
+                                    <items>
+                                        <label alignment="center" text="..." id="czG-8h-Tem">
+                                            <fontDescription key="font" name="Raleway-Light" family="Raleway" pointSize="16"/>
+                                        </label>
+                                        <label alignment="center" text="Active" id="dYY-F7-00Y">
+                                            <fontDescription key="font" type="italicSystem" pointSize="10"/>
+                                        </label>
+                                    </items>
+                                </group>
+                                <group width="0.33000000000000002" alignment="left" layout="vertical" id="bfh-UK-QNp">
+                                    <items>
+                                        <label alignment="center" text="..." id="hBk-qc-xvM">
+                                            <fontDescription key="font" name="Raleway-Light" family="Raleway" pointSize="16"/>
+                                        </label>
+                                        <label alignment="center" text="Diet" id="LqJ-dK-aQJ">
+                                            <fontDescription key="font" type="italicSystem" pointSize="10"/>
+                                        </label>
+                                    </items>
+                                </group>
+                            </items>
+                        </group>
                     </items>
                     <connections>
                         <outlet property="activeCaloriesLabel" destination="czG-8h-Tem" id="z9A-A5-5e2"/>

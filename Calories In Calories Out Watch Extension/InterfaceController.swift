@@ -25,51 +25,73 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
                 activeCaloriesLabel.setText(String(activeCalories))
                 caloriesConsumedLabel.setText(String(caloriesConsumed))
                 totalCaloriesLabel.setText(String(netCalories))
-                
-                let totalBarWidth = 120
-                var barWidth = abs(netCalories / (restingCalories + activeCalories)) * totalBarWidth
-                
-                let image: UIImage = UIImage()
-                // begin a graphics context of sufficient size
-                UIGraphicsBeginImageContext(CGSize(width: totalBarWidth, height: 75))
-                
-                // draw original image into the context
-                image.draw(at: CGPoint.zero)
-                
-                // get the context for CoreGraphics
-                let context = UIGraphicsGetCurrentContext()
-                
-                // set stroking width and color of the context
-                context!.setLineWidth(1.0)
-                context!.setStrokeColor(UIColor.blue.cgColor)
-                
-                var barStartPosition = 0
-                
-                if netCalories > 0 {
-                    context!.setFillColor(UIColor.yellow.cgColor)
-                    barStartPosition = totalBarWidth / 2
-                } else {
-                    context!.setFillColor(UIColor.blue.cgColor)
-                    barStartPosition = totalBarWidth / 2 - barWidth
-                }
-                
-                context!.addRect(CGRect(x: barStartPosition, y: 0, width: barWidth, height: 75))
-                
-                // apply the stroke to the context
-                context!.strokePath()
-                
-                // get the image from the graphics context 
-                let resultImage = UIGraphicsGetImageFromCurrentImageContext()
-                
-                // end the graphics context 
-                UIGraphicsEndImageContext()
-                
-                calorieGraph.setImage(resultImage)
+                calorieGraph.setImage(getNetMeterImage(restingCalories: restingCalories, activeCalories: activeCalories, netCalories: netCalories))
             }
         }
     }
-
-
+    
+    func getNetMeterImage(restingCalories: Int, activeCalories: Int, netCalories: Int) -> UIImage {
+        let totalBarWidth: Double = Double(WKInterfaceDevice.current().screenBounds.width)
+        let totalImageHeight: Int = Int(Double(WKInterfaceDevice.current().screenBounds.height) / 4)
+        var frameOfReferenceCalories = restingCalories + activeCalories
+        
+        /*
+         TODO.  1. Border or dark grey rectangle showing total possible size of meter (maybe outline includes the middle ind border. 
+                2. If bar > 1, stop at 1.
+                3. Make bar only go to ~90% of screen width so 100% bar is not touching sides of watch
+                4. Figure out better solution for resting + active calories being 0 instead of default to 2000 grid
+                5. Have some exponential growth to meter. 500/2000 instead of being 1/4 of meter should be ~50%. 1000/2000 = 75%, 1500/2000 = 87.5%, 2000/2000 = 100%
+                6. If the net is so low that you can't see the bar behind the center marker, make the center marker light up gold, glow, or be a star or something to show equality
+        */
+        
+        if frameOfReferenceCalories == 0 {
+            frameOfReferenceCalories = 2000
+        }
+        
+        let barWidth: Int = lround(abs(Double(netCalories) / Double(frameOfReferenceCalories)) * (Double(totalBarWidth) / 2))
+        
+        let image: UIImage = UIImage()
+        // begin a graphics context of sufficient size
+        UIGraphicsBeginImageContext(CGSize(width: totalBarWidth, height: Double(totalImageHeight)))
+        
+        // draw original image into the context
+        image.draw(at: CGPoint.zero)
+        
+        // get the context for CoreGraphics
+        let context = UIGraphicsGetCurrentContext()
+        
+        var barStartPosition: Int = 0
+        
+        if netCalories < 0 {
+            context!.setFillColor(UIColor(red: 255/255, green: 214/255, blue: 0, alpha: 1).cgColor)
+            barStartPosition = lround(totalBarWidth / 2)
+        } else {
+            context!.setFillColor(UIColor(red: 69/255, green: 184/255, blue: 255/255, alpha: 1).cgColor)
+            barStartPosition = lround(totalBarWidth / 2 - Double(barWidth))
+        }
+        
+        context!.fill(CGRect(x: barStartPosition, y: totalImageHeight / 4, width: barWidth, height: totalImageHeight / 2))
+        
+        // Now draw center
+        context!.setFillColor(UIColor.white.cgColor)
+        context!.fill(CGRect(x: lround(totalBarWidth / 2) - lround(totalBarWidth * 0.02), y: totalImageHeight / 8, width: lround(totalBarWidth * 0.04), height: lround(Double(totalImageHeight) * 0.75)))
+        
+        // Border of center
+        // set stroking width and color of the context
+        context!.setLineWidth(2.0)
+        context!.setStrokeColor(UIColor.black.cgColor)
+        context!.addRect(CGRect(x: lround(totalBarWidth / 2) - lround(totalBarWidth * 0.02), y: totalImageHeight / 8, width: lround(totalBarWidth * 0.04), height: lround(Double(totalImageHeight) * 0.75)))
+        context!.strokePath()
+        
+        // get the image from the graphics context
+        let resultImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        // end the graphics context
+        UIGraphicsEndImageContext()
+        
+        return resultImage!
+    }
+    
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
@@ -92,7 +114,7 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
                 }
                 
             }
-
+            
         }
         
     }
@@ -106,5 +128,5 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
     }
-
+    
 }
