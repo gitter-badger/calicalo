@@ -38,13 +38,26 @@ class CaloriesInCaloriesOutViewController : UIViewController{
             healthStore = healthStoreProvider.healthStore
             
             loadCalories()
+            navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "logo-txt-white"))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "refresh", style: .plain, target: self, action: #selector(refreshTouched))
             
         }
-        
     }
     
+        
+    
+    func refreshTouched(_ sender: Any) {
+        if let healthStoreProvider = UIApplication.shared.delegate as? HealthStoreProvider{
+            healthStore = healthStoreProvider.healthStore
+            
+            loadCalories()
+            
+        }
+    }
     
 }
+
+
 
 extension CaloriesInCaloriesOutViewController:CalorieDataLoader{
     func allDone(){
@@ -58,7 +71,7 @@ extension CaloriesInCaloriesOutViewController:CalorieDataLoader{
     
     func willLoadCalories(){
         
-        let loadingString = "Loading..."
+        let loadingString = "..."
         
         restingCaloriesLabel.text = loadingString
         activeCaloriesLabel.text = loadingString
