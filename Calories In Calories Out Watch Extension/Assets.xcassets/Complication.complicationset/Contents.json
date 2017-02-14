@@ -1,23 +1,28 @@
 {
-  "info" : {
-    "author" : "xcode",
-    "version" : 1
-  },
   "assets" : [
     {
       "idiom" : "watch",
-      "role" : "circular",
-      "filename" : "Circular.imageset"
+      "filename" : "Circular.imageset",
+      "role" : "circular"
     },
     {
       "idiom" : "watch",
-      "role" : "modular",
-      "filename" : "Modular.imageset"
+      "filename" : "Extra Large.imageset",
+      "role" : "extra-large"
     },
     {
       "idiom" : "watch",
-      "role" : "utilitarian",
-      "filename" : "Utilitarian.imageset"
+      "filename" : "Modular.imageset",
+      "role" : "modular"
+    },
+    {
+      "idiom" : "watch",
+      "filename" : "Utilitarian.imageset",
+      "role" : "utilitarian"
     }
-  ]
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
 }

@@ -58,30 +58,34 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
         image.draw(at: CGPoint.zero)
         
         // get the context for CoreGraphics
-        let context = UIGraphicsGetCurrentContext()
+        //Too many !'s make's me nervous and this makes the code a little cleaner
+        //I don't know when this could happen, but if it does, this way we'll find out.
+        guard let context = UIGraphicsGetCurrentContext() else {
+            fatalError("No graphics context")
+        }
         
         var barStartPosition: Int = 0
         
         if netCalories < 0 {
-            context!.setFillColor(UIColor(red: 255/255, green: 214/255, blue: 0, alpha: 1).cgColor)
+            context.setFillColor(UIColor(red: 255/255, green: 214/255, blue: 0, alpha: 1).cgColor)
             barStartPosition = lround(totalBarWidth / 2)
         } else {
-            context!.setFillColor(UIColor(red: 69/255, green: 184/255, blue: 255/255, alpha: 1).cgColor)
+            context.setFillColor(UIColor(red: 69/255, green: 184/255, blue: 255/255, alpha: 1).cgColor)
             barStartPosition = lround(totalBarWidth / 2 - Double(barWidth))
         }
         
-        context!.fill(CGRect(x: barStartPosition, y: totalImageHeight / 4, width: barWidth, height: totalImageHeight / 2))
+        context.fill(CGRect(x: barStartPosition, y: totalImageHeight / 4, width: barWidth, height: totalImageHeight / 2))
         
         // Now draw center
-        context!.setFillColor(UIColor.white.cgColor)
-        context!.fill(CGRect(x: lround(totalBarWidth / 2) - lround(totalBarWidth * 0.02), y: totalImageHeight / 8, width: lround(totalBarWidth * 0.04), height: lround(Double(totalImageHeight) * 0.75)))
+        context.setFillColor(UIColor.white.cgColor)
+        context.fill(CGRect(x: lround(totalBarWidth / 2) - lround(totalBarWidth * 0.02), y: totalImageHeight / 8, width: lround(totalBarWidth * 0.04), height: lround(Double(totalImageHeight) * 0.75)))
         
         // Border of center
         // set stroking width and color of the context
-        context!.setLineWidth(2.0)
-        context!.setStrokeColor(UIColor.black.cgColor)
-        context!.addRect(CGRect(x: lround(totalBarWidth / 2) - lround(totalBarWidth * 0.02), y: totalImageHeight / 8, width: lround(totalBarWidth * 0.04), height: lround(Double(totalImageHeight) * 0.75)))
-        context!.strokePath()
+        context.setLineWidth(2.0)
+        context.setStrokeColor(UIColor.black.cgColor)
+        context.addRect(CGRect(x: lround(totalBarWidth / 2) - lround(totalBarWidth * 0.02), y: totalImageHeight / 8, width: lround(totalBarWidth * 0.04), height: lround(Double(totalImageHeight) * 0.75)))
+        context.strokePath()
         
         // get the image from the graphics context
         let resultImage = UIGraphicsGetImageFromCurrentImageContext()
