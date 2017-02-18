@@ -48,8 +48,6 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
             frameOfReferenceCalories = 2000
         }
         
-        let barWidth: Int = lround(abs(Double(netCalories) / Double(frameOfReferenceCalories)) * (Double(totalBarWidth) / 2))
-        
         let image: UIImage = UIImage()
         // begin a graphics context of sufficient size
         UIGraphicsBeginImageContext(CGSize(width: totalBarWidth, height: Double(totalImageHeight)))
@@ -60,28 +58,70 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
         // get the context for CoreGraphics
         let context = UIGraphicsGetCurrentContext()
         
-        var barStartPosition: Int = 0
+        let leftColor = UIColor(red: 63/255, green: 215/255, blue: 255/255, alpha: 1).cgColor
+        let rightColor = UIColor(red: 251/255, green: 44/255, blue: 0/255, alpha: 1).cgColor
+        let middleColor = UIColor.white.cgColor
+        let tickMarker: Double = 0.75
+        let tickHighlightTolerance: Double = 0.04
         
+        // Draw border rectangle 75% of screen
         if netCalories < 0 {
-            context!.setFillColor(UIColor(red: 255/255, green: 214/255, blue: 0, alpha: 1).cgColor)
-            barStartPosition = lround(totalBarWidth / 2)
+            // Draw left fill 0-LINE.
+            context!.setFillColor(leftColor)
+            
+            context!.fill(CGRect(x: 0, y: totalImageHeight / 4, width: lround(totalBarWidth * tickMarker), height: totalImageHeight / 2))
+            
+            // Draw right fill LINE-Y
+            context!.setFillColor(rightColor)
+            
+            var barWidth: Int = lround(abs(Double(netCalories) / Double(frameOfReferenceCalories)) * (Double(totalBarWidth * (1-tickMarker))))
+            if barWidth > lround(totalBarWidth * (1-tickMarker)) {
+                barWidth = lround(totalBarWidth * (1-tickMarker))
+            }
+            
+            context!.fill(CGRect(x: lround(totalBarWidth * tickMarker), y: totalImageHeight / 4, width: barWidth, height: totalImageHeight / 2))
+            
+            // Draw right border
+            context!.setStrokeColor(rightColor)
+            context!.addRect(CGRect(x: lround(totalBarWidth * tickMarker), y: totalImageHeight / 4, width: lround(totalBarWidth * (1-tickMarker)), height: totalImageHeight / 2))
+            context!.strokePath()
+            
         } else {
-            context!.setFillColor(UIColor(red: 69/255, green: 184/255, blue: 255/255, alpha: 1).cgColor)
-            barStartPosition = lround(totalBarWidth / 2 - Double(barWidth))
+            // Draw left border 0-LINE
+            context!.setStrokeColor(leftColor)
+            context!.addRect(CGRect(x: 0, y: totalImageHeight / 4, width: lround(totalBarWidth * tickMarker), height: totalImageHeight / 2))
+            context!.strokePath()
+            
+            // Draw left fill 0-X
+            context!.setFillColor(leftColor)
+            
+            var barWidth: Int = lround((1 - abs(Double(netCalories) / Double(frameOfReferenceCalories))) * (Double(totalBarWidth * (tickMarker))))
+            if barWidth > lround(totalBarWidth * (tickMarker)) {
+                barWidth = lround(totalBarWidth * (tickMarker))
+            }
+            
+            context!.fill(CGRect(x: 0, y: totalImageHeight / 4, width: barWidth, height: totalImageHeight / 2))
+            
+            // Draw right border
+            context!.setStrokeColor(rightColor)
+            context!.addRect(CGRect(x: lround(totalBarWidth * tickMarker), y: totalImageHeight / 4, width: lround(totalBarWidth * (1-tickMarker)), height: totalImageHeight / 2))
+            context!.strokePath()
         }
         
-        context!.fill(CGRect(x: barStartPosition, y: totalImageHeight / 4, width: barWidth, height: totalImageHeight / 2))
-        
+        // Draw hash - if got yellow, make yellow, else white
         // Now draw center
-        context!.setFillColor(UIColor.white.cgColor)
-        context!.fill(CGRect(x: lround(totalBarWidth / 2) - lround(totalBarWidth * 0.02), y: totalImageHeight / 8, width: lround(totalBarWidth * 0.04), height: lround(Double(totalImageHeight) * 0.75)))
+        context!.setFillColor(middleColor)
+        context!.fill(CGRect(x: lround(totalBarWidth * tickMarker) - lround(totalBarWidth * 0.02), y: totalImageHeight / 8, width: lround(totalBarWidth * 0.04), height: lround(Double(totalImageHeight) * 0.75)))
         
         // Border of center
-        // set stroking width and color of the context
-        context!.setLineWidth(2.0)
-        context!.setStrokeColor(UIColor.black.cgColor)
-        context!.addRect(CGRect(x: lround(totalBarWidth / 2) - lround(totalBarWidth * 0.02), y: totalImageHeight / 8, width: lround(totalBarWidth * 0.04), height: lround(Double(totalImageHeight) * 0.75)))
-        context!.strokePath()
+        // Draw ticker highlight border if close to completion
+        if abs(Double(netCalories) / Double(frameOfReferenceCalories)) <= tickHighlightTolerance {
+            // set stroking width and color of the context
+            context!.setLineWidth(2.0)
+            context!.setStrokeColor(leftColor)
+            context!.addRect(CGRect(x: lround(totalBarWidth * tickMarker) - lround(totalBarWidth * 0.02), y: totalImageHeight / 8, width: lround(totalBarWidth * 0.04), height: lround(Double(totalImageHeight) * 0.75)))
+            context!.strokePath()
+        }
         
         // get the image from the graphics context
         let resultImage = UIGraphicsGetImageFromCurrentImageContext()
