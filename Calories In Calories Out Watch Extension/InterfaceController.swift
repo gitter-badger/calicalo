@@ -30,6 +30,8 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
                 
                 if caloriesConsumed > 100 {
                     lowDietLabel.setText("")
+                } else {
+                    lowDietLabel.setText("Add Food!")
                 }
             }
         }
