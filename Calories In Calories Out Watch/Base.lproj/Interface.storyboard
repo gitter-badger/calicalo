@@ -8,11 +8,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11508"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="Raleway-Light.ttf">
-            <string>Raleway-Light</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Interface Controller-->
         <scene sceneID="aou-V4-d1y">
@@ -24,7 +19,7 @@
                                 <group width="1" alignment="center" layout="vertical" id="Bfz-gr-fN1">
                                     <items>
                                         <label alignment="center" text="..." id="Cle-dN-rr2">
-                                            <fontDescription key="font" name="Raleway-Light" family="Raleway" pointSize="32"/>
+                                            <fontDescription key="font" type="system" pointSize="32"/>
                                         </label>
                                         <label alignment="center" text="Net" id="dMb-fS-OTC">
                                             <fontDescription key="font" type="italicSystem" pointSize="10"/>
@@ -39,7 +34,7 @@
                                 <group width="0.33000000000000002" alignment="left" layout="vertical" id="cmO-X5-9x4">
                                     <items>
                                         <label alignment="center" text="..." id="jDt-5j-TUA">
-                                            <fontDescription key="font" name="Raleway-Light" family="Raleway" pointSize="16"/>
+                                            <fontDescription key="font" type="system" pointSize="16"/>
                                         </label>
                                         <label alignment="center" text="Rest" id="3wF-iU-SGY">
                                             <fontDescription key="font" type="italicSystem" pointSize="10"/>
@@ -49,7 +44,7 @@
                                 <group width="0.33000000000000002" alignment="left" layout="vertical" id="8wo-dP-f5r">
                                     <items>
                                         <label alignment="center" text="..." id="czG-8h-Tem">
-                                            <fontDescription key="font" name="Raleway-Light" family="Raleway" pointSize="16"/>
+                                            <fontDescription key="font" type="system" pointSize="16"/>
                                         </label>
                                         <label alignment="center" text="Active" id="dYY-F7-00Y">
                                             <fontDescription key="font" type="italicSystem" pointSize="10"/>
@@ -59,7 +54,7 @@
                                 <group width="0.33000000000000002" alignment="left" layout="vertical" id="bfh-UK-QNp">
                                     <items>
                                         <label alignment="center" text="..." id="hBk-qc-xvM">
-                                            <fontDescription key="font" name="Raleway-Light" family="Raleway" pointSize="16"/>
+                                            <fontDescription key="font" type="system" pointSize="16"/>
                                         </label>
                                         <label alignment="center" text="Diet" id="LqJ-dK-aQJ">
                                             <fontDescription key="font" type="italicSystem" pointSize="10"/>
