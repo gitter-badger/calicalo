@@ -16,7 +16,8 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
     @IBOutlet var activeCaloriesLabel: WKInterfaceLabel!
     @IBOutlet var caloriesConsumedLabel: WKInterfaceLabel!
     @IBOutlet var restingCaloriesLabel: WKInterfaceLabel!
-    @IBOutlet var calorieGraph: WKInterfaceImage!
+    @IBOutlet var calorieGraphGroup: WKInterfaceGroup!
+    @IBOutlet var lowDietLabel: WKInterfaceLabel!
     
     var calorieData:CalorieData?{
         didSet{
@@ -25,9 +26,42 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
                 activeCaloriesLabel.setText(String(activeCalories))
                 caloriesConsumedLabel.setText(String(caloriesConsumed))
                 totalCaloriesLabel.setText(String(netCalories))
-                calorieGraph.setImage(getNetMeterImage(restingCalories: restingCalories, activeCalories: activeCalories, netCalories: netCalories))
+                calorieGraphGroup.setBackgroundImage(getNetMeterImage(restingCalories: restingCalories, activeCalories: activeCalories, netCalories: netCalories))
+                
+                if caloriesConsumed > 100 {
+                    lowDietLabel.setText("")
+                } else {
+                    lowDietLabel.setText("Add Food!")
+                }
             }
         }
+    }
+    func getNetMeterLabel() -> UIImage {
+        let totalImageHeight: Int = Int(Double(WKInterfaceDevice.current().screenBounds.height) / 4)
+        
+        let image: UIImage = UIImage()
+        // begin a graphics context of sufficient size
+        UIGraphicsBeginImageContext(CGSize(width: 100, height: Double(totalImageHeight)))
+        
+        // draw original image into the context
+        image.draw(at: CGPoint.zero)
+        
+        // get the context for CoreGraphics
+        //Too many !'s make's me nervous and this makes the code a little cleaner
+        //I don't know when this could happen, but if it does, this way we'll find out.
+        guard let context = UIGraphicsGetCurrentContext() else {
+            fatalError("No graphics context")
+        }
+        context.setFillColor(UIColor(red: 63/255, green: 215/255, blue: 255/255, alpha: 1).cgColor)
+        context.fill(CGRect(x: 0, y: totalImageHeight / 8, width: 50, height: lround(Double(totalImageHeight) * 0.5)))
+        
+        // get the image from the graphics context
+        let resultImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        // end the graphics context
+        UIGraphicsEndImageContext()
+        
+        return resultImage!
     }
     
     func getNetMeterImage(restingCalories: Int, activeCalories: Int, netCalories: Int) -> UIImage {
@@ -59,14 +93,14 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
             fatalError("No graphics context")
         }
         
-        let leftColor = UIColor(red: 63/255, green: 215/255, blue: 255/255, alpha: 1).cgColor
-        let rightColor = UIColor(red: 251/255, green: 44/255, blue: 0/255, alpha: 1).cgColor
-        let highlightColor = UIColor(red: 255/255, green: 214/255, blue: 0/255, alpha: 1).cgColor
+        let leftColor = Colors.orange.cgColor
+        let rightColor = Colors.red.cgColor
+        let highlightColor = Colors.yellow.cgColor
         let middleColor = UIColor.white.cgColor
         let tickMarker: Double = 0.75
         let tickHighlightTolerance: Double = 0.04
-        
-        // Draw border rectangle 75% of screen
+
+        // Draw border rectangle 0-LINE
         if netCalories < 0 {
             // Draw left fill 0-LINE.
             context.setFillColor(leftColor)
