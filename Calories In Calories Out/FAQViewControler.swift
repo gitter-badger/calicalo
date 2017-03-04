@@ -22,6 +22,15 @@ class FAQViewController: UIViewController, WKUIDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBar.backgroundColor = UIColor.white
+        navigationController?.navigationBar.barTintColor = UIColor.white
+        navigationController?.navigationBar.tintColor = Colors.orange
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:Colors.orange]
+        
+        
+        navigationItem.title = "FAQ"
+        
+        
         let myURL = URL(string: "https://calicalo.base11studios.com/faq")
         let myRequest = URLRequest(url: myURL!)
         webView.load(myRequest)

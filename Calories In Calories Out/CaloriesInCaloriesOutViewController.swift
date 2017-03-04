@@ -49,6 +49,12 @@ class CaloriesInCaloriesOutViewController : UITableViewController{
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.backgroundColor = Colors.orange
+        navigationController?.navigationBar.barTintColor = Colors.orange
+        super.viewWillAppear(animated)
+    }
+    
         
     
     func refreshTouched(_ sender: Any) {
