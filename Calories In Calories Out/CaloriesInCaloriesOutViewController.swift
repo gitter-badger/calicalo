@@ -36,6 +36,8 @@ class CaloriesInCaloriesOutViewController : UITableViewController{
         
         refreshControl?.tintColor = Colors.orange
         navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "logo-txt-white"))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "FAQ", style: .plain, target: self, action: #selector(goToFaq))
+        navigationItem.rightBarButtonItem?.tintColor = UIColor.white
         
         if let healthStoreProvider = UIApplication.shared.delegate as? HealthStoreProvider{
             healthStore = healthStoreProvider.healthStore
@@ -62,6 +64,10 @@ class CaloriesInCaloriesOutViewController : UITableViewController{
         if refreshControl?.isRefreshing == true{
             loadCalories()
         }
+    }
+    
+    func goToFaq(){
+        performSegue(withIdentifier: "faqSegue", sender: self)
     }
     
 }
