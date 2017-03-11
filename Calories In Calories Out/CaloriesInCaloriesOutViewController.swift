@@ -11,7 +11,7 @@ import UIKit
 import HealthKit
 
 
-class CaloriesInCaloriesOutViewController : UIViewController{
+class CaloriesInCaloriesOutViewController : UITableViewController{
     
 
     
@@ -34,14 +34,25 @@ class CaloriesInCaloriesOutViewController : UIViewController{
     
     override func viewDidLoad() {
         
+        refreshControl?.tintColor = Colors.orange
+        navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "logo-txt-white"))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "FAQ", style: .plain, target: self, action: #selector(goToFaq))
+        navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+        
         if let healthStoreProvider = UIApplication.shared.delegate as? HealthStoreProvider{
             healthStore = healthStoreProvider.healthStore
             
             loadCalories()
-            navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "logo-txt-white"))
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "refresh", style: .plain, target: self, action: #selector(refreshTouched))
+            
             
         }
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.backgroundColor = Colors.orange
+        navigationController?.navigationBar.barTintColor = Colors.orange
+        super.viewWillAppear(animated)
     }
     
         
@@ -54,6 +65,16 @@ class CaloriesInCaloriesOutViewController : UIViewController{
             
         }
     }
+    @IBAction func beginRefresh(_ sender: Any) {
+        
+        if refreshControl?.isRefreshing == true{
+            loadCalories()
+        }
+    }
+    
+    func goToFaq(){
+        performSegue(withIdentifier: "faqSegue", sender: self)
+    }
     
 }
 
@@ -61,6 +82,9 @@ class CaloriesInCaloriesOutViewController : UIViewController{
 
 extension CaloriesInCaloriesOutViewController:CalorieDataLoader{
     func allDone(){
+        if self.refreshControl?.isRefreshing == true{
+            self.refreshControl?.endRefreshing()
+        }
         if let calorieData = calorieData, let restingCalories = calorieData.restingCaloriesAverage , let activeCalories = calorieData.activeCalories, let caloriesConsumed = calorieData.caloriesConsumed, let netCalories = calorieData.netCalories{
             restingCaloriesLabel.text = String(restingCalories)
             activeCaloriesLabel.text = String(activeCalories)

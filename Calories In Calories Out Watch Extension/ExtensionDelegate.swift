@@ -74,7 +74,12 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider {
                     guard let complications = server.activeComplications, complications.count > 0 else {
                         return
                     }
-                    server.reloadTimeline(for: complications[0])
+                    
+                    for complication in complications{
+                        server.reloadTimeline(for: complication)
+                    }
+                    
+                    
                     
                     WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: Date(timeInterval: 900, since: Date()), userInfo: nil){
                         error in
@@ -104,7 +109,9 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider {
                     guard let complications = server.activeComplications, complications.count > 0 else {
                         return
                     }
-                    server.reloadTimeline(for: complications[0])
+                    for complication in complications{
+                        server.reloadTimeline(for: complication)
+                    }
                     
                     snapshotTask.setTaskCompleted(restoredDefaultState: true, estimatedSnapshotExpiration: Date.distantFuture, userInfo: nil)
                     
