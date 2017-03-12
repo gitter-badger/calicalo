@@ -44,7 +44,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         let now = Date()
         
         
-        if complication.family == .utilitarianSmall{
+        if complication.family == .utilitarianSmall || complication.family == .utilitarianSmallFlat{
             let textTemplate = CLKComplicationTemplateUtilitarianSmallFlat()
             textTemplate.textProvider = CLKSimpleTextProvider(text: String(netCalories))
             textTemplate.imageProvider = CLKImageProvider(onePieceImage: #imageLiteral(resourceName: "Complication/Utilitarian"))
@@ -162,7 +162,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     func getLocalizableSampleTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void) {
         // This method will be called once per supported complication, and the results will be cached
-        if complication.family == .utilitarianSmall{
+        if complication.family == .utilitarianSmall || complication.family == .utilitarianSmallFlat{
             let text = "1234"
             let textTemplate = CLKComplicationTemplateUtilitarianSmallFlat()
             textTemplate.textProvider = CLKSimpleTextProvider(text: text)
