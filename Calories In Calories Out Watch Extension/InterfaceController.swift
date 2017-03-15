@@ -18,6 +18,7 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
     @IBOutlet var restingCaloriesLabel: WKInterfaceLabel!
     @IBOutlet var calorieGraphGroup: WKInterfaceGroup!
     @IBOutlet var lowDietLabel: WKInterfaceLabel!
+    @IBOutlet var updatedLabel: WKInterfaceLabel!
     
     var calorieData:CalorieData?{
         didSet{
@@ -27,6 +28,13 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
                 caloriesConsumedLabel.setText(String(caloriesConsumed))
                 totalCaloriesLabel.setText(String(netCalories))
                 calorieGraphGroup.setBackgroundImage(getNetMeterImage(restingCalories: restingCalories, activeCalories: activeCalories, netCalories: netCalories))
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.locale = Calendar.current.locale
+                dateFormatter.dateStyle = .none
+                dateFormatter.timeStyle = .short
+                
+                updatedLabel.setText(dateFormatter.string(from: Date()))
                 
                 if caloriesConsumed > 100 {
                     lowDietLabel.setText("")

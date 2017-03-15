@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch38" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -15,12 +15,22 @@
                     <items>
                         <group width="1" alignment="left" id="tdB-pp-3Ok">
                             <items>
-                                <group width="1" alignment="center" layout="vertical" id="Bfz-gr-fN1">
+                                <group width="0.5" alignment="center" layout="vertical" id="Bfz-gr-fN1">
                                     <items>
                                         <label alignment="center" text="..." id="Cle-dN-rr2">
-                                            <fontDescription key="font" type="system" pointSize="32"/>
+                                            <fontDescription key="font" type="system" pointSize="16"/>
                                         </label>
                                         <label alignment="center" text="Net" id="dMb-fS-OTC">
+                                            <fontDescription key="font" type="italicSystem" pointSize="10"/>
+                                        </label>
+                                    </items>
+                                </group>
+                                <group width="0.5" alignment="center" layout="vertical" id="Pnk-ZT-hRF">
+                                    <items>
+                                        <label alignment="center" text="..." id="ozd-gx-tcP">
+                                            <fontDescription key="font" type="system" pointSize="16"/>
+                                        </label>
+                                        <label alignment="center" text="Updated" id="fx9-oy-wLB">
                                             <fontDescription key="font" type="italicSystem" pointSize="10"/>
                                         </label>
                                     </items>
@@ -74,6 +84,7 @@
                         <outlet property="lowDietLabel" destination="tDk-MR-NZb" id="0Z5-GX-Oiv"/>
                         <outlet property="restingCaloriesLabel" destination="jDt-5j-TUA" id="Uym-fP-HOv"/>
                         <outlet property="totalCaloriesLabel" destination="Cle-dN-rr2" id="s6j-uw-qAw"/>
+                        <outlet property="updatedLabel" destination="ozd-gx-tcP" id="OMC-MK-MyV"/>
                     </connections>
                 </controller>
             </objects>
