@@ -9,6 +9,7 @@
 import WatchKit
 import HealthKit
 import ClockKit
+import WatchConnectivity
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider {
     
@@ -29,6 +30,13 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider {
         guard let healthStore = healthStore else {
             fatalError("health store not instantiated")
         }
+        
+        if WCSession.isSupported(){
+            let session = WCSession.default()
+            session.delegate = self
+            session.activate()
+        }
+        
         synchronousCalorieDataLoader = SynchronousCalorieDataLoader(healthStore: healthStore)
         
     }
@@ -139,4 +147,17 @@ extension ExtensionDelegate:CalorieDataContainer{
     func getCalorieDataLoader() -> SynchronousCalorieDataLoader? {
         return self.synchronousCalorieDataLoader
     }
+}
+
+extension ExtensionDelegate:WCSessionDelegate{
+    
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        
+    }
+    
+    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
+        UserDefaults.standard.set(userInfo["unit"], forKey:"com.base11studios.cico.unit")
+        UserDefaults.standard.synchronize()
+    }
+    
 }

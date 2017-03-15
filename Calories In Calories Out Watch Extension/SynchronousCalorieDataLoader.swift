@@ -24,8 +24,6 @@ class SynchronousCalorieDataLoader{
     
     let caloriesConsumedType = HKQuantityType.quantityType(forIdentifier: .dietaryEnergyConsumed)
     
-    let defaults = UserDefaults(suiteName: "group.com.base11studios.cico")
-    
     var unit:String?
     
     private var calorieData:CalorieData?
@@ -35,7 +33,7 @@ class SynchronousCalorieDataLoader{
     }
     
     func loadCalories() -> CalorieData?{
-        unit = defaults?.string(forKey: "com.base11studios.cico.unit")
+        unit = UserDefaults.standard.string(forKey: "com.base11studios.cico.unit")
         if unit == nil{
             unit = "calories"
         }

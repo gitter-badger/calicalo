@@ -8,12 +8,14 @@
 
 import UIKit
 import HealthKit
+import WatchConnectivity
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, HealthStoreProvider {
+class AppDelegate: UIResponder, UIApplicationDelegate, HealthStoreProvider, WCSessionProvider {
 
     var window: UIWindow?
     var healthStore:HKHealthStore?
+    var session:WCSession?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -21,6 +23,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, HealthStoreProvider {
         
         if(HKHealthStore.isHealthDataAvailable()){
             healthStore = HKHealthStore()
+        }
+        
+        if WCSession.isSupported(){
+            session = WCSession.default()
+            session?.delegate = self
+            session?.activate()
         }
         
         return true
@@ -49,5 +57,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, HealthStoreProvider {
     }
 
 
+}
+
+extension AppDelegate:WCSessionDelegate{
+    @available(iOS 9.3, *)
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        
+    }
+    
+    func sessionDidDeactivate(_ session: WCSession) {
+        
+    }
+    
+    func sessionDidBecomeInactive(_ session: WCSession) {
+        
+    }
 }
 

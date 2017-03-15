@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import WatchConnectivity
 
 
 class SettingsViewController : UITableViewController{
@@ -15,13 +16,11 @@ class SettingsViewController : UITableViewController{
     
     @IBOutlet weak var unitsSegmentedControl: UISegmentedControl!
     
-    let defaults = UserDefaults(suiteName: "group.com.base11studios.cico")
-    
     
     override func viewDidLoad() {
         unitsSegmentedControl.addTarget(self, action: #selector(SettingsViewController.segmentChanged), for: .valueChanged)
         
-        let unit = defaults?.string(forKey: "com.base11studios.cico.unit")
+        let unit = UserDefaults.standard.string(forKey: "com.base11studios.cico.unit")
         
         if(unit == "calories"){
             unitsSegmentedControl.selectedSegmentIndex = 0
@@ -42,13 +41,40 @@ class SettingsViewController : UITableViewController{
 
     
     func segmentChanged(){
+        
+        var session:WCSession?
+        
+        if let sessionProvider = UIApplication.shared.delegate as? WCSessionProvider{
+            session = sessionProvider.session
+        }
+        
         if unitsSegmentedControl.selectedSegmentIndex == 0 {
-            defaults?.set("calories", forKey:"com.base11studios.cico.unit")
+            UserDefaults.standard.set("calories", forKey:"com.base11studios.cico.unit")
+            if let session = session{
+                sendUnit(session, unit: "calories")
+            }
+            
         }
         else{
-            defaults?.set("joules", forKey:"com.base11studios.cico.unit")
+            UserDefaults.standard.set("joules", forKey:"com.base11studios.cico.unit")
+            if let session = session{
+                sendUnit(session, unit: "joules")
+            }
         }
-        defaults?.synchronize()
+        UserDefaults.standard.synchronize()
+    }
+    
+    private func sendUnit(_ session:WCSession, unit:String){
+        if #available(iOS 9.3, *) {
+            if session.activationState == .activated && session.isPaired && session.isWatchAppInstalled{
+                session.transferUserInfo(["unit":unit])
+            }
+        } else {
+            if session.isPaired && session.isWatchAppInstalled{
+                session.transferUserInfo(["unit":unit])
+            }
+        }
+
     }
     
 }

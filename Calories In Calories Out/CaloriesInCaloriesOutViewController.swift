@@ -30,19 +30,17 @@ class CaloriesInCaloriesOutViewController : UITableViewController{
     
     let caloriesConsumedType = HKQuantityType.quantityType(forIdentifier: .dietaryEnergyConsumed)
     
-    let defaults = UserDefaults(suiteName: "group.com.base11studios.cico")
-    
     var unit:String?
     
     var calorieData:CalorieData? = CalorieData()
     
     override func viewDidLoad() {
         
-        unit = defaults?.string(forKey: "com.base11studios.cico.unit")
+        unit = UserDefaults.standard.string(forKey: "com.base11studios.cico.unit")
         
         if unit == nil {
-            defaults?.set("calories", forKey:"com.base11studios.cico.unit")
-            defaults?.synchronize()
+            UserDefaults.standard.set("calories", forKey:"com.base11studios.cico.unit")
+            UserDefaults.standard.synchronize()
        }
         
         refreshControl?.tintColor = Colors.orange
@@ -70,7 +68,7 @@ class CaloriesInCaloriesOutViewController : UITableViewController{
     @IBAction func beginRefresh(_ sender: Any) {
         
         if refreshControl?.isRefreshing == true{
-            unit = defaults?.string(forKey: "com.base11studios.cico.unit")
+            unit = UserDefaults.standard.string(forKey: "com.base11studios.cico.unit")
             loadCalories()
         }
     }

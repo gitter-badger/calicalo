@@ -37,9 +37,6 @@ protocol CalorieDataLoader:class {
     var unit:String?{
         get
     }
-    var defaults:UserDefaults?{
-        get
-    }
        
     func loadCalories()
     func allDone()
