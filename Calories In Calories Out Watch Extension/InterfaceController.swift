@@ -43,18 +43,12 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
     
     func setMeterText(restingCalories: Int, activeCalories: Int, netCalories: Int, caloriesConsumed: Int) {
         let percentageToGoal = getPercentageToGoal(restingCalories: restingCalories, activeCalories: activeCalories, netCalories: netCalories)
-        let percentageCompleted = Double(caloriesConsumed) / Double(restingCalories + activeCalories)
+        let percentageCompleted = Int(Double(caloriesConsumed) / Double(restingCalories + activeCalories) * 100)
 
         if caloriesConsumed < 100 {
             lowDietLabel.setText("Add Food")
-        } else if percentageCompleted < 0.5 {
-            lowDietLabel.setText("Keep Adding")
-        } else if percentageCompleted < 0.9 {
-            lowDietLabel.setText("Doing Great")
-        } else if percentageCompleted >= 0.9 && percentageCompleted <= 1.1 {
-            lowDietLabel.setText("Near Net 0")
-        } else if percentageCompleted > 1.1 {
-            lowDietLabel.setText("Past Net 0")
+        } else {
+            lowDietLabel.setText("\(percentageCompleted)%")
         }
     }
     

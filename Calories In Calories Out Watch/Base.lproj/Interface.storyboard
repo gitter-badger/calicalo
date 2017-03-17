@@ -29,7 +29,9 @@
                         </group>
                         <group width="1" height="0.25" alignment="left" id="G57-eu-Z8g">
                             <items>
-                                <label width="0.75" alignment="left" verticalAlignment="center" accessibilityLabel="Add Food!" accessibilityValue="Add Food!" text="Add Food!" textAlignment="center" id="tDk-MR-NZb" userLabel="Low Diet Label"/>
+                                <label width="0.75" alignment="left" verticalAlignment="center" accessibilityLabel="Add Food!" accessibilityValue="Add Food!" text="Add Food!" textAlignment="center" id="tDk-MR-NZb" userLabel="Low Diet Label">
+                                    <fontDescription key="font" type="system" weight="semibold" pointSize="16"/>
+                                </label>
                             </items>
                         </group>
                         <group width="1" alignment="left" layout="vertical" spacing="13" id="3CX-cR-BFu">
