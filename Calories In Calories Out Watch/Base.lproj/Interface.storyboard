@@ -18,19 +18,9 @@
                                 <group width="0.5" alignment="center" layout="vertical" id="Bfz-gr-fN1">
                                     <items>
                                         <label alignment="center" text="..." id="Cle-dN-rr2">
-                                            <fontDescription key="font" type="system" pointSize="16"/>
+                                            <fontDescription key="font" type="system" pointSize="22"/>
                                         </label>
                                         <label alignment="center" text="Net" id="dMb-fS-OTC">
-                                            <fontDescription key="font" type="italicSystem" pointSize="10"/>
-                                        </label>
-                                    </items>
-                                </group>
-                                <group width="0.5" alignment="center" layout="vertical" id="Pnk-ZT-hRF">
-                                    <items>
-                                        <label alignment="center" text="..." id="ozd-gx-tcP">
-                                            <fontDescription key="font" type="system" pointSize="16"/>
-                                        </label>
-                                        <label alignment="center" text="Updated" id="fx9-oy-wLB">
                                             <fontDescription key="font" type="italicSystem" pointSize="10"/>
                                         </label>
                                     </items>
@@ -42,35 +32,49 @@
                                 <label width="0.75" alignment="left" verticalAlignment="center" accessibilityLabel="Add Food!" accessibilityValue="Add Food!" text="Add Food!" textAlignment="center" id="tDk-MR-NZb" userLabel="Low Diet Label"/>
                             </items>
                         </group>
-                        <group width="1" alignment="left" id="Fmi-6M-nuH">
+                        <group width="1" alignment="left" layout="vertical" spacing="13" id="3CX-cR-BFu">
                             <items>
-                                <group width="0.33000000000000002" alignment="left" layout="vertical" id="cmO-X5-9x4">
+                                <group width="1" alignment="left" id="Fmi-6M-nuH">
                                     <items>
-                                        <label alignment="center" text="..." id="jDt-5j-TUA">
-                                            <fontDescription key="font" type="system" pointSize="16"/>
-                                        </label>
-                                        <label alignment="center" text="Rest" id="3wF-iU-SGY">
-                                            <fontDescription key="font" type="italicSystem" pointSize="10"/>
-                                        </label>
+                                        <group width="0.33000000000000002" alignment="left" layout="vertical" id="cmO-X5-9x4">
+                                            <items>
+                                                <label alignment="center" text="..." id="jDt-5j-TUA">
+                                                    <fontDescription key="font" type="system" pointSize="16"/>
+                                                </label>
+                                                <label alignment="center" text="Rest" id="3wF-iU-SGY">
+                                                    <fontDescription key="font" type="italicSystem" pointSize="10"/>
+                                                </label>
+                                            </items>
+                                        </group>
+                                        <group width="0.33000000000000002" alignment="left" layout="vertical" id="8wo-dP-f5r">
+                                            <items>
+                                                <label alignment="center" text="..." id="czG-8h-Tem">
+                                                    <fontDescription key="font" type="system" pointSize="16"/>
+                                                </label>
+                                                <label alignment="center" text="Active" id="dYY-F7-00Y">
+                                                    <fontDescription key="font" type="italicSystem" pointSize="10"/>
+                                                </label>
+                                            </items>
+                                        </group>
+                                        <group width="0.33000000000000002" alignment="left" layout="vertical" id="bfh-UK-QNp">
+                                            <items>
+                                                <label alignment="center" text="..." id="hBk-qc-xvM">
+                                                    <fontDescription key="font" type="system" pointSize="16"/>
+                                                </label>
+                                                <label alignment="center" text="Diet" id="LqJ-dK-aQJ">
+                                                    <fontDescription key="font" type="italicSystem" pointSize="10"/>
+                                                </label>
+                                            </items>
+                                        </group>
                                     </items>
                                 </group>
-                                <group width="0.33000000000000002" alignment="left" layout="vertical" id="8wo-dP-f5r">
+                                <group width="1" alignment="left" verticalAlignment="center" spacing="3" id="uFf-7X-KUm">
                                     <items>
-                                        <label alignment="center" text="..." id="czG-8h-Tem">
-                                            <fontDescription key="font" type="system" pointSize="16"/>
+                                        <label alignment="center" text="As of " id="BLY-gw-Z3A">
+                                            <fontDescription key="font" type="italicSystem" pointSize="12"/>
                                         </label>
-                                        <label alignment="center" text="Active" id="dYY-F7-00Y">
-                                            <fontDescription key="font" type="italicSystem" pointSize="10"/>
-                                        </label>
-                                    </items>
-                                </group>
-                                <group width="0.33000000000000002" alignment="left" layout="vertical" id="bfh-UK-QNp">
-                                    <items>
-                                        <label alignment="center" text="..." id="hBk-qc-xvM">
-                                            <fontDescription key="font" type="system" pointSize="16"/>
-                                        </label>
-                                        <label alignment="center" text="Diet" id="LqJ-dK-aQJ">
-                                            <fontDescription key="font" type="italicSystem" pointSize="10"/>
+                                        <label alignment="center" text="..." id="ozd-gx-tcP">
+                                            <fontDescription key="font" type="italicSystem" pointSize="12"/>
                                         </label>
                                     </items>
                                 </group>
