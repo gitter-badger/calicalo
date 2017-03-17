@@ -42,20 +42,30 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         
         var entry : CLKComplicationTimelineEntry?
         let now = Date()
+        let unit = UserDefaults.standard.string(forKey: "com.base11studios.cico.unit")
+        
+        let suffix:String
+        
+        if unit == nil || unit == "calories"{
+            suffix = "kCal"
+        }
+        else{
+            suffix = "kj"
+        }
         
         
         if complication.family == .utilitarianSmall || complication.family == .utilitarianSmallFlat{
             let textTemplate = CLKComplicationTemplateUtilitarianSmallFlat()
-            textTemplate.textProvider = CLKSimpleTextProvider(text: String(netCalories))
+            textTemplate.textProvider = CLKSimpleTextProvider(text: String(netCalories), shortText:formatString(data: netCalories))
             textTemplate.imageProvider = CLKImageProvider(onePieceImage: #imageLiteral(resourceName: "Complication/Utilitarian"))
             textTemplate.imageProvider?.tintColor = Colors.orange
             entry = CLKComplicationTimelineEntry(date: now, complicationTemplate: textTemplate)
             handler(entry)
         }
         else if complication.family == .modularSmall{
-            let line2Text = "kCal"
+            let line2Text = suffix
             let textTemplate = CLKComplicationTemplateModularSmallStackText()
-            textTemplate.line1TextProvider = CLKSimpleTextProvider(text:String(netCalories))
+            textTemplate.line1TextProvider = CLKSimpleTextProvider(text:String(netCalories), shortText:formatString(data: netCalories))
             textTemplate.line1TextProvider.tintColor = Colors.orange
             textTemplate.line2TextProvider = CLKSimpleTextProvider(text: line2Text)
             entry = CLKComplicationTimelineEntry(date: now, complicationTemplate: textTemplate)
@@ -63,9 +73,9 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
 
         }
         else if complication.family == .circularSmall{
-            let line2Text = "kCal"
+            let line2Text = suffix
             let textTemplate = CLKComplicationTemplateCircularSmallStackText()
-            textTemplate.line1TextProvider = CLKSimpleTextProvider(text:String(netCalories))
+            textTemplate.line1TextProvider = CLKSimpleTextProvider(text:String(netCalories), shortText:formatString(data: netCalories))
             textTemplate.line1TextProvider.tintColor = Colors.orange
             textTemplate.line2TextProvider = CLKSimpleTextProvider(text: line2Text)
             entry = CLKComplicationTimelineEntry(date: now, complicationTemplate: textTemplate)
@@ -77,7 +87,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
            
             columnTemplate.row1Column1TextProvider = CLKSimpleTextProvider(text: "Out")
             columnTemplate.row1Column1TextProvider.tintColor = UIColor.green
-            columnTemplate.row1Column2TextProvider = CLKSimpleTextProvider(text: "\(restingCalories+activeCalories) kCal")
+            columnTemplate.row1Column2TextProvider = CLKSimpleTextProvider(text: "\(restingCalories+activeCalories) \(suffix)", shortText:"\(formatString(data:restingCalories+activeCalories)) \(suffix)")
             
             columnTemplate.row2Column1TextProvider = CLKSimpleTextProvider(text: "In")
             
@@ -88,11 +98,11 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
                 columnTemplate.row2Column1TextProvider.tintColor = UIColor.red
             }
             
-            columnTemplate.row2Column2TextProvider = CLKSimpleTextProvider(text: "\(caloriesConsumed) kCal")
+            columnTemplate.row2Column2TextProvider = CLKSimpleTextProvider(text: "\(caloriesConsumed) \(suffix)", shortText:"\(formatString(data:caloriesConsumed)) \(suffix)")
             
             columnTemplate.row3Column1TextProvider = CLKSimpleTextProvider(text:"Net")
             columnTemplate.row3Column1TextProvider.tintColor = Colors.orange
-            columnTemplate.row3Column2TextProvider = CLKSimpleTextProvider(text: "\(netCalories) kCal")
+            columnTemplate.row3Column2TextProvider = CLKSimpleTextProvider(text: "\(netCalories) \(suffix)", shortText:"\(formatString(data:netCalories)) \(suffix)")
             
             entry = CLKComplicationTimelineEntry(date: now, complicationTemplate: columnTemplate)
             handler(entry)
@@ -100,16 +110,16 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         }
         else if complication.family == .utilitarianLarge{
             let textTemplate = CLKComplicationTemplateUtilitarianLargeFlat()
-            textTemplate.textProvider = CLKSimpleTextProvider(text: "\(restingCalories + activeCalories)-\(caloriesConsumed) = \(netCalories)")
+            textTemplate.textProvider = CLKSimpleTextProvider(text: "\(restingCalories + activeCalories)-\(caloriesConsumed) = \(netCalories)", shortText:"\(formatString(data:restingCalories + activeCalories))-\(formatString(data:caloriesConsumed)) = \(formatString(data:netCalories))")
             textTemplate.imageProvider = CLKImageProvider(onePieceImage: #imageLiteral(resourceName: "Complication/Utilitarian"))
             textTemplate.imageProvider?.tintColor = Colors.orange
             entry = CLKComplicationTimelineEntry(date: now, complicationTemplate: textTemplate)
             handler(entry)
         }
         else if complication.family == .extraLarge{
-            let line2Text = "kCal"
+            let line2Text = suffix
             let textTemplate = CLKComplicationTemplateExtraLargeStackText()
-            textTemplate.line1TextProvider = CLKSimpleTextProvider(text:String(netCalories))
+            textTemplate.line1TextProvider = CLKSimpleTextProvider(text:String(netCalories), shortText:formatString(data:netCalories))
             textTemplate.line1TextProvider.tintColor = Colors.orange
             textTemplate.line2TextProvider = CLKSimpleTextProvider(text: line2Text)
             entry = CLKComplicationTimelineEntry(date: now, complicationTemplate: textTemplate)
@@ -140,6 +150,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
                 text = formattedNumber+"K"
             }
         }
+            
         else{
             text = String(data)
         }

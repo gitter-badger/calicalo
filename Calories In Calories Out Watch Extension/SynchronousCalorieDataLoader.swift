@@ -24,6 +24,8 @@ class SynchronousCalorieDataLoader{
     
     let caloriesConsumedType = HKQuantityType.quantityType(forIdentifier: .dietaryEnergyConsumed)
     
+    var unit:String?
+    
     private var calorieData:CalorieData?
     
     init(healthStore:HKHealthStore){
@@ -31,6 +33,10 @@ class SynchronousCalorieDataLoader{
     }
     
     func loadCalories() -> CalorieData?{
+        unit = UserDefaults.standard.string(forKey: "com.base11studios.cico.unit")
+        if unit == nil{
+            unit = "calories"
+        }
         if let healthStore = healthStore{
             
             calorieData = CalorieData()
@@ -110,8 +116,16 @@ class SynchronousCalorieDataLoader{
                 }
                 
                 if let quantity = results.sumQuantity(){
-                    let unit = HKUnit.kilocalorie()
-                    calories = quantity.doubleValue(for: unit)
+                    var unitForCalculation:HKUnit
+                    
+                    if(self.unit == nil || self.unit == "calories"){
+                        unitForCalculation = HKUnit.kilocalorie()
+                    }
+                    else{
+                        unitForCalculation = HKUnit.jouleUnit(with: .kilo)
+                    }
+
+                    calories = quantity.doubleValue(for: unitForCalculation)
                     
                     
                     switch type {
@@ -196,8 +210,16 @@ class SynchronousCalorieDataLoader{
             statsCollection.enumerateStatistics(from: startDate, to: yesterday){
                 statistics, stop in
                 if let sum = statistics.sumQuantity() {
-                    let unit = HKUnit.kilocalorie()
-                    let calories = sum.doubleValue(for: unit)
+                    var unitForCalculation:HKUnit
+                    
+                    if(self.unit == nil || self.unit == "calories"){
+                        unitForCalculation = HKUnit.kilocalorie()
+                    }
+                    else{
+                        unitForCalculation = HKUnit.jouleUnit(with: .kilo)
+                    }
+
+                    let calories = sum.doubleValue(for: unitForCalculation)
                     total = total + Int(calories)
                     
                 }

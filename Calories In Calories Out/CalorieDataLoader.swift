@@ -34,6 +34,9 @@ protocol CalorieDataLoader:class {
     var calorieData:CalorieData?{
         get set
     }
+    var unit:String?{
+        get
+    }
        
     func loadCalories()
     func allDone()
@@ -108,8 +111,17 @@ extension CalorieDataLoader{
                 }
 
                 if let quantity = results.sumQuantity(){
-                    let unit = HKUnit.kilocalorie()
-                    calories = quantity.doubleValue(for: unit)
+                    
+                    var unitForCalculation:HKUnit
+                    
+                    if(self.unit == nil || self.unit == "calories"){
+                        unitForCalculation = HKUnit.kilocalorie()
+                    }
+                    else{
+                        unitForCalculation = HKUnit.jouleUnit(with: .kilo)
+                    }
+                    
+                    calories = quantity.doubleValue(for: unitForCalculation)
                     
                     
                     switch type {
@@ -183,8 +195,16 @@ extension CalorieDataLoader{
             statsCollection.enumerateStatistics(from: startDate, to: yesterday){
                 statistics, stop in
                 if let sum = statistics.sumQuantity() {
-                    let unit = HKUnit.kilocalorie()
-                    let calories = sum.doubleValue(for: unit)
+                    var unitForCalculation:HKUnit
+                    
+                    if(self.unit == nil || self.unit == "calories"){
+                        unitForCalculation = HKUnit.kilocalorie()
+                    }
+                    else{
+                        unitForCalculation = HKUnit.jouleUnit(with: .kilo)
+                    }
+
+                    let calories = sum.doubleValue(for: unitForCalculation)
                     total = total + Int(calories)
                     
                 }

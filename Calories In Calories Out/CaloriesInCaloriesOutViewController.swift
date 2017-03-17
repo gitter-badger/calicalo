@@ -30,13 +30,21 @@ class CaloriesInCaloriesOutViewController : UITableViewController{
     
     let caloriesConsumedType = HKQuantityType.quantityType(forIdentifier: .dietaryEnergyConsumed)
     
+    var unit:String?
+    
     var calorieData:CalorieData? = CalorieData()
     
     override func viewDidLoad() {
         
+        unit = UserDefaults.standard.string(forKey: "com.base11studios.cico.unit")
+        
+        if unit == nil {
+            UserDefaults.standard.set("calories", forKey:"com.base11studios.cico.unit")
+            UserDefaults.standard.synchronize()
+       }
+        
         refreshControl?.tintColor = Colors.orange
         navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "logo-txt-white"))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "FAQ", style: .plain, target: self, action: #selector(goToFaq))
         navigationItem.rightBarButtonItem?.tintColor = UIColor.white
         
         if let healthStoreProvider = UIApplication.shared.delegate as? HealthStoreProvider{
@@ -57,23 +65,12 @@ class CaloriesInCaloriesOutViewController : UITableViewController{
     
         
     
-    func refreshTouched(_ sender: Any) {
-        if let healthStoreProvider = UIApplication.shared.delegate as? HealthStoreProvider{
-            healthStore = healthStoreProvider.healthStore
-            
-            loadCalories()
-            
-        }
-    }
     @IBAction func beginRefresh(_ sender: Any) {
         
         if refreshControl?.isRefreshing == true{
+            unit = UserDefaults.standard.string(forKey: "com.base11studios.cico.unit")
             loadCalories()
         }
-    }
-    
-    func goToFaq(){
-        performSegue(withIdentifier: "faqSegue", sender: self)
     }
     
 }

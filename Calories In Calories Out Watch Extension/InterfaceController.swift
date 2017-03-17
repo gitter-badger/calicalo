@@ -18,6 +18,7 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
     @IBOutlet var restingCaloriesLabel: WKInterfaceLabel!
     @IBOutlet var calorieGraphGroup: WKInterfaceGroup!
     @IBOutlet var lowDietLabel: WKInterfaceLabel!
+    @IBOutlet var updatedLabel: WKInterfaceLabel!
     
     var calorieData:CalorieData?{
         didSet{
@@ -28,14 +29,29 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
                 totalCaloriesLabel.setText(String(netCalories))
                 calorieGraphGroup.setBackgroundImage(getNetMeterImage(restingCalories: restingCalories, activeCalories: activeCalories, netCalories: netCalories))
                 
-                if caloriesConsumed > 100 {
-                    lowDietLabel.setText("")
-                } else {
-                    lowDietLabel.setText("Add Food!")
-                }
+                let dateFormatter = DateFormatter()
+                dateFormatter.locale = Calendar.current.locale
+                dateFormatter.dateStyle = .none
+                dateFormatter.timeStyle = .short
+                
+                updatedLabel.setText(dateFormatter.string(from: Date()))
+                
+                setMeterText(restingCalories: restingCalories, activeCalories: activeCalories, netCalories: netCalories, caloriesConsumed: caloriesConsumed)
             }
         }
     }
+    
+    func setMeterText(restingCalories: Int, activeCalories: Int, netCalories: Int, caloriesConsumed: Int) {
+        let percentageToGoal = getPercentageToGoal(restingCalories: restingCalories, activeCalories: activeCalories, netCalories: netCalories)
+        let percentageCompleted = Int(Double(caloriesConsumed) / Double(restingCalories + activeCalories) * 100)
+
+        if caloriesConsumed < 100 {
+            lowDietLabel.setText("Add Food")
+        } else {
+            lowDietLabel.setText("\(percentageCompleted)%")
+        }
+    }
+    
     func getNetMeterLabel() -> UIImage {
         let totalImageHeight: Int = Int(Double(WKInterfaceDevice.current().screenBounds.height) / 4)
         
@@ -64,20 +80,25 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
         return resultImage!
     }
     
-    func getNetMeterImage(restingCalories: Int, activeCalories: Int, netCalories: Int) -> UIImage {
-        let totalBarWidth: Double = Double(WKInterfaceDevice.current().screenBounds.width)
-        let totalImageHeight: Int = Int(Double(WKInterfaceDevice.current().screenBounds.height) / 4)
+    func getPercentageToGoal(restingCalories: Int, activeCalories: Int, netCalories: Int) -> Double {
+        // Figure out better solution for resting + active calories being 0 instead of default to 2000 grid
         var frameOfReferenceCalories = restingCalories + activeCalories
-        
-        /*
-         TODO.
-                1. Make bar only go to ~90% of screen width so 100% bar is not touching sides of watch
-                2. Figure out better solution for resting + active calories being 0 instead of default to 2000 grid
-        */
         
         if frameOfReferenceCalories == 0 {
             frameOfReferenceCalories = 2000
         }
+        
+        return abs(Double(netCalories) / Double(frameOfReferenceCalories))
+    }
+    
+    func getNetMeterImage(restingCalories: Int, activeCalories: Int, netCalories: Int) -> UIImage {
+        let totalBarWidth: Double = Double(WKInterfaceDevice.current().screenBounds.width)
+        let totalImageHeight: Int = Int(Double(WKInterfaceDevice.current().screenBounds.height) / 4)
+        
+        /*
+         TODO.
+          Make bar only go to ~90% of screen width so 100% bar is not touching sides of watch
+        */
         
         let image: UIImage = UIImage()
         // begin a graphics context of sufficient size
@@ -110,7 +131,7 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
             // Draw right fill LINE-Y
             context.setFillColor(rightColor)
             
-            var barWidth: Int = lround(abs(Double(netCalories) / Double(frameOfReferenceCalories)) * (Double(totalBarWidth * (1-tickMarker))))
+            var barWidth: Int = lround(getPercentageToGoal(restingCalories: restingCalories, activeCalories: activeCalories, netCalories: netCalories) * (Double(totalBarWidth * (1-tickMarker))))
             if barWidth > lround(totalBarWidth * (1-tickMarker)) {
                 barWidth = lround(totalBarWidth * (1-tickMarker))
             }
@@ -131,7 +152,7 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
             // Draw left fill 0-X
             context.setFillColor(leftColor)
             
-            var barWidth: Int = lround((1 - abs(Double(netCalories) / Double(frameOfReferenceCalories))) * (Double(totalBarWidth * (tickMarker))))
+            var barWidth: Int = lround((1 - getPercentageToGoal(restingCalories: restingCalories, activeCalories: activeCalories, netCalories: netCalories)) * (Double(totalBarWidth * (tickMarker))))
             if barWidth > lround(totalBarWidth * (tickMarker)) {
                 barWidth = lround(totalBarWidth * (tickMarker))
             }
@@ -145,7 +166,7 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
         }
         
         // Now draw center
-        if abs(Double(netCalories) / Double(frameOfReferenceCalories)) <= tickHighlightTolerance {
+        if getPercentageToGoal(restingCalories: restingCalories, activeCalories: activeCalories, netCalories: netCalories) <= tickHighlightTolerance {
             context.setFillColor(highlightColor)
 
             // Draw outline to make bigger
