@@ -22,35 +22,24 @@ class CaloriesInCaloriesOutViewController : UITableViewController{
     
     var healthStore:HKHealthStore?
     
-    let dispatchGroup:DispatchGroup = DispatchGroup()
-    
-    let basalEnergyType = HKQuantityType.quantityType(forIdentifier:.basalEnergyBurned)
-    
-    let activeEnergyType = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)
-    
-    let caloriesConsumedType = HKQuantityType.quantityType(forIdentifier: .dietaryEnergyConsumed)
-    
-    var unit:String?
-    
     var calorieData:CalorieData? = CalorieData()
     
+    var synchronousCalorieDataLoader:SynchronousCalorieDataLoader?
+    
+    let calorieLoaderQueue = DispatchQueue(label: "com.base11studios.cico.queue")
+    
+    let loadingString = "..."
+    
     override func viewDidLoad() {
-        
-        unit = UserDefaults.standard.string(forKey: "com.base11studios.cico.unit")
-        
-        if unit == nil {
-            UserDefaults.standard.set("calories", forKey:"com.base11studios.cico.unit")
-            UserDefaults.standard.synchronize()
-       }
         
         refreshControl?.tintColor = Colors.orange
         navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "logo-txt-white"))
         navigationItem.rightBarButtonItem?.tintColor = UIColor.white
         
-        if let healthStoreProvider = UIApplication.shared.delegate as? HealthStoreProvider{
-            healthStore = healthStoreProvider.healthStore
+        if let healthStoreProvider = UIApplication.shared.delegate as? HealthStoreProvider, let healthStore = healthStoreProvider.healthStore{
+            synchronousCalorieDataLoader = SynchronousCalorieDataLoader(healthStore: healthStore)
+            loadCaloriesInBackground()
             
-            loadCalories()
             
             
         }
@@ -68,17 +57,36 @@ class CaloriesInCaloriesOutViewController : UITableViewController{
     @IBAction func beginRefresh(_ sender: Any) {
         
         if refreshControl?.isRefreshing == true{
-            unit = UserDefaults.standard.string(forKey: "com.base11studios.cico.unit")
-            loadCalories()
+            loadCaloriesInBackground()
         }
     }
     
-}
-
-
-
-extension CaloriesInCaloriesOutViewController:CalorieDataLoader{
-    func allDone(){
+    private func loadCaloriesInBackground(){
+        self.willLoadCalories()
+        calorieLoaderQueue.async {
+            
+            self.calorieData = self.synchronousCalorieDataLoader?.loadCalories()
+            
+            DispatchQueue.main.async {
+                self.loadingCaloriesComplete()
+            }
+            
+        }
+        
+        
+    }
+    
+    
+    private func willLoadCalories(){
+        
+        
+        restingCaloriesLabel.text = loadingString
+        activeCaloriesLabel.text = loadingString
+        caloriesConsumedLabel.text = loadingString
+        totalCaloriesLabel.text = loadingString
+    }
+    
+    private func loadingCaloriesComplete(){
         if self.refreshControl?.isRefreshing == true{
             self.refreshControl?.endRefreshing()
         }
@@ -88,16 +96,9 @@ extension CaloriesInCaloriesOutViewController:CalorieDataLoader{
             caloriesConsumedLabel.text = String(caloriesConsumed)
             totalCaloriesLabel.text = String((netCalories))
         }
+
     }
     
-    func willLoadCalories(){
-        
-        let loadingString = "..."
-        
-        restingCaloriesLabel.text = loadingString
-        activeCaloriesLabel.text = loadingString
-        caloriesConsumedLabel.text = loadingString
-        totalCaloriesLabel.text = loadingString
-    }
-
+    
 }
+

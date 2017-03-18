@@ -18,7 +18,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider {
     var synchronousCalorieDataLoader:SynchronousCalorieDataLoader?
     
     var calorieData:CalorieData?
-    let calorieLoaderQueue = DispatchQueue(label: "com.base11studios.cico")
+    let calorieLoaderQueue = DispatchQueue(label: "com.base11studios.cico.watchkit.extension.queue")
 
     func applicationDidFinishLaunching() {
         if(HKHealthStore.isHealthDataAvailable()){

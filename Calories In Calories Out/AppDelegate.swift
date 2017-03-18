@@ -16,10 +16,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, HealthStoreProvider, WCSe
     var window: UIWindow?
     var healthStore:HKHealthStore?
     var session:WCSession?
-
+    var unit:String?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        unit = UserDefaults.standard.string(forKey: "com.base11studios.cico.unit")
+        
+        if unit == nil {
+            UserDefaults.standard.set("calories", forKey:"com.base11studios.cico.unit")
+            UserDefaults.standard.synchronize()
+        }
+
         
         if(HKHealthStore.isHealthDataAvailable()){
             healthStore = HKHealthStore()
