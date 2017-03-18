@@ -42,7 +42,13 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
     }
     
     func setMeterText(restingCalories: Int, activeCalories: Int, netCalories: Int, caloriesConsumed: Int) {
-        let percentageCompleted = Int(Double(caloriesConsumed) / Double(restingCalories + activeCalories) * 100)
+        var frameOfReferenceCalories = restingCalories + activeCalories
+        
+        if frameOfReferenceCalories == 0 {
+            frameOfReferenceCalories = 2000
+        }
+        
+        let percentageCompleted = Int(Double(caloriesConsumed) / Double(frameOfReferenceCalories) * 100)
 
         if caloriesConsumed < 100 {
             lowDietLabel.setText("Add Food")
