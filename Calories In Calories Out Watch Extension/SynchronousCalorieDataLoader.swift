@@ -46,27 +46,34 @@ class SynchronousCalorieDataLoader{
             }
             
             healthStore.requestAuthorization(toShare: nil, read: [basalEnergyType, activeEnergyType, caloriesConsumedType]){
-                succcess, error in
+                [weak self]succcess, error in
                 if succcess {
-                    self.dispatchGroup.enter()
-                    self.averageOfPrevious7Days(for: self.basalEnergyType, healthStore: healthStore)
-                    self.dispatchGroup.enter()
-                    self.getCummulativeSum(for: self.activeEnergyType, healthStore: healthStore)
-                    self.dispatchGroup.enter()
-                    self.getCummulativeSum(for: self.caloriesConsumedType, healthStore: healthStore)
-                    self.dispatchGroup.notify(queue: DispatchQueue.global()){
-                        self.semaphore.signal()
+                    self?.dispatchGroup.enter()
+                    self?.averageOfPrevious7Days(for: self?.basalEnergyType, healthStore: healthStore)
+                    self?.dispatchGroup.enter()
+                    self?.getCummulativeSum(for: self?.activeEnergyType, healthStore: healthStore)
+                    self?.dispatchGroup.enter()
+                    self?.getCummulativeSum(for: self?.caloriesConsumedType, healthStore: healthStore)
+                    self?.dispatchGroup.notify(queue: DispatchQueue.global()){
+                        self?.semaphore.signal()
                     }
                     
                 }
                 else{
-                    fatalError("Unable to read data")
+                    //Authorization failed. This can happen even if user has previously accepted
+                    self?.calorieData = nil
+                    self?.dispatchGroup.notify(queue: DispatchQueue.global()){
+                        self?.semaphore.signal()
+                    }
+                    
                     
                 }
             }
         }
         else{
-            fatalError("health store is not available")
+            //Shouldn't be here if healthStore isn't initiated, but handle it anyway
+            calorieData = nil
+            semaphore.signal()
         }
         semaphore.wait()
         return calorieData
@@ -94,25 +101,18 @@ class SynchronousCalorieDataLoader{
             }
             
             guard error == nil else{
-                if let error = error as? NSError{
-                    let healthError = HKError(_nsError: error)
-                    if healthError.code == HKError.errorDatabaseInaccessible{
-                        return
-                    }
-                }
-
-                fatalError(error!.localizedDescription)
+                return
             }
             
             guard results != nil else {
-                fatalError("No results found in queries")
+                return
             }
             
             var calories = 0.0
             
             if let results = results{
                 guard let activeEnergyType = self.activeEnergyType, let caloriesConsumedType = self.caloriesConsumedType else{
-                    fatalError("Unknown HKQuantityTypes")
+                    return
                 }
                 
                 if let quantity = results.sumQuantity(){
@@ -134,7 +134,7 @@ class SynchronousCalorieDataLoader{
                     case caloriesConsumedType:
                         self.calorieData?.caloriesConsumed = Int(calories)
                     default:
-                        fatalError("Attempted to get cummulative sum for undefined type")
+                        return
                         
                     }
                     
@@ -147,7 +147,7 @@ class SynchronousCalorieDataLoader{
                     case caloriesConsumedType:
                         self.calorieData?.caloriesConsumed = 0
                     default:
-                        fatalError("Attempted to get cummulative sum for undefined type")
+                        return
                         
                     }
                     
@@ -155,7 +155,7 @@ class SynchronousCalorieDataLoader{
                 
             }
             else{
-                fatalError("No data to sum")
+                return
             }
             
             
@@ -174,7 +174,7 @@ class SynchronousCalorieDataLoader{
         anchorComponents.day = anchorComponents.day! - 1
         
         guard  let yesterday = calendar.date(from: anchorComponents) else {
-            fatalError("Couldn't parse date")
+            return
         }
         
         let query = HKStatisticsCollectionQuery(quantityType: type, quantitySamplePredicate: nil, options: .cumulativeSum, anchorDate: yesterday, intervalComponents: interval)
@@ -186,22 +186,14 @@ class SynchronousCalorieDataLoader{
                 self.dispatchGroup.leave()
             }
             guard error == nil else{
-                
-                if let error = error as? NSError{
-                    let healthError = HKError(_nsError: error)
-                    if healthError.code == HKError.errorDatabaseInaccessible{
-                        return
-                    }
-                }
-                
-                fatalError(error!.localizedDescription)
+                return
             }
             guard let statsCollection = results else {
-                fatalError("Couldn't collect stats")
+                return
             }
             
             guard let startDate = calendar.date(byAdding: .day, value: -6, to: yesterday) else{
-                fatalError("Couldn't parse date")
+                return
             }
             
             

@@ -42,7 +42,6 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
     }
     
     func setMeterText(restingCalories: Int, activeCalories: Int, netCalories: Int, caloriesConsumed: Int) {
-        let percentageToGoal = getPercentageToGoal(restingCalories: restingCalories, activeCalories: activeCalories, netCalories: netCalories)
         let percentageCompleted = Int(Double(caloriesConsumed) / Double(restingCalories + activeCalories) * 100)
 
         if caloriesConsumed < 100 {
@@ -194,7 +193,11 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
         
         if var delegate = WKExtension.shared().delegate as? CalorieDataContainer, let dispatchQueue = delegate.getCalorieDataQueue(){
             dispatchQueue.async {
-                self.calorieData = delegate.getCalorieDataLoader()?.loadCalories()
+                guard let calorieData = delegate.getCalorieDataLoader()?.loadCalories() else {
+                    self.lowDietLabel.setText("Error loading data")
+                    return
+                }
+                self.calorieData = calorieData
                 delegate.calorieData = self.calorieData
                 
                 let server = CLKComplicationServer.sharedInstance()
