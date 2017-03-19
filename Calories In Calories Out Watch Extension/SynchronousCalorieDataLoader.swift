@@ -106,13 +106,11 @@ class SynchronousCalorieDataLoader{
                 return
             }
             
-            guard let samples = results else {
+            guard let samples:[HKQuantitySample] = results as? [HKQuantitySample] else {
                 return
             }
             
-            for sample in samples{
-                print(sample.sampleType)
-            }
+            self.calorieData?.samples = samples
 
             
             

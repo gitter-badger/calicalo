@@ -72,13 +72,8 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider, Cal
                     guard let calorieData = dataLoader.loadCalories() else {
                         return
                     }
-                    
-                    self.calorieData = calorieData
-                    
-                    if var mainInterfaceController = WKExtension.shared().rootInterfaceController as? CalorieDataContainer{
-                        mainInterfaceController.calorieData = self.calorieData
-                        
-                    }
+                    //Note the interface controller will set the calorieData property on this class
+                    WKInterfaceController.reloadRootControllers(withNames: ["mainController","dietaryDetailsController"], contexts: [calorieData, calorieData])
                     
                     let server = CLKComplicationServer.sharedInstance()
                     guard let complications = server.activeComplications, complications.count > 0 else {
@@ -113,11 +108,8 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider, Cal
                     }
                     
                     self.calorieData = calorieData
-                    
-                    if var mainInterfaceController = WKExtension.shared().rootInterfaceController as? CalorieDataContainer{
-                        mainInterfaceController.calorieData = self.calorieData
-                        
-                    }
+                    //Note the interface controller will set the calorieData property on this class
+                    WKInterfaceController.reloadRootControllers(withNames: ["mainController","dietaryDetailsController"], contexts: [calorieData, calorieData])
                     
                     let server = CLKComplicationServer.sharedInstance()
                     guard let complications = server.activeComplications, complications.count > 0 else {

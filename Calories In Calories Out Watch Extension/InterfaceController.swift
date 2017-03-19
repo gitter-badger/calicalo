@@ -201,47 +201,17 @@ class InterfaceController: WKInterfaceController, CalorieDataContainer {
             fatalError("The extension delegate was not initialized")
         }
         
-        guard var healthStoreProvider = delegate as? HealthStoreProvider else {
-            fatalError("The extension delegate is not available as HealthStoreProvider")
-        }
-        
         guard var calorieDataContainer = delegate as? CalorieDataContainer else {
             fatalError("The extension delegate is not available as CalorieDataContainer")
         }
         
-        //Initializing this here because there is no garauntee that the WKExtensionDelegate finished lauching before this method is called
-        if(HKHealthStore.isHealthDataAvailable()){
-            let healthStore = HKHealthStore()
-            healthStoreProvider.healthStore = healthStore
-            DispatchQueue.global().async {
-                
-                let dataLoader = SynchronousCalorieDataLoader(healthStore:healthStore)
-                
-                guard let newCalorieData = dataLoader.loadCalories() else {
-                    self.lowDietLabel.setText("Error")
-                    return
-                }
-                self.calorieData = newCalorieData
-                calorieDataContainer.calorieData = newCalorieData
-                
-                let server = CLKComplicationServer.sharedInstance()
-                guard let complications = server.activeComplications, complications.count > 0 else {
-                    return
-                }
-                for complication in complications{
-                    server.reloadTimeline(for: complication)
-                }
-                WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: Date(timeInterval: 60, since: Date()), userInfo: nil){
-                    error in
-                    return
-                }
-                
-            }
-
+        //Everytime calorie data is reloaded, we should hit this, including the first time
+        if let calorieDataFromContext = context as? CalorieData{
+            calorieData = calorieDataFromContext
+            calorieDataContainer.calorieData = calorieDataFromContext
+            return
         }
-        else{
-            fatalError("Health data is not available in the watch interface controller")
-        }
+        
         
         
     }
@@ -254,6 +224,26 @@ class InterfaceController: WKInterfaceController, CalorieDataContainer {
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
+    }
+    
+    override func contextForSegue(withIdentifier segueIdentifier: String) -> Any? {
+        print(1)
+        return nil
+    }
+    
+    override func contextsForSegue(withIdentifier segueIdentifier: String) -> [Any]? {
+        print(2)
+        return nil
+    }
+    
+    override func contextForSegue(withIdentifier segueIdentifier: String, in table: WKInterfaceTable, rowIndex: Int) -> Any? {
+        print(3)
+        return nil
+    }
+    
+    override func contextsForSegue(withIdentifier segueIdentifier: String, in table: WKInterfaceTable, rowIndex: Int) -> [Any]? {
+        print(4)
+        return nil
     }
     
 }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6E060B0D1E7E2E6300FA1770 /* DietaryDetailsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E060B0C1E7E2E6300FA1770 /* DietaryDetailsRow.swift */; };
 		6E060B0F1E7E30E900FA1770 /* DietaryDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E060B0E1E7E30E900FA1770 /* DietaryDetailsController.swift */; };
+		6E060B111E7F4ACC00FA1770 /* LandingInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E060B101E7F4ACC00FA1770 /* LandingInterfaceController.swift */; };
 		6E24EFB11E6917EC007A1414 /* FAQViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E24EFB01E6917EC007A1414 /* FAQViewControler.swift */; };
 		6E284B9A1E46AB4100653A65 /* CalorieData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E284B991E46AB4100653A65 /* CalorieData.swift */; };
 		6E284B9B1E46BF3700653A65 /* CalorieData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E284B991E46AB4100653A65 /* CalorieData.swift */; };
@@ -100,6 +101,7 @@
 /* Begin PBXFileReference section */
 		6E060B0C1E7E2E6300FA1770 /* DietaryDetailsRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DietaryDetailsRow.swift; sourceTree = "<group>"; };
 		6E060B0E1E7E30E900FA1770 /* DietaryDetailsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DietaryDetailsController.swift; sourceTree = "<group>"; };
+		6E060B101E7F4ACC00FA1770 /* LandingInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandingInterfaceController.swift; sourceTree = "<group>"; };
 		6E24EFB01E6917EC007A1414 /* FAQViewControler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAQViewControler.swift; sourceTree = "<group>"; };
 		6E284B991E46AB4100653A65 /* CalorieData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CalorieData.swift; path = "Calories In Calories Out Watch Extension/CalorieData.swift"; sourceTree = SOURCE_ROOT; };
 		6E284B9C1E47BC6400653A65 /* SynchronousCalorieDataLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SynchronousCalorieDataLoader.swift; path = "Calories In Calories Out Watch Extension/SynchronousCalorieDataLoader.swift"; sourceTree = SOURCE_ROOT; };
@@ -301,6 +303,7 @@
 				6E8507CB1E2EF8A3005DD71B /* NotificationController.swift */,
 				6E8507CD1E2EF8A3005DD71B /* ComplicationController.swift */,
 				6E060B0E1E7E30E900FA1770 /* DietaryDetailsController.swift */,
+				6E060B101E7F4ACC00FA1770 /* LandingInterfaceController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -565,6 +568,7 @@
 			files = (
 				6E5501E61E3064C500D7549B /* HealthStoreProvider.swift in Sources */,
 				6E743CE91E50CCC6003DDFD5 /* Colors.swift in Sources */,
+				6E060B111E7F4ACC00FA1770 /* LandingInterfaceController.swift in Sources */,
 				6E8507CC1E2EF8A3005DD71B /* NotificationController.swift in Sources */,
 				6E8507CE1E2EF8A3005DD71B /* ComplicationController.swift in Sources */,
 				6E060B0F1E7E30E900FA1770 /* DietaryDetailsController.swift in Sources */,
