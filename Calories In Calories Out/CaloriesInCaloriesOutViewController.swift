@@ -26,8 +26,6 @@ class CaloriesInCaloriesOutViewController : UITableViewController{
     
     var synchronousCalorieDataLoader:SynchronousCalorieDataLoader?
     
-    let calorieLoaderQueue = DispatchQueue(label: "com.base11studios.cico.queue")
-    
     let loadingString = "..."
     
     override func viewDidLoad() {
@@ -63,7 +61,7 @@ class CaloriesInCaloriesOutViewController : UITableViewController{
     
     private func loadCaloriesInBackground(){
         self.willLoadCalories()
-        calorieLoaderQueue.async {
+        DispatchQueue.global().async {
             
             self.calorieData = self.synchronousCalorieDataLoader?.loadCalories()
             
