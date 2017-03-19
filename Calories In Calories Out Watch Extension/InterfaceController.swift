@@ -11,7 +11,7 @@ import Foundation
 import HealthKit
 
 
-class InterfaceController: WKInterfaceController, CalorieDataProperty {
+class InterfaceController: WKInterfaceController, CalorieDataContainer {
     @IBOutlet var totalCaloriesLabel: WKInterfaceLabel!
     @IBOutlet var activeCaloriesLabel: WKInterfaceLabel!
     @IBOutlet var caloriesConsumedLabel: WKInterfaceLabel!
@@ -197,14 +197,32 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
-        if var delegate = WKExtension.shared().delegate as? CalorieDataContainer{
+        guard let delegate = WKExtension.shared().delegate else {
+            fatalError("The extension delegate was not initialized")
+        }
+        
+        guard var healthStoreProvider = delegate as? HealthStoreProvider else {
+            fatalError("The extension delegate is not available as HealthStoreProvider")
+        }
+        
+        guard var calorieDataContainer = delegate as? CalorieDataContainer else {
+            fatalError("The extension delegate is not available as CalorieDataContainer")
+        }
+        
+        //Initializing this here because there is no garauntee that the WKExtensionDelegate finished lauching before this method is called
+        if(HKHealthStore.isHealthDataAvailable()){
+            let healthStore = HKHealthStore()
+            healthStoreProvider.healthStore = healthStore
             DispatchQueue.global().async {
-                guard let calorieData = delegate.getCalorieDataLoader()?.loadCalories() else {
-                    self.lowDietLabel.setText("Error loading data")
+                
+                let dataLoader = SynchronousCalorieDataLoader(healthStore:healthStore)
+                
+                guard let newCalorieData = dataLoader.loadCalories() else {
+                    self.lowDietLabel.setText("Error")
                     return
                 }
-                self.calorieData = calorieData
-                delegate.calorieData = self.calorieData
+                self.calorieData = newCalorieData
+                calorieDataContainer.calorieData = newCalorieData
                 
                 let server = CLKComplicationServer.sharedInstance()
                 guard let complications = server.activeComplications, complications.count > 0 else {
@@ -215,14 +233,16 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
                 }
                 WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: Date(timeInterval: 60, since: Date()), userInfo: nil){
                     error in
-                    if let error = error{
-                        fatalError(error.localizedDescription)
-                    }
+                    return
                 }
                 
             }
-            
+
         }
+        else{
+            fatalError("Health data is not available in the watch interface controller")
+        }
+        
         
     }
     

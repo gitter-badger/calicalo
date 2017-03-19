@@ -11,7 +11,7 @@ import HealthKit
 import ClockKit
 import WatchConnectivity
 
-class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider {
+class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider, CalorieDataContainer {
     
     var healthStore: HKHealthStore?
     
@@ -20,23 +20,12 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider {
     var calorieData:CalorieData?
 
     func applicationDidFinishLaunching() {
-        if(HKHealthStore.isHealthDataAvailable()){
-            healthStore = HKHealthStore()
-        }
-        else {
-            fatalError("health data not availale")
-        }
-        guard let healthStore = healthStore else {
-            fatalError("health store not instantiated")
-        }
         
         if WCSession.isSupported(){
             let session = WCSession.default()
             session.delegate = self
             session.activate()
         }
-        
-        synchronousCalorieDataLoader = SynchronousCalorieDataLoader(healthStore: healthStore)
         
     }
 
@@ -72,16 +61,21 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider {
                     return
                 }
                 
+                guard let healthStore = healthStore else {
+                    //The health store was not instantiated by the Interface Controller
+                    return
+                }
+                
                 DispatchQueue.global().sync {
                     
-                    
-                    guard let calorieData = self.synchronousCalorieDataLoader?.loadCalories() else {
+                    let dataLoader = SynchronousCalorieDataLoader(healthStore:healthStore)
+                    guard let calorieData = dataLoader.loadCalories() else {
                         return
                     }
                     
                     self.calorieData = calorieData
                     
-                    if var mainInterfaceController = WKExtension.shared().rootInterfaceController as? CalorieDataProperty{
+                    if var mainInterfaceController = WKExtension.shared().rootInterfaceController as? CalorieDataContainer{
                         mainInterfaceController.calorieData = self.calorieData
                         
                     }
@@ -103,19 +97,24 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider {
                 }
                 
                 guard WKExtension.shared().applicationState == WKApplicationState.background else{
-                    
                     return
                 }
                 
+                guard let healthStore = healthStore else {
+                    //The health store was not instantiated by the Interface Controller
+                    return
+                }
+
+                
                 DispatchQueue.global().sync {
-                    
-                    guard let calorieData = self.synchronousCalorieDataLoader?.loadCalories() else {
+                    let dataLoader = SynchronousCalorieDataLoader(healthStore:healthStore)
+                    guard let calorieData = dataLoader.loadCalories() else {
                         return
                     }
                     
                     self.calorieData = calorieData
                     
-                    if var mainInterfaceController = WKExtension.shared().rootInterfaceController as? CalorieDataProperty{
+                    if var mainInterfaceController = WKExtension.shared().rootInterfaceController as? CalorieDataContainer{
                         mainInterfaceController.calorieData = self.calorieData
                         
                     }
@@ -141,12 +140,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider {
         }
     }
 
-}
-
-extension ExtensionDelegate:CalorieDataContainer{
-    func getCalorieDataLoader() -> SynchronousCalorieDataLoader? {
-        return self.synchronousCalorieDataLoader
-    }
 }
 
 extension ExtensionDelegate:WCSessionDelegate{

@@ -11,6 +11,6 @@ import HealthKit
 
 protocol HealthStoreProvider {
     var healthStore:HKHealthStore?{
-        get
+        get set
     }
 }

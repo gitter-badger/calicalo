@@ -13,5 +13,4 @@ protocol CalorieDataContainer {
     var calorieData:CalorieData?{
         get set
     }
-    func getCalorieDataLoader() -> SynchronousCalorieDataLoader?
 }
