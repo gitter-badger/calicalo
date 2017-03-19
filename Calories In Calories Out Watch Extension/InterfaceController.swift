@@ -197,8 +197,8 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
-        if var delegate = WKExtension.shared().delegate as? CalorieDataContainer, let dispatchQueue = delegate.getCalorieDataQueue(){
-            dispatchQueue.async {
+        if var delegate = WKExtension.shared().delegate as? CalorieDataContainer{
+            DispatchQueue.global().async {
                 guard let calorieData = delegate.getCalorieDataLoader()?.loadCalories() else {
                     self.lowDietLabel.setText("Error loading data")
                     return

@@ -18,7 +18,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider {
     var synchronousCalorieDataLoader:SynchronousCalorieDataLoader?
     
     var calorieData:CalorieData?
-    let calorieLoaderQueue = DispatchQueue(label: "com.base11studios.cico")
 
     func applicationDidFinishLaunching() {
         if(HKHealthStore.isHealthDataAvailable()){
@@ -73,7 +72,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider {
                     return
                 }
                 
-                calorieLoaderQueue.sync {
+                DispatchQueue.global().sync {
                     
                     
                     guard let calorieData = self.synchronousCalorieDataLoader?.loadCalories() else {
@@ -108,7 +107,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider {
                     return
                 }
                 
-                calorieLoaderQueue.sync {
+                DispatchQueue.global().sync {
                     
                     guard let calorieData = self.synchronousCalorieDataLoader?.loadCalories() else {
                         return
@@ -145,10 +144,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider {
 }
 
 extension ExtensionDelegate:CalorieDataContainer{
-    func getCalorieDataQueue() -> DispatchQueue?{
-        return self.calorieLoaderQueue
-    }
-    
     func getCalorieDataLoader() -> SynchronousCalorieDataLoader? {
         return self.synchronousCalorieDataLoader
     }
