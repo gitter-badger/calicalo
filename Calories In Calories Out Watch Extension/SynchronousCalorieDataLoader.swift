@@ -54,6 +54,8 @@ class SynchronousCalorieDataLoader{
                     self?.getCummulativeSum(for: self?.activeEnergyType, healthStore: healthStore)
                     self?.dispatchGroup.enter()
                     self?.getCummulativeSum(for: self?.caloriesConsumedType, healthStore: healthStore)
+                    self?.dispatchGroup.enter()
+                    self?.getSamples(for: self?.caloriesConsumedType, healthStore: healthStore)
                     self?.dispatchGroup.notify(queue: DispatchQueue.global()){
                         self?.semaphore.signal()
                     }
@@ -77,6 +79,46 @@ class SynchronousCalorieDataLoader{
         }
         semaphore.wait()
         return calorieData
+        
+    }
+    
+    func getSamples(for type:HKQuantityType!, healthStore:HKHealthStore!){
+        let calendar = NSCalendar.current
+        let now = Date()
+        let components = calendar.dateComponents([.year, .month, .day], from: now)
+        
+        
+        guard let startDate = calendar.date(from: components), let endDate = calendar.date(byAdding: .day, value: 1, to: startDate) else{
+            fatalError("Failed date sateup")
+        }
+        
+        
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: [])
+        
+        let query = HKSampleQuery(sampleType: type, predicate: predicate, limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil){
+            query, results, error in
+            
+            defer{
+                self.dispatchGroup.leave()
+            }
+            
+            guard error == nil else{
+                return
+            }
+            
+            guard let samples = results else {
+                return
+            }
+            
+            for sample in samples{
+                print(sample.sampleType)
+            }
+
+            
+            
+        }
+        
+        healthStore.execute(query)
         
     }
     
