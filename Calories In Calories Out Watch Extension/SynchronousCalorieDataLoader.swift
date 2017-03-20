@@ -52,8 +52,8 @@ class SynchronousCalorieDataLoader{
                     self?.averageOfPrevious7Days(for: self?.basalEnergyType, healthStore: healthStore)
                     self?.dispatchGroup.enter()
                     self?.getCummulativeSum(for: self?.activeEnergyType, healthStore: healthStore)
-                    self?.dispatchGroup.enter()
-                    self?.getCummulativeSum(for: self?.caloriesConsumedType, healthStore: healthStore)
+                    //self?.dispatchGroup.enter()
+                    //self?.getCummulativeSum(for: self?.caloriesConsumedType, healthStore: healthStore)
                     self?.dispatchGroup.enter()
                     self?.getSamples(for: self?.caloriesConsumedType, healthStore: healthStore)
                     self?.dispatchGroup.notify(queue: DispatchQueue.global()){
@@ -110,9 +110,44 @@ class SynchronousCalorieDataLoader{
                 return
             }
             
+            var newShowHidePreferences = [String:Bool]()
+            
+            let samplesFromDefaults = UserDefaults.standard.dictionary(forKey: "com.base11studios.cico.samples") as? [String:Bool]
+            
             self.calorieData?.samples = samples
+            
+            var calories = 0.0
+            var unitForCalculation:HKUnit
+            
+            if(self.unit == nil || self.unit == "calories"){
+                unitForCalculation = HKUnit.kilocalorie()
+            }
+            else{
+                unitForCalculation = HKUnit.jouleUnit(with: .kilo)
+            }
+
+            for sample in samples{
+                
+                if let sampleFromDefault = samplesFromDefaults?[sample.uuid.uuidString]{
+                    newShowHidePreferences[sample.uuid.uuidString] = sampleFromDefault
+                    if sampleFromDefault{
+                        let caloriesToAdd = sample.quantity.doubleValue(for: unitForCalculation)
+                        calories = calories + caloriesToAdd
+                    }
+                }
+                else{
+                    newShowHidePreferences[sample.uuid.uuidString] = true
+                    let caloriesToAdd = sample.quantity.doubleValue(for: unitForCalculation)
+                    calories = calories + caloriesToAdd
+                }
+                
+            }
 
             
+            self.calorieData?.caloriesConsumed = Int(calories)
+            
+            UserDefaults.standard.set(newShowHidePreferences, forKey: "com.base11studios.cico.samples")
+            UserDefaults.standard.synchronize()
             
         }
         

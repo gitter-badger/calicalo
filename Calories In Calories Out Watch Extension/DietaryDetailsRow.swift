@@ -27,4 +27,6 @@ class DietaryDetailsRow:NSObject{
         }
     }
     
+    var uuid:UUID?
+    
 }
