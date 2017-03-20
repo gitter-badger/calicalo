@@ -14,5 +14,17 @@ import WatchKit
 class DietaryDetailsRow:NSObject{
     @IBOutlet var sourceLabel: WKInterfaceLabel!
     @IBOutlet var caloriesLabel: WKInterfaceLabel!
+    @IBOutlet var showHideLabel: WKInterfaceLabel!
+    
+    var showing:Bool = true{
+        didSet{
+            if showing{
+                showHideLabel.setText("Show")
+            }
+            else{
+                showHideLabel.setText("Hide")
+            }
+        }
+    }
     
 }

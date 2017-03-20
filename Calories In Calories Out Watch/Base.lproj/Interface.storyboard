@@ -120,24 +120,36 @@
                         <table alignment="left" id="Abr-G2-n1P">
                             <items>
                                 <tableRow identifier="dietaryDetailsRow" id="EsI-FY-PdK" customClass="DietaryDetailsRow" customModule="Calories_In_Calories_Out_Watch_Extension">
-                                    <group key="rootItem" width="1" alignment="left" layout="vertical" id="uxy-Tv-Qlo">
+                                    <group key="rootItem" width="1" alignment="left" id="uxy-Tv-Qlo">
                                         <items>
-                                            <group width="1" alignment="left" id="xum-Xd-ma7">
+                                            <group alignment="left" verticalAlignment="center" id="XnW-VT-oK6">
                                                 <items>
-                                                    <label alignment="left" text="MyFitnessPal" id="Lxb-sb-gRw">
-                                                        <fontDescription key="font" type="system" pointSize="11"/>
+                                                    <label alignment="left" text="Show" id="XE2-yr-sez">
+                                                        <fontDescription key="font" type="italicSystem" pointSize="11"/>
                                                     </label>
                                                 </items>
                                             </group>
-                                            <group width="1" alignment="left" id="Owo-eD-T3W">
+                                            <group alignment="left" layout="vertical" id="L6f-Dh-EQy">
                                                 <items>
-                                                    <label alignment="left" text="250 kCal" id="o4W-TR-xNo"/>
+                                                    <group alignment="left" id="xum-Xd-ma7">
+                                                        <items>
+                                                            <label alignment="left" text="MyFitnessPal" id="Lxb-sb-gRw">
+                                                                <fontDescription key="font" type="system" pointSize="11"/>
+                                                            </label>
+                                                        </items>
+                                                    </group>
+                                                    <group alignment="left" id="Owo-eD-T3W">
+                                                        <items>
+                                                            <label alignment="left" text="250 kCal" id="o4W-TR-xNo"/>
+                                                        </items>
+                                                    </group>
                                                 </items>
                                             </group>
                                         </items>
                                     </group>
                                     <connections>
                                         <outlet property="caloriesLabel" destination="o4W-TR-xNo" id="ycz-mh-9wZ"/>
+                                        <outlet property="showHideLabel" destination="XE2-yr-sez" id="rQ7-aM-2kZ"/>
                                         <outlet property="sourceLabel" destination="Lxb-sb-gRw" id="A2l-1H-ue7"/>
                                     </connections>
                                 </tableRow>

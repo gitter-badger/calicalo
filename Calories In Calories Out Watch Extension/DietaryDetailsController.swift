@@ -33,7 +33,12 @@ class DietaryDetailsController:WKInterfaceController{
         
     }
     
-    
+    override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
+        if let rowController = dietaryDetailsTable.rowController(at: rowIndex) as? DietaryDetailsRow{
+            rowController.showing = !rowController.showing
+        }
+        
+    }
     
     
 }
