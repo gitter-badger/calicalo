@@ -13,6 +13,4 @@ protocol CalorieDataContainer {
     var calorieData:CalorieData?{
         get set
     }
-    func getCalorieDataQueue() -> DispatchQueue?
-    func getCalorieDataLoader() -> SynchronousCalorieDataLoader?
 }

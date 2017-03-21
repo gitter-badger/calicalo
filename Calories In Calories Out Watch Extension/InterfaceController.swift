@@ -11,7 +11,7 @@ import Foundation
 import HealthKit
 
 
-class InterfaceController: WKInterfaceController, CalorieDataProperty {
+class InterfaceController: WKInterfaceController, CalorieDataContainer {
     @IBOutlet var totalCaloriesLabel: WKInterfaceLabel!
     @IBOutlet var activeCaloriesLabel: WKInterfaceLabel!
     @IBOutlet var caloriesConsumedLabel: WKInterfaceLabel!
@@ -197,32 +197,22 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
-        if var delegate = WKExtension.shared().delegate as? CalorieDataContainer, let dispatchQueue = delegate.getCalorieDataQueue(){
-            dispatchQueue.async {
-                guard let calorieData = delegate.getCalorieDataLoader()?.loadCalories() else {
-                    self.lowDietLabel.setText("Error loading data")
-                    return
-                }
-                self.calorieData = calorieData
-                delegate.calorieData = self.calorieData
-                
-                let server = CLKComplicationServer.sharedInstance()
-                guard let complications = server.activeComplications, complications.count > 0 else {
-                    return
-                }
-                for complication in complications{
-                    server.reloadTimeline(for: complication)
-                }
-                WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: Date(timeInterval: 60, since: Date()), userInfo: nil){
-                    error in
-                    if let error = error{
-                        fatalError(error.localizedDescription)
-                    }
-                }
-                
-            }
-            
+        guard let delegate = WKExtension.shared().delegate else {
+            fatalError("The extension delegate was not initialized")
         }
+        
+        guard var calorieDataContainer = delegate as? CalorieDataContainer else {
+            fatalError("The extension delegate is not available as CalorieDataContainer")
+        }
+        
+        //Everytime calorie data is reloaded, we should hit this, including the first time
+        if let calorieDataFromContext = context as? CalorieData{
+            calorieData = calorieDataFromContext
+            calorieDataContainer.calorieData = calorieDataFromContext
+            return
+        }
+        
+        
         
     }
     
@@ -234,6 +224,26 @@ class InterfaceController: WKInterfaceController, CalorieDataProperty {
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
+    }
+    
+    override func contextForSegue(withIdentifier segueIdentifier: String) -> Any? {
+        print(1)
+        return nil
+    }
+    
+    override func contextsForSegue(withIdentifier segueIdentifier: String) -> [Any]? {
+        print(2)
+        return nil
+    }
+    
+    override func contextForSegue(withIdentifier segueIdentifier: String, in table: WKInterfaceTable, rowIndex: Int) -> Any? {
+        print(3)
+        return nil
+    }
+    
+    override func contextsForSegue(withIdentifier segueIdentifier: String, in table: WKInterfaceTable, rowIndex: Int) -> [Any]? {
+        print(4)
+        return nil
     }
     
 }

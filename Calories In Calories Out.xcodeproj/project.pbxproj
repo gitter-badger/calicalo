@@ -7,19 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		37365C821E52A029002CF093 /* Raleway-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 37365C811E52A029002CF093 /* Raleway-Light.ttf */; };
-		37365C831E52A029002CF093 /* Raleway-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 37365C811E52A029002CF093 /* Raleway-Light.ttf */; };
+		6E060B0D1E7E2E6300FA1770 /* DietaryDetailsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E060B0C1E7E2E6300FA1770 /* DietaryDetailsRow.swift */; };
+		6E060B0F1E7E30E900FA1770 /* DietaryDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E060B0E1E7E30E900FA1770 /* DietaryDetailsController.swift */; };
+		6E060B111E7F4ACC00FA1770 /* LandingInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E060B101E7F4ACC00FA1770 /* LandingInterfaceController.swift */; };
 		6E24EFB11E6917EC007A1414 /* FAQViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E24EFB01E6917EC007A1414 /* FAQViewControler.swift */; };
 		6E284B9A1E46AB4100653A65 /* CalorieData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E284B991E46AB4100653A65 /* CalorieData.swift */; };
 		6E284B9B1E46BF3700653A65 /* CalorieData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E284B991E46AB4100653A65 /* CalorieData.swift */; };
 		6E284B9D1E47BC6400653A65 /* SynchronousCalorieDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E284B9C1E47BC6400653A65 /* SynchronousCalorieDataLoader.swift */; };
 		6E3345371E7790E100577C2A /* WCSessionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3345361E7790E100577C2A /* WCSessionProvider.swift */; };
 		6E400FF91E4AABB400C9F8A7 /* CalorieDataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E400FF81E4AABB400C9F8A7 /* CalorieDataContainer.swift */; };
-		6E5501E51E3064BD00D7549B /* CalorieDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA53CD1E2F07CF007B04B9 /* CalorieDataLoader.swift */; };
 		6E5501E61E3064C500D7549B /* HealthStoreProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA53D01E303D01007B04B9 /* HealthStoreProvider.swift */; };
 		6E5501E91E3068BC00D7549B /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5501E81E3068BC00D7549B /* HealthKit.framework */; };
 		6E5501EA1E30733500D7549B /* Calories In Calories Out Watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6E8507C01E2EF8A3005DD71B /* Calories In Calories Out Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		6E5A85D01E4CE57D00A647FE /* CalorieDataProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5A85CF1E4CE57D00A647FE /* CalorieDataProperty.swift */; };
 		6E743CE81E50CCAC003DDFD5 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E743CE71E50CCAC003DDFD5 /* Colors.swift */; };
 		6E743CE91E50CCC6003DDFD5 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E743CE71E50CCAC003DDFD5 /* Colors.swift */; };
 		6E7F7E951E75E9C500CF0EEE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7F7E941E75E9C500CF0EEE /* SettingsViewController.swift */; };
@@ -38,9 +37,9 @@
 		6EA50C7B1D8F5D6200969EFE /* Calories_In_Calories_OutUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA50C7A1D8F5D6200969EFE /* Calories_In_Calories_OutUITests.swift */; };
 		6EA50C8B1D8F5D8800969EFE /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA50C8A1D8F5D8800969EFE /* HealthKit.framework */; };
 		6EAA54BC1D9899FE00AF6A31 /* CaloriesInCaloriesOutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EAA54BB1D9899FE00AF6A31 /* CaloriesInCaloriesOutViewController.swift */; };
-		6EDA53CE1E2F07CF007B04B9 /* CalorieDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA53CD1E2F07CF007B04B9 /* CalorieDataLoader.swift */; };
 		6EDA53D11E303D01007B04B9 /* HealthStoreProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EDA53D01E303D01007B04B9 /* HealthStoreProvider.swift */; };
 		6EDA53D31E30417F007B04B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EDA53D21E30417F007B04B9 /* Main.storyboard */; };
+		6EDB4E7F1E7DDFEF00861A8C /* SynchronousCalorieDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E284B9C1E47BC6400653A65 /* SynchronousCalorieDataLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,16 +99,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		37365C811E52A029002CF093 /* Raleway-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Light.ttf"; sourceTree = "<group>"; };
+		6E060B0C1E7E2E6300FA1770 /* DietaryDetailsRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DietaryDetailsRow.swift; sourceTree = "<group>"; };
+		6E060B0E1E7E30E900FA1770 /* DietaryDetailsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DietaryDetailsController.swift; sourceTree = "<group>"; };
+		6E060B101E7F4ACC00FA1770 /* LandingInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandingInterfaceController.swift; sourceTree = "<group>"; };
 		6E24EFB01E6917EC007A1414 /* FAQViewControler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAQViewControler.swift; sourceTree = "<group>"; };
 		6E284B991E46AB4100653A65 /* CalorieData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CalorieData.swift; path = "Calories In Calories Out Watch Extension/CalorieData.swift"; sourceTree = SOURCE_ROOT; };
-		6E284B9C1E47BC6400653A65 /* SynchronousCalorieDataLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronousCalorieDataLoader.swift; sourceTree = "<group>"; };
+		6E284B9C1E47BC6400653A65 /* SynchronousCalorieDataLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SynchronousCalorieDataLoader.swift; path = "Calories In Calories Out Watch Extension/SynchronousCalorieDataLoader.swift"; sourceTree = SOURCE_ROOT; };
 		6E33452E1E7602A200577C2A /* Calories In Calories Out Watch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Calories In Calories Out Watch.entitlements"; sourceTree = "<group>"; };
 		6E3345361E7790E100577C2A /* WCSessionProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WCSessionProvider.swift; sourceTree = "<group>"; };
 		6E400FF81E4AABB400C9F8A7 /* CalorieDataContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalorieDataContainer.swift; sourceTree = "<group>"; };
 		6E5501E71E3068BC00D7549B /* Calories In Calories Out Watch Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Calories In Calories Out Watch Extension.entitlements"; sourceTree = "<group>"; };
 		6E5501E81E3068BC00D7549B /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.1.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
-		6E5A85CF1E4CE57D00A647FE /* CalorieDataProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalorieDataProperty.swift; sourceTree = "<group>"; };
 		6E743CE71E50CCAC003DDFD5 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		6E7F7E941E75E9C500CF0EEE /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		6E8507B41E2EF8A3005DD71B /* Calories In Calories Out Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Calories In Calories Out Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -138,7 +138,6 @@
 		6EA50C881D8F5D8800969EFE /* Calories In Calories Out.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Calories In Calories Out.entitlements"; sourceTree = "<group>"; };
 		6EA50C8A1D8F5D8800969EFE /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		6EAA54BB1D9899FE00AF6A31 /* CaloriesInCaloriesOutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaloriesInCaloriesOutViewController.swift; sourceTree = "<group>"; };
-		6EDA53CD1E2F07CF007B04B9 /* CalorieDataLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalorieDataLoader.swift; sourceTree = "<group>"; };
 		6EDA53D01E303D01007B04B9 /* HealthStoreProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthStoreProvider.swift; sourceTree = "<group>"; };
 		6EDA53D21E30417F007B04B9 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -177,6 +176,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6E060B0B1E7E2E3500FA1770 /* Table Row Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6E060B0C1E7E2E6300FA1770 /* DietaryDetailsRow.swift */,
+			);
+			name = "Table Row Controllers";
+			sourceTree = "<group>";
+		};
 		6E8507B51E2EF8A3005DD71B /* Calories In Calories Out Watch */ = {
 			isa = PBXGroup;
 			children = (
@@ -191,18 +198,14 @@
 		6E8507C41E2EF8A3005DD71B /* Calories In Calories Out Watch Extension */ = {
 			isa = PBXGroup;
 			children = (
-				37365C811E52A029002CF093 /* Raleway-Light.ttf */,
+				6E060B0B1E7E2E3500FA1770 /* Table Row Controllers */,
+				6EDB4E791E7DDD0A00861A8C /* Protocols */,
+				6EDB4E781E7DDCE800861A8C /* Controllers */,
 				6E5501E71E3068BC00D7549B /* Calories In Calories Out Watch Extension.entitlements */,
-				6E8507C71E2EF8A3005DD71B /* InterfaceController.swift */,
 				6E8507C91E2EF8A3005DD71B /* ExtensionDelegate.swift */,
-				6E8507CB1E2EF8A3005DD71B /* NotificationController.swift */,
-				6E8507CD1E2EF8A3005DD71B /* ComplicationController.swift */,
 				6E8507CF1E2EF8A3005DD71B /* Assets.xcassets */,
 				6E8507D11E2EF8A3005DD71B /* Info.plist */,
 				6E8507C51E2EF8A3005DD71B /* Supporting Files */,
-				6E284B9C1E47BC6400653A65 /* SynchronousCalorieDataLoader.swift */,
-				6E400FF81E4AABB400C9F8A7 /* CalorieDataContainer.swift */,
-				6E5A85CF1E4CE57D00A647FE /* CalorieDataProperty.swift */,
 			);
 			path = "Calories In Calories Out Watch Extension";
 			sourceTree = "<group>";
@@ -243,6 +246,9 @@
 		6EA50C591D8F5D6200969EFE /* Calories In Calories Out */ = {
 			isa = PBXGroup;
 			children = (
+				6EDB4E7E1E7DDFCC00861A8C /* Functional */,
+				6EDB4E7C1E7DDD5A00861A8C /* Controllers */,
+				6EDB4E7B1E7DDD4900861A8C /* Models */,
 				6EDA53CF1E2F0830007B04B9 /* Protocols */,
 				6EA50C881D8F5D8800969EFE /* Calories In Calories Out.entitlements */,
 				6EA50C5A1D8F5D6200969EFE /* AppDelegate.swift */,
@@ -250,10 +256,6 @@
 				6EA50C631D8F5D6200969EFE /* LaunchScreen.storyboard */,
 				6EDA53D21E30417F007B04B9 /* Main.storyboard */,
 				6EA50C661D8F5D6200969EFE /* Info.plist */,
-				6EAA54BB1D9899FE00AF6A31 /* CaloriesInCaloriesOutViewController.swift */,
-				6E284B991E46AB4100653A65 /* CalorieData.swift */,
-				6E24EFB01E6917EC007A1414 /* FAQViewControler.swift */,
-				6E7F7E941E75E9C500CF0EEE /* SettingsViewController.swift */,
 			);
 			path = "Calories In Calories Out";
 			sourceTree = "<group>";
@@ -288,12 +290,57 @@
 		6EDA53CF1E2F0830007B04B9 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				6EDA53CD1E2F07CF007B04B9 /* CalorieDataLoader.swift */,
 				6EDA53D01E303D01007B04B9 /* HealthStoreProvider.swift */,
-				6E743CE71E50CCAC003DDFD5 /* Colors.swift */,
 				6E3345361E7790E100577C2A /* WCSessionProvider.swift */,
 			);
 			name = Protocols;
+			sourceTree = "<group>";
+		};
+		6EDB4E781E7DDCE800861A8C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6E8507C71E2EF8A3005DD71B /* InterfaceController.swift */,
+				6E8507CB1E2EF8A3005DD71B /* NotificationController.swift */,
+				6E8507CD1E2EF8A3005DD71B /* ComplicationController.swift */,
+				6E060B0E1E7E30E900FA1770 /* DietaryDetailsController.swift */,
+				6E060B101E7F4ACC00FA1770 /* LandingInterfaceController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		6EDB4E791E7DDD0A00861A8C /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				6E400FF81E4AABB400C9F8A7 /* CalorieDataContainer.swift */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
+		6EDB4E7B1E7DDD4900861A8C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6E284B991E46AB4100653A65 /* CalorieData.swift */,
+				6E743CE71E50CCAC003DDFD5 /* Colors.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		6EDB4E7C1E7DDD5A00861A8C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6E7F7E941E75E9C500CF0EEE /* SettingsViewController.swift */,
+				6E24EFB01E6917EC007A1414 /* FAQViewControler.swift */,
+				6EAA54BB1D9899FE00AF6A31 /* CaloriesInCaloriesOutViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		6EDB4E7E1E7DDFCC00861A8C /* Functional */ = {
+			isa = PBXGroup;
+			children = (
+				6E284B9C1E47BC6400653A65 /* SynchronousCalorieDataLoader.swift */,
+			);
+			name = Functional;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -475,7 +522,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37365C821E52A029002CF093 /* Raleway-Light.ttf in Resources */,
 				6E8507BA1E2EF8A3005DD71B /* Assets.xcassets in Resources */,
 				6E8507B81E2EF8A3005DD71B /* Interface.storyboard in Resources */,
 			);
@@ -486,7 +532,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E8507D01E2EF8A3005DD71B /* Assets.xcassets in Resources */,
-				37365C831E52A029002CF093 /* Raleway-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,15 +568,16 @@
 			files = (
 				6E5501E61E3064C500D7549B /* HealthStoreProvider.swift in Sources */,
 				6E743CE91E50CCC6003DDFD5 /* Colors.swift in Sources */,
+				6E060B111E7F4ACC00FA1770 /* LandingInterfaceController.swift in Sources */,
 				6E8507CC1E2EF8A3005DD71B /* NotificationController.swift in Sources */,
-				6E5A85D01E4CE57D00A647FE /* CalorieDataProperty.swift in Sources */,
 				6E8507CE1E2EF8A3005DD71B /* ComplicationController.swift in Sources */,
+				6E060B0F1E7E30E900FA1770 /* DietaryDetailsController.swift in Sources */,
 				6E8507CA1E2EF8A3005DD71B /* ExtensionDelegate.swift in Sources */,
 				6E400FF91E4AABB400C9F8A7 /* CalorieDataContainer.swift in Sources */,
 				6E284B9D1E47BC6400653A65 /* SynchronousCalorieDataLoader.swift in Sources */,
 				6E284B9A1E46AB4100653A65 /* CalorieData.swift in Sources */,
+				6E060B0D1E7E2E6300FA1770 /* DietaryDetailsRow.swift in Sources */,
 				6E8507C81E2EF8A3005DD71B /* InterfaceController.swift in Sources */,
-				6E5501E51E3064BD00D7549B /* CalorieDataLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -544,7 +590,7 @@
 				6EA50C5B1D8F5D6200969EFE /* AppDelegate.swift in Sources */,
 				6E3345371E7790E100577C2A /* WCSessionProvider.swift in Sources */,
 				6E284B9B1E46BF3700653A65 /* CalorieData.swift in Sources */,
-				6EDA53CE1E2F07CF007B04B9 /* CalorieDataLoader.swift in Sources */,
+				6EDB4E7F1E7DDFEF00861A8C /* SynchronousCalorieDataLoader.swift in Sources */,
 				6EDA53D11E303D01007B04B9 /* HealthStoreProvider.swift in Sources */,
 				6E24EFB11E6917EC007A1414 /* FAQViewControler.swift in Sources */,
 				6E7F7E951E75E9C500CF0EEE /* SettingsViewController.swift in Sources */,

@@ -52,8 +52,10 @@ class SynchronousCalorieDataLoader{
                     self?.averageOfPrevious7Days(for: self?.basalEnergyType, healthStore: healthStore)
                     self?.dispatchGroup.enter()
                     self?.getCummulativeSum(for: self?.activeEnergyType, healthStore: healthStore)
+                    //self?.dispatchGroup.enter()
+                    //self?.getCummulativeSum(for: self?.caloriesConsumedType, healthStore: healthStore)
                     self?.dispatchGroup.enter()
-                    self?.getCummulativeSum(for: self?.caloriesConsumedType, healthStore: healthStore)
+                    self?.getSamples(for: self?.caloriesConsumedType, healthStore: healthStore)
                     self?.dispatchGroup.notify(queue: DispatchQueue.global()){
                         self?.semaphore.signal()
                     }
@@ -77,6 +79,79 @@ class SynchronousCalorieDataLoader{
         }
         semaphore.wait()
         return calorieData
+        
+    }
+    
+    func getSamples(for type:HKQuantityType!, healthStore:HKHealthStore!){
+        let calendar = NSCalendar.current
+        let now = Date()
+        let components = calendar.dateComponents([.year, .month, .day], from: now)
+        
+        
+        guard let startDate = calendar.date(from: components), let endDate = calendar.date(byAdding: .day, value: 1, to: startDate) else{
+            fatalError("Failed date sateup")
+        }
+        
+        
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: [])
+        
+        let query = HKSampleQuery(sampleType: type, predicate: predicate, limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil){
+            query, results, error in
+            
+            defer{
+                self.dispatchGroup.leave()
+            }
+            
+            guard error == nil else{
+                return
+            }
+            
+            guard let samples:[HKQuantitySample] = results as? [HKQuantitySample] else {
+                return
+            }
+            
+            var newShowHidePreferences = [String:Bool]()
+            
+            let samplesFromDefaults = UserDefaults.standard.dictionary(forKey: "com.base11studios.cico.samples") as? [String:Bool]
+            
+            self.calorieData?.samples = samples
+            
+            var calories = 0.0
+            var unitForCalculation:HKUnit
+            
+            if(self.unit == nil || self.unit == "calories"){
+                unitForCalculation = HKUnit.kilocalorie()
+            }
+            else{
+                unitForCalculation = HKUnit.jouleUnit(with: .kilo)
+            }
+
+            for sample in samples{
+                
+                if let sampleFromDefault = samplesFromDefaults?[sample.uuid.uuidString]{
+                    newShowHidePreferences[sample.uuid.uuidString] = sampleFromDefault
+                    if sampleFromDefault{
+                        let caloriesToAdd = sample.quantity.doubleValue(for: unitForCalculation)
+                        calories = calories + caloriesToAdd
+                    }
+                }
+                else{
+                    newShowHidePreferences[sample.uuid.uuidString] = true
+                    let caloriesToAdd = sample.quantity.doubleValue(for: unitForCalculation)
+                    calories = calories + caloriesToAdd
+                }
+                
+            }
+
+            
+            self.calorieData?.caloriesConsumed = Int(calories)
+            
+            UserDefaults.standard.set(newShowHidePreferences, forKey: "com.base11studios.cico.samples")
+            UserDefaults.standard.synchronize()
+            
+        }
+        
+        healthStore.execute(query)
         
     }
     

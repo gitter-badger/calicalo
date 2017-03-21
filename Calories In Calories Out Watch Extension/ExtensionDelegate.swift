@@ -11,33 +11,21 @@ import HealthKit
 import ClockKit
 import WatchConnectivity
 
-class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider {
+class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider, CalorieDataContainer {
     
     var healthStore: HKHealthStore?
     
     var synchronousCalorieDataLoader:SynchronousCalorieDataLoader?
     
     var calorieData:CalorieData?
-    let calorieLoaderQueue = DispatchQueue(label: "com.base11studios.cico")
 
     func applicationDidFinishLaunching() {
-        if(HKHealthStore.isHealthDataAvailable()){
-            healthStore = HKHealthStore()
-        }
-        else {
-            fatalError("health data not availale")
-        }
-        guard let healthStore = healthStore else {
-            fatalError("health store not instantiated")
-        }
         
         if WCSession.isSupported(){
             let session = WCSession.default()
             session.delegate = self
             session.activate()
         }
-        
-        synchronousCalorieDataLoader = SynchronousCalorieDataLoader(healthStore: healthStore)
         
     }
 
@@ -73,19 +61,19 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider {
                     return
                 }
                 
-                calorieLoaderQueue.sync {
+                guard let healthStore = healthStore else {
+                    //The health store was not instantiated by the Interface Controller
+                    return
+                }
+                
+                DispatchQueue.global().sync {
                     
-                    
-                    guard let calorieData = self.synchronousCalorieDataLoader?.loadCalories() else {
+                    let dataLoader = SynchronousCalorieDataLoader(healthStore:healthStore)
+                    guard let calorieData = dataLoader.loadCalories() else {
                         return
                     }
-                    
-                    self.calorieData = calorieData
-                    
-                    if var mainInterfaceController = WKExtension.shared().rootInterfaceController as? CalorieDataProperty{
-                        mainInterfaceController.calorieData = self.calorieData
-                        
-                    }
+                    //Note the interface controller will set the calorieData property on this class
+                    WKInterfaceController.reloadRootControllers(withNames: ["mainController","dietaryDetailsController"], contexts: [calorieData, calorieData])
                     
                     let server = CLKComplicationServer.sharedInstance()
                     guard let complications = server.activeComplications, complications.count > 0 else {
@@ -104,22 +92,24 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider {
                 }
                 
                 guard WKExtension.shared().applicationState == WKApplicationState.background else{
-                    
                     return
                 }
                 
-                calorieLoaderQueue.sync {
-                    
-                    guard let calorieData = self.synchronousCalorieDataLoader?.loadCalories() else {
+                guard let healthStore = healthStore else {
+                    //The health store was not instantiated by the Interface Controller
+                    return
+                }
+
+                
+                DispatchQueue.global().sync {
+                    let dataLoader = SynchronousCalorieDataLoader(healthStore:healthStore)
+                    guard let calorieData = dataLoader.loadCalories() else {
                         return
                     }
                     
                     self.calorieData = calorieData
-                    
-                    if var mainInterfaceController = WKExtension.shared().rootInterfaceController as? CalorieDataProperty{
-                        mainInterfaceController.calorieData = self.calorieData
-                        
-                    }
+                    //Note the interface controller will set the calorieData property on this class
+                    WKInterfaceController.reloadRootControllers(withNames: ["mainController","dietaryDetailsController"], contexts: [calorieData, calorieData])
                     
                     let server = CLKComplicationServer.sharedInstance()
                     guard let complications = server.activeComplications, complications.count > 0 else {
@@ -142,16 +132,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, HealthStoreProvider {
         }
     }
 
-}
-
-extension ExtensionDelegate:CalorieDataContainer{
-    func getCalorieDataQueue() -> DispatchQueue?{
-        return self.calorieLoaderQueue
-    }
-    
-    func getCalorieDataLoader() -> SynchronousCalorieDataLoader? {
-        return self.synchronousCalorieDataLoader
-    }
 }
 
 extension ExtensionDelegate:WCSessionDelegate{

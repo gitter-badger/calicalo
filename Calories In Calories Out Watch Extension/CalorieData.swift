@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import HealthKit
 
 
 struct CalorieData {
@@ -29,5 +30,6 @@ struct CalorieData {
         
         return restingCaloriesAverage + activeCalories - caloriesConsumed
     }
+    var samples:[HKQuantitySample]?
     
 }
