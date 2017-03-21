@@ -163,7 +163,7 @@
                         </button>
                         <group width="1" alignment="left" id="UmK-8n-WwZ">
                             <items>
-                                <label width="1" alignment="left" text="Does not refresh complication" textAlignment="center" numberOfLines="0" id="IK6-f4-MQD">
+                                <label width="1" alignment="left" text="Complication refresh may be delayed" textAlignment="center" numberOfLines="0" id="IK6-f4-MQD">
                                     <fontDescription key="font" type="system" pointSize="12"/>
                                 </label>
                             </items>
