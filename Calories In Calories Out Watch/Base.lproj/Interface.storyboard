@@ -129,7 +129,7 @@
                                 <tableRow identifier="dietaryDetailsRow" id="EsI-FY-PdK" customClass="DietaryDetailsRow" customModule="Calories_In_Calories_Out_Watch_Extension">
                                     <group key="rootItem" width="1" alignment="left" id="uxy-Tv-Qlo">
                                         <items>
-                                            <group alignment="left" layout="vertical" id="L6f-Dh-EQy">
+                                            <group width="1" alignment="left" layout="vertical" id="L6f-Dh-EQy">
                                                 <items>
                                                     <group alignment="left" id="xum-Xd-ma7">
                                                         <items>
@@ -138,9 +138,12 @@
                                                             </label>
                                                         </items>
                                                     </group>
-                                                    <group alignment="left" id="Owo-eD-T3W">
+                                                    <group width="1" alignment="left" id="Owo-eD-T3W">
                                                         <items>
-                                                            <label alignment="left" text="250 kCal" id="o4W-TR-xNo"/>
+                                                            <label alignment="left" verticalAlignment="bottom" text="250 kCal" id="o4W-TR-xNo"/>
+                                                            <label alignment="right" verticalAlignment="bottom" text="Label" id="Ivg-eg-1uI">
+                                                                <fontDescription key="font" type="italicSystem" pointSize="11"/>
+                                                            </label>
                                                         </items>
                                                     </group>
                                                 </items>
@@ -152,6 +155,7 @@
                                         <outlet property="caloriesLabel" destination="o4W-TR-xNo" id="ycz-mh-9wZ"/>
                                         <outlet property="rootGroup" destination="uxy-Tv-Qlo" id="VKp-xr-Y5t"/>
                                         <outlet property="sourceLabel" destination="Lxb-sb-gRw" id="A2l-1H-ue7"/>
+                                        <outlet property="timestamp" destination="Ivg-eg-1uI" id="PYE-at-kMp"/>
                                     </connections>
                                 </tableRow>
                             </items>

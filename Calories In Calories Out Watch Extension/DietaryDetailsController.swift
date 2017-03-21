@@ -16,6 +16,18 @@ class DietaryDetailsController:WKInterfaceController{
     override func awake(withContext context: Any?) {
         
         if let calorieData = context as? CalorieData, let samples = calorieData.samples{
+            let unit = UserDefaults.standard.string(forKey: "com.base11studios.cico.unit")
+            var unitForCalculation:HKUnit
+            var unitSuffix:String
+            if(unit == nil || unit == "calories"){
+                unitForCalculation = HKUnit.kilocalorie()
+                unitSuffix = "kCal"
+            }
+            else{
+                unitForCalculation = HKUnit.jouleUnit(with: .kilo)
+                unitSuffix = "kj"
+            }
+
             
             dietaryDetailsTable.setNumberOfRows(samples.count, withRowType: "dietaryDetailsRow")
             let samplesFromDefaults = UserDefaults.standard.dictionary(forKey: "com.base11studios.cico.samples") as? [String:Bool]
@@ -23,8 +35,16 @@ class DietaryDetailsController:WKInterfaceController{
             for (index, sample) in samples.enumerated(){
                 
                 let rowController = dietaryDetailsTable.rowController(at: index) as? DietaryDetailsRow
-                rowController?.sourceLabel.setText(sample.sourceRevision.source.name)
-                rowController?.caloriesLabel.setText("\(Int(sample.quantity.doubleValue(for:HKUnit.kilocalorie())))")
+                
+                rowController?.sourceLabel.setText("\(sample.sourceRevision.source.name)")
+                rowController?.caloriesLabel.setText("\(Int(sample.quantity.doubleValue(for:unitForCalculation))) \(unitSuffix)")
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.locale = Calendar.current.locale
+                dateFormatter.dateStyle = .none
+                dateFormatter.timeStyle = .short
+                
+                rowController?.timestamp.setText(dateFormatter.string(from: sample.startDate))
                 
                 if let sampleFromDefault = samplesFromDefaults?[sample.uuid.uuidString]{
                     rowController?.showing = sampleFromDefault

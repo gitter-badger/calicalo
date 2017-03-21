@@ -15,6 +15,7 @@ class DietaryDetailsRow:NSObject{
     @IBOutlet var sourceLabel: WKInterfaceLabel!
     @IBOutlet var caloriesLabel: WKInterfaceLabel!
     @IBOutlet var rootGroup: WKInterfaceGroup!
+    @IBOutlet var timestamp: WKInterfaceLabel!
     
     var showing:Bool = true{
         didSet{
