@@ -13,7 +13,6 @@ import HealthKit
 class DietaryDetailsController:WKInterfaceController{
     @IBOutlet var dietaryDetailsTable: WKInterfaceTable!
     
-    
     override func awake(withContext context: Any?) {
         
         if let calorieData = context as? CalorieData, let samples = calorieData.samples{
@@ -47,13 +46,26 @@ class DietaryDetailsController:WKInterfaceController{
         if let rowController = dietaryDetailsTable.rowController(at: rowIndex) as? DietaryDetailsRow{
             rowController.showing = !rowController.showing
             
-            if var newShowHidePreferences = UserDefaults.standard.dictionary(forKey: "com.base11studios.cico.samples") as? [String:Bool], let uuid = rowController.uuid?.uuidString{
-                newShowHidePreferences[uuid] = rowController.showing
-                UserDefaults.standard.set(newShowHidePreferences, forKey: "com.base11studios.cico.samples")
-            }
         }
         
     }
     
+    @IBAction func reloadTapped() {
+        
+        var newShowHidePreferences = [String:Bool]()
+        
+        for index in 0...dietaryDetailsTable.numberOfRows{
+            if let rowController = dietaryDetailsTable.rowController(at: index) as? DietaryDetailsRow, let uuid = rowController.uuid{
+                newShowHidePreferences[uuid.uuidString] = rowController.showing
+            }
+            
+        }
+        
+        UserDefaults.standard.set(newShowHidePreferences, forKey: "com.base11studios.cico.samples")
+        UserDefaults.standard.synchronize()
+        
+        InterfaceController.reloadRootControllers(withNames: ["landingInterfaceController"], contexts: [false])
+        
+    }
     
 }

@@ -14,15 +14,15 @@ import WatchKit
 class DietaryDetailsRow:NSObject{
     @IBOutlet var sourceLabel: WKInterfaceLabel!
     @IBOutlet var caloriesLabel: WKInterfaceLabel!
-    @IBOutlet var showHideLabel: WKInterfaceLabel!
+    @IBOutlet var rootGroup: WKInterfaceGroup!
     
     var showing:Bool = true{
         didSet{
             if showing{
-                showHideLabel.setText("Show")
+                rootGroup.setBackgroundColor(Colors.orange)
             }
             else{
-                showHideLabel.setText("Hide")
+                rootGroup.setBackgroundColor(UIColor.clear)
             }
         }
     }

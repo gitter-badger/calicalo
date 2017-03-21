@@ -41,6 +41,12 @@ class LandingInterfaceController:WKInterfaceController{
                 
                 WKInterfaceController.reloadRootControllers(withNames: ["mainController","dietaryDetailsController"], contexts: [newCalorieData, newCalorieData])
                 
+                if let relaodComplication = context as? Bool{
+                    if !relaodComplication{
+                        return
+                    }
+                }
+                
                 let server = CLKComplicationServer.sharedInstance()
                 guard let complications = server.activeComplications, complications.count > 0 else {
                     return
